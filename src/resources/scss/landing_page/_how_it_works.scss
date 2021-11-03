@@ -43,7 +43,7 @@
             transition: ease-in-out 1s;
             font-size: 24px;
             &.animateSpan {
-                color: #3d84f5;
+                color: $activeColor;
                 letter-spacing: 1px;
                 text-shadow: 10px 10px 10px $black;
             }
