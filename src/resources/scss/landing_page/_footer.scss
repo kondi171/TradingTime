@@ -1,61 +1,73 @@
 footer {
+  display: flex;
+  position: relative;
+  background-image: url("./../../img/footerOverlay.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: #00235a81;
+  clip-path: polygon(0 17%, 100% 0%, 100% 100%, 0% 100%);
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+  }
+  .team-contact {
+    color: whitesmoke;
+    width: 30%;
+    padding: 10vh;
+    font-size: 24px;
+    border-right: 10px solid whitesmoke;
+    h4 {
+      font-size: 48px;
+      border-bottom: 10px solid whitesmoke;
+      padding: 20px;
+      border-radius: 6px;
+    }
+    ul {
+      list-style-type: none;
+      li {
+        margin: 10px;
+        &:first-of-type {
+          padding-top: 20px;
+        }
+      }
+    }
+  }
+
+  .footer-wrapper {
+    position: relative;
     display: flex;
-    background-image: url("./../../img/footerOverlay.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-attachment: fixed;
-    background-color: #00235a81;
-    background-blend-mode:overlay;
-    clip-path: polygon(0 17%, 100% 0%, 100% 100%, 0% 100%);
-    .team-contact {
-        color: whitesmoke;
-        width: 30%;
-        padding: 10vh;
-        font-size: 24px;
-        border-right: 10px solid whitesmoke;
-        h4 {
-            font-size: 48px;
-            border-bottom: 10px solid whitesmoke;
-            padding: 20px;
-            border-radius: 6px;
-        }
-        ul {
-            list-style-type: none;
-            li {
-                margin: 10px;
-                &:first-of-type {
-                 padding-top: 20px;   
-                }
-            }
-        }
+    color: white;
+    flex-direction: column;
+    margin-top: 10vh;
+    font-size: 24px;
+    text-align: justify;
+    text-align-last: center;
+    padding: 5vh;
+    h4 {
+      font-size: 48px;
+      border-bottom: 2px solid whitesmoke;
+      padding: 20px;
+      text-align: center;
     }
-    .footer-wrapper {
-        position: relative;
-        display: flex;
-        color: white;
-        flex-direction: column;
-        margin-top: 10vh;
-        font-size: 24px;
-        text-align: justify;
-        text-align-last: center;
-        padding: 5vh;
-        h4 {
-            font-size: 48px;
-            border-bottom: 2px solid whitesmoke;
-            padding: 20px;
-            text-align: center;
-        }
-        p {
-            margin-top: 1vh;
-            padding: 10px;
-        }
-        .copyrights {
-            position: absolute;
-            bottom: 10px;
-            font-size: 36px;
-            font-weight: bold;
-            margin-top: 20px;
-            width: 90%;
-        }
+    p {
+      margin-top: 1vh;
+      padding: 10px;
     }
+    .copyrights {
+      position: absolute;
+      bottom: 10px;
+      font-size: 36px;
+      font-weight: bold;
+      margin-top: 20px;
+      width: 90%;
+    }
+  }
 }
