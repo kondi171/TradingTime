@@ -7,10 +7,10 @@ import Footer from './Footer';
 
 function LandingPage() {
   return (
-    <div className="wrapper">
+    <div className='wrapper'>
       <Nav />
       <Header />
-      <About />  
+      <About />
       <HowItWorks />
       <Footer />
     </div>

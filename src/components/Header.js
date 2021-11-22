@@ -1,11 +1,13 @@
 function Header() {
-    return ( 
-        <header className="banner">
-            <div className="filter"></div>
-            <h1>Graj z nami na Polskiej Giełdzie Papierów Wartościowych!</h1>
-            <p>Minimalne ryzyko, duży zysk!</p>
-        </header>
-    );
+  return (
+    <header className='banner'>
+      <h1>Graj z nami na Polskiej Giełdzie Papierów Wartościowych!</h1>
+      <a href='#' className='try-us'>
+        Sprawdź sam!
+      </a>
+      <p>Minimalne ryzyko, duży zysk!</p>
+    </header>
+  );
 }
 
 export default Header;

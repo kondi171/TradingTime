@@ -1,33 +1,56 @@
 .banner {
-    margin-top: 7vh;
-    overflow: hidden;
-    position: relative;
-    height: 93vh;
-    /* background-color: black; */
-    background-image: url("./../../img/banner3jpg.jpg");
-    background-size: cover;
-    background-attachment: fixed;
-    /* background-blend-mode: darken; */
-    .filter {
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-    }    
-    h1, p {
-        position: absolute;
-        color: white;
-    }
-    h1 {
-        font-size: 60px;
-        top: 20%;
-        left: 10%;
-        width: 80%;
-        text-align: center;
-    }
-    p {
-        top: 50%;
-        left: 10%;
-        width: 80%;
-        font-size: 40px;
+  margin-top: 7vh;
+  overflow: hidden;
+  position: relative;
+  height: 93vh;
+  /* background-color: black; */
+  background-image: url('./../../img/banner3jpg.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  /* background-blend-mode: darken; */
+  &::before {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  h1,
+  p,
+  a {
+    position: absolute;
+    color: white;
+    text-align: center;
+  }
+  h1 {
+    font-size: 60px;
+    top: 20%;
+    left: 10%;
+    width: 80%;
+  }
+  p {
+    top: 50%;
+    font-size: 40px;
+    left: 10%;
+    width: 80%;
+  }
+  a {
+    display: block;
+    top: 58%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 50px;
+    text-decoration: none;
+    line-height: 45px;
+    font-size: 30px;
+    border: 2px solid white;
+    transition: 0.2s;
+
+    &:hover {
+      color: black;
+      border-color: black;
+      background-color: white;
     }
   }
+}
