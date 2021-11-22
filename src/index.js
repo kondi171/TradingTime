@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LandingPage from './components/LandingPage';
+import LandingPage from './components/landing page/LandingPage';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

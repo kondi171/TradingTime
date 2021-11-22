@@ -1,4 +1,4 @@
-import '../resources/scss/main.scss';
+import '../../resources/scss/main.scss';
 import Nav from './Nav';
 import Header from './Header';
 import About from './About';
