@@ -6,12 +6,35 @@ main.home-page {
     position: relative;
     .home-page_favourites {
         @include modal(15vh, 5vh);
-        h2
-        a {
-        
-            // width: 100% / 3;
-            color: $light;
-            margin: 10px;
+        h2 {
+            text-align: center;
+            padding: 10px;
+            color: #cecece;
+        }
+        .favourites-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            a {
+                text-align: center;
+                display: block;
+                width: 25%;
+                height: 25%;
+                border-radius: 4px;
+                background-color: #303030;
+                padding: 10px;
+                font-size: 64px;
+                text-decoration: none;
+                color: #cecece;
+                margin: 10px;
+                transition-duration: .4s;
+                z-index: 10;
+                &:hover {
+                    color: $activeColor;
+                    box-shadow: inset 0px 0px 24px 0px $activeColor;
+                }
+            }
         }
     }
     .home-page_clock {
@@ -34,5 +57,16 @@ main.home-page {
     }
     .home-page_actions {
         @include modal(50vh, 5vh);
+        h2 {
+            text-align: center;
+            padding: 10px;
+            color: #cecece;
+        }
+        .action-content {
+            color: #cecece;
+            margin-top: 64px;
+            font-size: 34px;
+            text-align: center;
+        }
     }
 }

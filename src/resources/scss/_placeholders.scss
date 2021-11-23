@@ -27,3 +27,21 @@
     }
 }
 
+%btn {
+    width:40%;
+    font-size: 12px;
+    background-color: $activeColor;
+    transition-duration: .4s;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    overflow: hidden;
+    font-weight: bold;
+    &:hover {
+        cursor: pointer;
+        background-color: darken($activeColor, 10%);
+        box-shadow: 0 0 50px $activeColor;
+        border: 2px solid transparent;
+    }
+}
