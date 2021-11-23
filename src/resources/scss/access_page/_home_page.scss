@@ -4,7 +4,7 @@ main.home-page {
     background-blend-mode: overlay;
     height: 100vh;
     position: relative;
-    .favourites {
+    .home-page_favourites {
         @include modal(15vh, 5vh);
         a {
             display: inline-block;
@@ -13,10 +13,25 @@ main.home-page {
             margin: 10px;
         }
     }
-    .clock {
-        @include modal(15vh, 67vw);
+    .home-page_clock {
+        position: absolute;
+        text-align: center;
+        top: 15vh;
+        right: 5vw;
+        width: 35%;
+        height: 30vh;
+        color: $activeColor;
+        font-weight: bold;
+        .clock {
+            font-size: 72px;    
+        }
+        .date {
+            font-size: 64px;
+            letter-spacing: 3px;
+            font-family: $cursiveFont;
+        }
     }
-    .actions {
+    .home-page_actions {
         @include modal(50vh, 5vh);
     }
 }

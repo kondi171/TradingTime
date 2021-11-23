@@ -9,12 +9,13 @@
     background-color: #333;
     justify-content: space-evenly;
     align-items: center;
-    transition: 0.5s;
+    
     img {
         width: 350px;
     }
     a {
         text-transform: uppercase;
+        transition-duration: .4s;
         color: white;
         text-decoration: none;
         flex-basis: 20%;
