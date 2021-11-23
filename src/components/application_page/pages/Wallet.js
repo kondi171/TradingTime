@@ -1,1 +1,0 @@
-import WalletMoney from '../WalletMoney';

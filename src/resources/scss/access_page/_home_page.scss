@@ -1,0 +1,22 @@
+main.home-page {
+    background-image: url('../../img/earth.jpg');
+    background-color: darken($light, 70%);
+    background-blend-mode: overlay;
+    height: 100vh;
+    position: relative;
+    .favourites {
+        @include modal(15vh, 5vh);
+        a {
+            display: inline-block;
+            // width: 100% / 3;
+            color: $light;
+            margin: 10px;
+        }
+    }
+    .clock {
+        @include modal(15vh, 67vw);
+    }
+    .actions {
+        @include modal(50vh, 5vh);
+    }
+}

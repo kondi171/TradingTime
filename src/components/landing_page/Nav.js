@@ -71,7 +71,7 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <nav>
+      <nav className='home-nav'>
         <a href='#about' onClick={() => this.scrollToSection('.about', 1000)}>
           Kim jesteśmy?
         </a>
