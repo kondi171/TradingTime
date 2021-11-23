@@ -7,7 +7,7 @@ import FavouritesPage from './pages/FavouritesPage';
 import WalletPage from './pages/WalletPage';
 
 class ApplicationPage extends Component {
-  
+
   render() {
     return (
       <>
@@ -17,11 +17,11 @@ class ApplicationPage extends Component {
             <Link to="/app/wallet" className="nav-option">Portfel</Link>
             <Link to="#" className="nav-option">option</Link>
         </nav>
-        {/* <HomePage /> */}
+        <HomePage />
         <Routes>
-        <Route path="/app/home" element={<HomePage />} />
-          {/* <Route path="/app/favourites" element={<FavouritesPage />} /> */}
-          {/* <Route path="/app/wallet" element={<WalletPage />} /> */}
+          <Route path="/app/home" element={<HomePage />} />
+          <Route path="/app/favourites" element={<FavouritesPage />} />
+          <Route path="/app/wallet" element={<WalletPage />} />
         </Routes>
       </>
     );
