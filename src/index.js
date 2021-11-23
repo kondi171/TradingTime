@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
+=======
+// import LandingPage from './components/landing page/LandingPage';
+>>>>>>> 319f3626b022c247dae6df4361b811add6a09bcb
 import TradingTime from './components/TradingTime';
 import { BrowserRouter as Router } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
