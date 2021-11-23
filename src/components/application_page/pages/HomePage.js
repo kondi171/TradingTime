@@ -1,25 +1,6 @@
 import React from 'react';
 
 class HomePage extends React.Component {
-<<<<<<< HEAD
-  render() {
-    return (
-      <main className='home-page'>
-        <div className='home-page_favourites'>
-          <a href='#'>fav1</a>
-          <a href='#'>fav2</a>
-          <a href='#'>fav3</a>
-          <a href='#'>fav4</a>
-          <a href='#'>fav5</a>
-          <a href='#'>fav6</a>
-        </div>
-        <div className='home-page_clock'>Zegarek</div>
-        <div className='home-page_actions'>
-          <h2>Twoje Akcje:</h2>
-        </div>
-      </main>
-    );
-=======
     state = {
         time: 0,
     }
@@ -69,19 +50,20 @@ class HomePage extends React.Component {
       return (
         <main className="home-page">
           <div className="home-page_favourites">
-            <a href="#">fav1</a>
-            <a href="#">fav2</a>
-            <a href="#">fav3</a>
-            <a href="#">fav4</a>
-            <a href="#">fav5</a>
-            <a href="#">fav6</a>
+            <h2>Ulubione:</h2>
+            <div className="favourites-icons">
+                <a href="#">fav1</a>
+                <a href="#">fav2</a>
+                <a href="#">fav3</a>
+                <a href="#">fav4</a>
+                <a href="#">fav5</a>
+                <a href="#">fav6</a>
+            </div>
           </div>
           
           <div onClick={this.handleClock} className="home-page_clock">
               <div className="clock">00:00:00</div>
               <div className="date">1 Styczeń 1970</div>
-            
-
           </div>
           <div className="home-page_actions">
             <h2>Twoje Akcje:</h2>
@@ -89,8 +71,6 @@ class HomePage extends React.Component {
         </main>
       );
     }
->>>>>>> 174c09403e31b7232f83eb5e8ee89337c72dfef0
-  }
 }
 
 export default HomePage;

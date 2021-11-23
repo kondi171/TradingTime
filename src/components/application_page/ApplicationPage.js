@@ -6,10 +6,6 @@ import FavouritesPage from './pages/FavouritesPage';
 import WalletPage from './pages/WalletPage';
 
 class ApplicationPage extends Component {
-<<<<<<< HEAD
-=======
-
->>>>>>> 174c09403e31b7232f83eb5e8ee89337c72dfef0
   render() {
     return (
       <>
@@ -27,17 +23,9 @@ class ApplicationPage extends Component {
             option
           </Link>
         </nav>
-<<<<<<< HEAD
-
-        <Routes>
-          <Route path='/home' exact element={<HomePage />} />
-=======
         <HomePage />
         <Routes>
-          <Route path="/app/home" element={<HomePage />} />
-          <Route path="/app/favourites" element={<FavouritesPage />} />
-          <Route path="/app/wallet" element={<WalletPage />} />
->>>>>>> 174c09403e31b7232f83eb5e8ee89337c72dfef0
+          <Route path='/home' exact element={<HomePage />} />
         </Routes>
       </>
     );
