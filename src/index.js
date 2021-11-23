@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LandingPage from './components/landing_page/LandingPage';
-// import App from './components/App';
+import TradingTime from './components/TradingTime';
+import { BrowserRouter as Router } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <LandingPage />
+    <Router>
+      <TradingTime />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
