@@ -1,6 +1,6 @@
 import image from '../../resources/img/testimages/allegro-favicon.png';
 
-function SearchResult(actionName) {
+function SearchResult({ actionName }) {
   return (
     <>
       <div className='search-page_result'>

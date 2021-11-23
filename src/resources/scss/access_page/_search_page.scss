@@ -25,10 +25,12 @@
 
     .search-page_results {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      // justify-content: center;
       // width: 100px;
       // height: 200px;
-      // flex-grow: 1;
+      // justify-content: space-evenly;
+      flex-grow: 1;
 
       background-color: #444;
 
