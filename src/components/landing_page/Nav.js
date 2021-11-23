@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 class Nav extends React.Component {
   state = {
     scrollPosition: 0,
@@ -82,8 +82,8 @@ class Nav extends React.Component {
           Jak to działa?
         </a>
         <img src='./resources/img/logo.jpg' alt='' />
-        <a href='#'>Zaloguj się</a>
-        <a href='#'>Zarejestruj się</a>
+        <Link to='/login'>Zaloguj się</Link>
+        <Link to='/register'>Zarejestruj się</Link>
       </nav>
     );
   }

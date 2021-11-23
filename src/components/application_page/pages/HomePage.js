@@ -52,12 +52,12 @@ class HomePage extends React.Component {
           <div className="home-page_favourites">
             <h2>Ulubione:</h2>
             <div className="favourites-icons">
-                <a href="#">fav1</a>
-                <a href="#">fav2</a>
-                <a href="#">fav3</a>
-                <a href="#">fav4</a>
-                <a href="#">fav5</a>
-                <a href="#">fav6</a>
+                <a href="#">+</a>
+                <a href="#">+</a>
+                <a href="#">+</a>
+                <a href="#">+</a>
+                <a href="#">+</a>
+                <a href="#">+</a>
             </div>
           </div>
           
@@ -67,6 +67,7 @@ class HomePage extends React.Component {
           </div>
           <div className="home-page_actions">
             <h2>Twoje Akcje:</h2>
+            <div className="action-content">Brak Kupionych akcji!</div>
           </div>
         </main>
       );
