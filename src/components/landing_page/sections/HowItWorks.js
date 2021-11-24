@@ -1,8 +1,8 @@
 import React from 'react';
-import firstStep from '../../resources/img/how_it_works_steps/firstStep.png';
-import secondStep from '../../resources/img/how_it_works_steps/secondStep.png';
-import thirdStep from '../../resources/img/how_it_works_steps/thirdStep.png';
-import fourthStep from '../../resources/img/how_it_works_steps/fourthStep.png';
+import firstStep from '../../../assets/img/how_it_works_steps/firstStep.png';
+import secondStep from '../../../assets/img/how_it_works_steps/secondStep.png';
+import thirdStep from '../../../assets/img/how_it_works_steps/thirdStep.png';
+import fourthStep from '../../../assets/img/how_it_works_steps/fourthStep.png';
 
 class HowItWorks extends React.Component {
   state = {
@@ -12,18 +12,18 @@ class HowItWorks extends React.Component {
   componentDidMount() {
     this.animationTime = 1000;
     this.delayTime = 1000;
-    this.img1 = document.querySelector('.imgOne');
-    this.img2 = document.querySelector('.imgTwo');
-    this.img3 = document.querySelector('.imgThree');
-    this.img4 = document.querySelector('.imgFour');
-    this.span1 = document.querySelector('.spanOne');
-    this.span2 = document.querySelector('.spanTwo');
-    this.span3 = document.querySelector('.spanThree');
-    this.span4 = document.querySelector('.spanFour');
-    this.countIntervals();
+    this.img1 = document.querySelector('.how-it-works__steps--imgOne');
+    this.img2 = document.querySelector('.how-it-works__steps--imgTwo');
+    this.img3 = document.querySelector('.how-it-works__steps--imgThree');
+    this.img4 = document.querySelector('.how-it-works__steps--imgFour');
+    this.span1 = document.querySelector('.how-it-works__steps--spanOne');
+    this.span2 = document.querySelector('.how-it-works__steps--spanTwo');
+    this.span3 = document.querySelector('.how-it-works__steps--spanThree');
+    this.span4 = document.querySelector('.how-it-works__steps--spanFour');
+    this.handleCountIntervals();
   }
 
-  countIntervals = () => {
+  handleCountIntervals = () => {
     const firstInterval = setInterval(() => {
       this.img4.classList.remove('animate');
       this.img1.classList.add('animate');
@@ -62,29 +62,29 @@ class HowItWorks extends React.Component {
 
   componentDidUpdate() {
     clearInterval(this.lastInterval);
-    this.countIntervals();
+    this.handleCountIntervals();
   }
 
   render() {
     return (
       <section className='how-it-works'>
         <h2>Jak to działa?</h2>
-        <div className='steps'>
+        <div className='how-it-works__steps'>
           <div>
-            <img className='imgOne' src={firstStep} alt='Pierwszy krok' />
-            <span className='spanOne'>Zarejestruj się</span>
+            <img className='how-it-works__steps--imgOne' src={firstStep} alt='Pierwszy krok' />
+            <span className='how-it-works__steps--spanOne'>Zarejestruj się</span>
           </div>
           <div>
-            <img className='imgTwo' src={secondStep} alt='Pierwszy krok' />
-            <span className='spanTwo'>Poznaj system</span>
+            <img className='how-it-works__steps--imgTwo' src={secondStep} alt='Pierwszy krok' />
+            <span className='how-it-works__steps--spanTwo'>Poznaj system</span>
           </div>
           <div>
-            <img className='imgThree' src={thirdStep} alt='Pierwszy krok' />
-            <span className='spanThree'>Sprawdź działanie</span>
+            <img className='how-it-works__steps--imgThree' src={thirdStep} alt='Pierwszy krok' />
+            <span className='how-it-works__steps--spanThree'>Sprawdź działanie</span>
           </div>
           <div>
-            <img className='imgFour' src={fourthStep} alt='Pierwszy krok' />
-            <span className='spanFour'>Zarabiaj!</span>
+            <img className='how-it-works__steps--imgFour' src={fourthStep} alt='Pierwszy krok' />
+            <span className='how-it-works__steps--spanFour'>Zarabiaj!</span>
           </div>
         </div>
       </section>

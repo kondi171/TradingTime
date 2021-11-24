@@ -1,5 +1,5 @@
-import allegro from '../../resources/img/testimages/allegro-favicon.png';
-import cdpsa from '../../resources/img/testimages/cdpsa-favicon.png';
+import allegro from '../../assets/img/testimages/allegro-favicon.png';
+import cdpsa from '../../assets/img/testimages/cdpsa-favicon.png';
 
 function SearchResult({ actionName, image, click }) {
   return (

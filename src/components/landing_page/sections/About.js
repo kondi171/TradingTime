@@ -1,8 +1,8 @@
 import React from 'react';
-import Konrad from '../../resources/img/team/konradnowak.jpg';
-import Kamil from '../../resources/img/team/kamilwypych.jpg';
-import Agnieszka from '../../resources/img/team/agnieszkarabiej.jpg';
-import Krystian from '../../resources/img/team/krystianlabecki.jpg';
+import Konrad from '../../../assets/img/team/konradnowak.jpg';
+import Kamil from '../../../assets/img/team/kamilwypych.jpg';
+import Agnieszka from '../../../assets/img/team/agnieszkarabiej.jpg';
+import Krystian from '../../../assets/img/team/krystianlabecki.jpg';
 import Opinion from './Opinion';
 
 class About extends React.Component {

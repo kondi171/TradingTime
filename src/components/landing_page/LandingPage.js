@@ -1,9 +1,9 @@
-import '../../resources/scss/landing_page/landing_main.scss';
-import Nav from './Nav';
-import Header from './Header';
-import About from './About';
-import HowItWorks from './HowItWorks';
-import Footer from './Footer';
+import '../../assets/scss/landing_page/landing_main.scss';
+import Nav from './sections/Nav';
+import Header from './sections/Header';
+import About from './sections/About';
+import HowItWorks from './sections/HowItWorks';
+import Footer from './sections/Footer';
 
 function LandingPage() {
   return (

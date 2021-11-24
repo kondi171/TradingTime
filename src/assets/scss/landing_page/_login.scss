@@ -1,0 +1,38 @@
+.login-wrapper {
+    background-image: url('../../img/earth.jpg');
+    background-color: darken(#cecece,60%);
+    background-blend-mode: overlay;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    form.form {
+        @extend %input;
+        @include form(30%,60vh);
+    }
+    button.facebook {
+        display: block;
+        width: 60%;
+        height: 4vh;
+        border: 2px solid #3b5998;
+        border-radius: 2px;
+        margin: 20px auto;
+        padding: 5px;
+        display: flex;
+        background-color: #3b5998;
+        @extend %btn;
+        i {
+            align-self: flex-start;
+            font-size: 24px;
+            padding: 2px;
+            margin-left: 6px;
+            margin-right: 10px;
+            margin-right: 5px;
+            text-align: left;
+        }
+        span {
+            display: block;
+            margin-left: 30px;
+            align-self: center;
+        }
+    }
+}

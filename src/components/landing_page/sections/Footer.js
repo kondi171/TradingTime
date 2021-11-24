@@ -1,7 +1,7 @@
 function Footer() {
     return ( 
-        <footer>
-            <div className="team-contact">
+        <footer className="footer">
+            <div className="footer__team-contact">
                 <h4>Kontakt</h4>
                 <ul>
                     <li>Kamil Wypych - <i>kwypych4@gmail.com</i></li>
@@ -10,12 +10,12 @@ function Footer() {
                     <li>Agnieszka Rabiej - <i>a.rabiej@gmail.com</i></li>
                 </ul>
             </div>
-            <div className="footer-wrapper">
-                <div className="privacy-policy">
+            <div className="footer__wrapper">
+                <div className="footer__wrapper--privacy-policy">
                     <h4>Polityka Prywatności</h4>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse hic vel itaque. Ipsam, sequi laudantium voluptatibus dolores unde vel facere magnam tenetur voluptas accusantium fugiat assumenda itaque iusto, error alias praesentium magni nihil suscipit optio nam delectus blanditiis. Recusandae, ex! Doloribus praesentium placeat nulla eligendi recusandae atque rem quos ullam?</p>
                 </div>
-                <div className="copyrights">
+                <div className="footer__wrapper--copyrights">
                     Wszelkie prawa Zastrzeżone &copy; Trading Time - 2021r 
                 </div>
             </div> 
