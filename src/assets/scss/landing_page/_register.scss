@@ -1,0 +1,32 @@
+.register-wrapper {
+    background-image: url('../../img/earth.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: darken(#cecece,60%);
+    background-blend-mode: overlay;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    form.form {
+        @extend %input;
+        @include form(70%,80vh);
+        position: absolute;
+        top: 10vh;
+        left: 30vh;
+        margin: 0 auto;
+        .data-wrapper {
+            display: flex;
+            justify-content: center;
+            .account-data {
+                flex-basis: 50%;
+                border-right: 4px ridge $activeColor;
+                border-radius: 0 10px 10px 0;
+            }
+            .adress-data {
+                flex-basis: 50%;
+                border-left: 4px ridge $activeColor;
+                border-radius: 10px 0 0 10px;
+            }
+        }
+    }
+}

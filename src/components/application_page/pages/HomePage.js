@@ -13,8 +13,8 @@ class HomePage extends React.Component {
         },1000);
     }
     componentDidUpdate() {
-        const time = document.querySelector('div.home-page_clock > .clock');
-        const date = document.querySelector('div.home-page_clock > .date');
+        const time = document.querySelector('.home-page__clock--time');
+        const date = document.querySelector('.home-page__clock--date');
         let dateObject = new Date();
 
         let hour = dateObject.getHours();
@@ -54,9 +54,9 @@ class HomePage extends React.Component {
         <>
         <NavBar />
         <main className="home-page">
-          <div className="home-page_favourites">
+          <div className="home-page__favourites">
             <h2><i class="fa fa-heart"></i> Ulubione:</h2>
-            <div className="favourites-icons">
+            <div className="home-page__favourites--icons">
                 <a href="#">+</a>
                 <a href="#">+</a>
                 <a href="#">+</a>
@@ -66,13 +66,13 @@ class HomePage extends React.Component {
             </div>
           </div>
           
-          <div onClick={this.handleClock} className="home-page_clock">
-              <div className="clock">00:00:00</div>
-              <div className="date">1 Styczeń 1970</div>
+          <div onClick={this.handleClock} className="home-page__clock">
+              <div className="home-page__clock--time">00:00:00</div>
+              <div className="home-page__clock--date">1 Styczeń 1970</div>
           </div>
-          <div className="home-page_actions">
+          <div className="home-page__actions">
             <h2><i class="fa fa-line-chart"></i> Twoje Akcje:</h2>
-            <div className="action-content">Brak Kupionych akcji!</div>
+            <div className="home-page__actions--action-content">Brak Kupionych akcji!</div>
           </div>
         </main>
         </>

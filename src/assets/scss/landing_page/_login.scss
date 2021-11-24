@@ -5,96 +5,34 @@
     width: 100vw;
     height: 100vh;
     position: relative;
-    .login-form {
-        z-index: 10;
-        position: absolute;
-        top: 20vh;
-        left: 70vh;
-        width: 30%;
-        height: 60vh;
-        border-radius: 20px;
-        box-shadow: 0px 0px 10px 0px $activeColor;
-        h2 {
-            text-align: center;
-            margin: 4vh;
-            font-size: 34px;
-            color: $activeColor;
-            text-shadow: 2px 2px 2px $black;
-        }
-        label {
-            color: #cecece;
-            display: block;
-            text-align: center;
-            width: 55%;
+    form.form {
+        @extend %input;
+        @include form(30%,60vh);
+    }
+    button.facebook {
+        display: block;
+        width: 60%;
+        height: 4vh;
+        border: 2px solid #3b5998;
+        border-radius: 2px;
+        margin: 20px auto;
+        padding: 5px;
+        display: flex;
+        background-color: #3b5998;
+        @extend %btn;
+        i {
+            align-self: flex-start;
             font-size: 24px;
+            padding: 2px;
+            margin-left: 6px;
+            margin-right: 10px;
+            margin-right: 5px;
+            text-align: left;
         }
-        input {
+        span {
             display: block;
-            width: 60%;
-            height: 4vh;
-            border: 2px solid $activeColor;
-            border-radius: 2px;
-            margin: 20px auto;
-            padding: 5px;
-            
-            &[type=password]{
-                margin-bottom: 8vh;
-            }
-            &[type=button] {
-                @extend %btn;
-            }
-            &::placeholder {
-                font-weight: bold;
-                color: $activeColor;
-                padding-left: 5px;
-            }
-            &:focus {
-                border: none;
-                font-size: 18px;
-                color: $activeColor;
-            }
-        }
-        button.facebook {
-            display: block;
-            width: 60%;
-            height: 4vh;
-            border: 2px solid #3b5998;
-            border-radius: 2px;
-            margin: 20px auto;
-            padding: 5px;
-            display: flex;
-            background-color: #3b5998;
-            @extend %btn;
-            i {
-                align-self: flex-start;
-                font-size: 24px;
-                padding: 2px;
-                margin-left: 6px;
-                margin-right: 10px;
-                margin-right: 5px;
-                text-align: left;
-            }
-            span {
-                display: block;
-                margin-left: 30px;
-                align-self: center;
-            }
-        }
-        a {
-            font-family: $cursiveFont;
-            width: 100%;
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            color: $activeColor;
-            font-size: 32px;
-            transition-duration: .4s;
-            &:hover {
-                text-shadow: 2px 2px 2px $black;
-                color: darken($activeColor,20%);
-                letter-spacing: 1px;
-
-            }
+            margin-left: 30px;
+            align-self: center;
         }
     }
 }
