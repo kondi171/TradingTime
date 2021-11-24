@@ -1,6 +1,3 @@
-import allegro from '../../assets/img/testimages/allegro-favicon.png';
-import cdpsa from '../../assets/img/testimages/cdpsa-favicon.png';
-
 function SearchResult({ actionName, image, click }) {
   return (
     <>
