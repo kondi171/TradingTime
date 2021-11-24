@@ -25,13 +25,18 @@ class SearchPage extends React.Component {
 
   handleChangeActiveAction = (id) => {
     let currentId = this.state.activeAction;
-    let choosenId = id;
-    console.log('current id' + currentId);
-    console.log('choosen id' + id);
+    console.log('current id  ' + currentId);
+    console.log('choosen id  ' + id);
 
-    this.setState({ activeAction: id });
-
-    this.handleShowInfo();
+    if (currentId === '') {
+      this.handleShowInfo();
+      this.setState({ activeAction: id });
+    } else if (currentId === id) {
+      this.handleShowInfo();
+      this.setState({ activeAction: '' });
+    } else if (currentId !== id) {
+      this.setState({ activeAction: id });
+    }
   };
 
   actionList = [...this.state.actions].map((result) => (
