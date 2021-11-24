@@ -1,8 +1,8 @@
 import React from 'react';
-import firstStep from '../../resources/img/how_it_works_steps/firstStep.png';
-import secondStep from '../../resources/img/how_it_works_steps/secondStep.png';
-import thirdStep from '../../resources/img/how_it_works_steps/thirdStep.png';
-import fourthStep from '../../resources/img/how_it_works_steps/fourthStep.png';
+import firstStep from '../../../assets/img/how_it_works_steps/firstStep.png';
+import secondStep from '../../../assets/img/how_it_works_steps/secondStep.png';
+import thirdStep from '../../../assets/img/how_it_works_steps/thirdStep.png';
+import fourthStep from '../../../assets/img/how_it_works_steps/fourthStep.png';
 
 class HowItWorks extends React.Component {
   state = {
@@ -20,10 +20,10 @@ class HowItWorks extends React.Component {
     this.span2 = document.querySelector('.spanTwo');
     this.span3 = document.querySelector('.spanThree');
     this.span4 = document.querySelector('.spanFour');
-    this.countIntervals();
+    this.handleCountIntervals();
   }
 
-  countIntervals = () => {
+  handleCountIntervals = () => {
     const firstInterval = setInterval(() => {
       this.img4.classList.remove('animate');
       this.img1.classList.add('animate');
@@ -62,7 +62,7 @@ class HowItWorks extends React.Component {
 
   componentDidUpdate() {
     clearInterval(this.lastInterval);
-    this.countIntervals();
+    this.handleCountIntervals();
   }
 
   render() {

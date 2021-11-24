@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from '../NavBar';
 
 class HomePage extends React.Component {
     state = {
@@ -16,17 +17,19 @@ class HomePage extends React.Component {
         const date = document.querySelector('div.home-page_clock > .date');
         let dateObject = new Date();
 
-		let hour = dateObject.getHours();
-		if(hour < 10) hour = "0" + hour;
-		let minute = dateObject.getMinutes();
-		if(minute < 10) minute = "0" + minute;
-		let second = dateObject.getSeconds();
-		if(second < 10) second = "0" + second;
+        let hour = dateObject.getHours();
+        if(hour < 10) hour = "0" + hour;
+        let minute = dateObject.getMinutes();
+        if(minute < 10) minute = "0" + minute;
+        let second = dateObject.getSeconds();
+        if(second < 10) second = "0" + second;
         time.textContent = hour + ":" + minute + ":" + second;
 
         let day = dateObject.getUTCDay();
+        day += 21;
         if(day < 10) day = "0" + day;
         let month = dateObject.getUTCMonth();
+        month += 1;
         if(month == 1) month = "Styczeń";
         else if(month == 2) month ="Luty";
         else if(month == 3) month ="Marzec";
@@ -48,9 +51,11 @@ class HomePage extends React.Component {
 
     render() {
       return (
+        <>
+        <NavBar />
         <main className="home-page">
           <div className="home-page_favourites">
-            <h2>Ulubione:</h2>
+            <h2><i class="fa fa-heart"></i> Ulubione:</h2>
             <div className="favourites-icons">
                 <a href="#">+</a>
                 <a href="#">+</a>
@@ -66,10 +71,11 @@ class HomePage extends React.Component {
               <div className="date">1 Styczeń 1970</div>
           </div>
           <div className="home-page_actions">
-            <h2>Twoje Akcje:</h2>
+            <h2><i class="fa fa-line-chart"></i> Twoje Akcje:</h2>
             <div className="action-content">Brak Kupionych akcji!</div>
           </div>
         </main>
+        </>
       );
     }
 }

@@ -14,8 +14,6 @@ class Login extends React.Component {
                 <input type="button" value="Zaloguj się" />
                 <button className="facebook"><i className="fa fa-facebook"></i><span>Zaloguj się z Facebook</span></button>
                 <Link to="/">Powrót do Strony Głównej</Link>
-             
-
             </form>
           </div>
         );

@@ -1,9 +1,10 @@
 import React from 'react';
+import NavBar from '../NavBar';
 class WalletPage extends React.Component {
     render() {
         return (
             <>
-                <div><i class="fa fa-key"></i></div>
+                <NavBar />
             </>
         );
       }
