@@ -4,11 +4,11 @@ main.home-page {
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode: overlay;
-    height: 100vh;
+    height: 93vh;
     overflow-y: hidden;
     position: relative;
     .home-page__favourites {
-        @include modal(15vh, 5vh);
+        @include modal(11vh, 5vh);
         h2 {
             text-align: center;
             padding: 10px;
@@ -19,14 +19,20 @@ main.home-page {
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            img {
+                width: 20%;
+                height: 20%;
+                border-radius: 50%;
+                margin: .5vh 2.5vh;
+            }
             a {
                 text-align: center;
                 display: block;
                 width: 25%;
-                height: 25%;
+                height: 10vh;
                 border-radius: 4px;
                 background-color: #303030;
-                padding: 10px;
+                padding: 1.2vh;
                 font-size: 64px;
                 text-decoration: none;
                 color: #cecece;

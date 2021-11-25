@@ -29,4 +29,27 @@
             }
         }
     }
+    .error-modal {
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 2vh;
+        left: 2vh;
+        min-width: 10vw;
+        background-color: #d33b3b;
+        border-radius: 10px;
+        border: 2px solid #580000;
+        padding: 20px;
+        z-index: 90;
+        
+        i {
+            font-size: 34px;
+            padding: 10px;
+        }
+    }
+    .active {
+        display: none;
+    }
 }

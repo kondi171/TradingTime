@@ -1,9 +1,43 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import NavBar from '../NavBar';
-
+import allegro from '../../../assets/img/testimages/allegro-favicon.png';
+import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
 class HomePage extends React.Component {
     state = {
         time: 0,
+        favourites: [
+          {
+            actionId: 0,
+            isFavourite: true,
+            image: allegro,
+          },
+          {
+            actionId: 1,
+            isFavourite: true,
+            image: cdpsa,
+          },
+          {
+            actionId: 2,
+            isFavourite: false,
+            image: '',
+          },
+          {
+            actionId: 3,
+            isFavourite: false,
+            image: '',
+          },
+          {
+            actionId: 4,
+            isFavourite: false,
+            image: cdpsa,
+          },
+          {
+            actionId: 5,
+            isFavourite: false,
+            image: allegro,
+          },
+        ],
     }
     componentDidMount() {  
         this.clockInterval = setInterval(()=>{
@@ -31,23 +65,21 @@ class HomePage extends React.Component {
         let month = dateObject.getUTCMonth();
         month += 1;
         if(month == 1) month = "Styczeń";
-        else if(month == 2) month ="Luty";
-        else if(month == 3) month ="Marzec";
-        else if(month == 4) month ="Kwiecień";
-        else if(month == 5) month ="Maj";
-        else if(month == 6) month ="Czerwiec";
-        else if(month == 7) month ="Lipiec";
-        else if(month == 8) month ="Sierpień";
-        else if(month == 9) month ="Wrzesień";
-        else if(month == 10) month ="Pażdziernik";
-        else if(month == 11) month ="Listopad";
-        else if(month == 12) month ="Grudzień";
+        else if(month == 2) month = "Luty";
+        else if(month == 3) month = "Marzec";
+        else if(month == 4) month = "Kwiecień";
+        else if(month == 5) month = "Maj";
+        else if(month == 6) month = "Czerwiec";
+        else if(month == 7) month = "Lipiec";
+        else if(month == 8) month = "Sierpień";
+        else if(month == 9) month = "Wrzesień";
+        else if(month == 10) month = "Pażdziernik";
+        else if(month == 11) month = "Listopad";
+        else if(month == 12) month = "Grudzień";
         let year = dateObject.getUTCFullYear();
         date.textContent = day + " " + month + " " + year;
     }
-    componentWillUnmount() {
-        clearInterval(this.clockInterval);
-    }
+    componentWillUnmount() { clearInterval(this.clockInterval); }
 
     render() {
       return (
@@ -57,12 +89,12 @@ class HomePage extends React.Component {
           <div className="home-page__favourites">
             <h2><i class="fa fa-heart"></i> Ulubione:</h2>
             <div className="home-page__favourites--icons">
-                <a href="#">+</a>
-                <a href="#">+</a>
-                <a href="#">+</a>
-                <a href="#">+</a>
-                <a href="#">+</a>
-                <a href="#">+</a>
+            { this.state.favourites[0].isFavourite === true ? <img src={this.state.favourites[0].image} /> : <Link to="/app/search">+</Link>}
+            { this.state.favourites[1].isFavourite === true ? <img src={this.state.favourites[1].image} /> : <Link to="/app/search">+</Link>}
+            { this.state.favourites[2].isFavourite === true ? <img src={this.state.favourites[2].image} /> : <Link to="/app/search">+</Link>}
+            { this.state.favourites[3].isFavourite === true ? <img src={this.state.favourites[3].image} /> : <Link to="/app/search">+</Link>}
+            { this.state.favourites[4].isFavourite === true ? <img src={this.state.favourites[4].image} /> : <Link to="/app/search">+</Link>}
+            { this.state.favourites[5].isFavourite === true ? <img src={this.state.favourites[5].image} /> : <Link to="/app/search">+</Link>}
             </div>
           </div>
           
