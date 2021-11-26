@@ -1,0 +1,141 @@
+.wallet-page {
+  display: flex;
+  width: 100%;
+  min-height: 93vh;
+  flex-direction: column;
+
+  div.wallet-page__money {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 70px;
+    background-color: #999;
+    padding-left: 20px;
+    transition: 0.2s linear;
+
+    &.show {
+      height: 200px;
+    }
+
+    i {
+      position: absolute;
+      top: 9.2%;
+      right: 2%;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    p {
+      text-transform: uppercase;
+      font-size: 20px;
+      transition: 0.2s linear;
+
+      &.wallet-page__money--details.hidden {
+        display: none;
+      }
+      span {
+        text-transform: lowercase;
+        color: darkolivegreen;
+        font-weight: bold;
+      }
+    }
+  }
+
+  div.wallet-page__actions__label {
+    display: flex;
+    width: 100%;
+    height: 85px;
+    font-size: 22px;
+    align-items: center;
+    background-color: #aaa;
+    border-bottom: 2px solid black;
+
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      width: 20%;
+      height: 45px;
+      border-left: 1px solid grey;
+      font-weight: bold;
+
+      &:first-child {
+        width: 8%;
+        border-left: none;
+      }
+    }
+  }
+
+  div.wallet-page__actions {
+    width: 100%;
+    flex-grow: 1;
+    background-color: #aaa;
+    font-size: 22px;
+
+    //scrollbar
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    div.wallet-page__actions__action {
+      display: flex;
+      width: 100%;
+      height: 100px;
+      align-items: center;
+      margin-bottom: 10px;
+
+      p {
+        width: 20%;
+        text-align: center;
+      }
+      span.wallet-page__actions__action--action-image {
+        width: 8%;
+        text-align: center;
+        img {
+          width: 60px;
+        }
+      }
+
+      span.wallet-page__actions__action--options {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 20px;
+
+        i {
+          font-size: 24px;
+          cursor: pointer;
+        }
+
+        i.fa-heart,
+        i.fa-heart-o {
+          font-size: 32px;
+          color: blue;
+        }
+      }
+
+      p.wallet-page__actions__action--price {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 20%;
+        height: 100%;
+        span {
+          display: none;
+          font-size: 14px;
+        }
+        &:hover > span {
+          display: block;
+        }
+      }
+
+      &:hover {
+        background-color: #888;
+      }
+    }
+  }
+}
