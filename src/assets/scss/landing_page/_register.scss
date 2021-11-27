@@ -7,29 +7,37 @@
     width: 100vw;
     height: 100vh;
     position: relative;
+    h2.register-header {
+        text-align: center;
+        margin: 0 4vh;
+        padding: 4vh;
+        font-size: 54px;
+        color: $activeColor;
+        text-shadow: 2px 2px 2px $black;
+    }
     form.form {
         @extend %input;
-        @include form(70%,80vh);
+        @include form(30%,70vh);
         position: absolute;
-        top: 10vh;
-        left: 30vh;
-        margin: 0 auto;
-        .data-wrapper {
-            display: flex;
-            justify-content: center;
-            .account-data {
-                flex-basis: 50%;
-                border-right: 4px ridge $activeColor;
-                border-radius: 0 10px 10px 0;
-            }
-            .adress-data {
-                flex-basis: 50%;
-                border-left: 4px ridge $activeColor;
-                border-radius: 10px 0 0 10px;
-            }
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        h3 {
+            color: white;
         }
+        
     }
-    .error-modal {
+    .btn-wrapper {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 70%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .info-modal {
         color: white;
         display: flex;
         align-items: center;
@@ -38,18 +46,51 @@
         top: 2vh;
         left: 2vh;
         min-width: 10vw;
-        background-color: #d33b3b;
         border-radius: 10px;
-        border: 2px solid #580000;
+        border: 2px solid $activeColor;
         padding: 20px;
         z-index: 90;
-        
         i {
+            color: $activeColor;
             font-size: 34px;
             padding: 10px;
         }
     }
     .active {
         display: none;
+    }
+
+
+    .basic-data, .personal-data, .adress-data {
+        display: none;
+    }
+    .active-form {
+        display: block;
+    }
+
+    .links {
+        position: absolute;
+        width: 20%;
+        background-color: darken($light,60%);
+        border: 2px solid $activeColor;
+        padding: 2vh;
+        border-radius: 10px;
+        bottom: 4vh;
+        left: 2vh;
+        a {
+            font-family: $ubuntuFont;
+            margin: 10px 0;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: $activeColor;
+            font-size: 32px;
+            transition-duration: .4s;
+            &:hover {
+                text-shadow: 2px 2px 2px $black;
+                color: darken($activeColor,20%);
+                letter-spacing: 1px;
+            }
+        }
     }
 }

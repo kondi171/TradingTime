@@ -88,19 +88,5 @@
             color: $activeColor;
         }
     }
-    a {
-        font-family: $cursiveFont;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        color: $activeColor;
-        font-size: 32px;
-        transition-duration: .4s;
-        &:hover {
-            text-shadow: 2px 2px 2px $black;
-            color: darken($activeColor,20%);
-            letter-spacing: 1px;
-        }
-    }
 }
 
