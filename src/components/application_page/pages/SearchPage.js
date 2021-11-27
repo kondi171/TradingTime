@@ -3,7 +3,7 @@ import SearchResult from '../SearchResult';
 import ActionInfo from '../ActionInfo';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
-import NavBar from '../NavBar';
+
 class SearchPage extends React.Component {
   state = {
     searchQuery: '',
@@ -144,7 +144,6 @@ class SearchPage extends React.Component {
   render() {
     return (
       <>
-        <NavBar />
         <main className='search-page'>
           <div className='search-page_search-wrapper'>
             <div className='search-page_searcher'>

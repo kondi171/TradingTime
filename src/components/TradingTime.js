@@ -6,25 +6,39 @@ import SearchPage from './application_page/pages/SearchPage';
 import Login from './landing_page/sections/Login';
 import Register from './landing_page/sections/Register';
 import WalletPage from './application_page/pages/WalletPage';
-import AccountPage from './application_page/pages/AccountPage';
+// import AccountPage from './application_page/pages/AccountPage';
 import HelpPage from './application_page/pages/HelpPage';
 import ErrorPage from './application_page/pages/ErrorPage';
 import Logout from './application_page/Logout';
+import MainLayout from './application_page/MainLayout';
+import SettingsPage from './application_page/pages/SettingsPage';
+import UserSettingsPage from './application_page/pages/UserSettingsPage';
+
 class TradingTime extends React.Component {
   render() {
     return (
-      <Routes>
-        <Route path='/' element={<LandingPage />} />
-        <Route path='/app/home' element={<HomePage />} />
-        <Route path='/app/search' element={<SearchPage />} />
-        <Route path='/app/wallet' element={<WalletPage />} />
-        <Route path='/app/preferences/account' element={<AccountPage />} />
-        <Route path='/app/preferences/help' element={<HelpPage />} />
-        <Route path='/app/preferences/logout' element={<Logout />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path="*" exact element={<ErrorPage />} />
-      </Routes>
+      <>
+        <Routes>
+          <Route path='/' element={<LandingPage />} />
+          <Route path='app' element={<MainLayout />}>
+            <Route path='home' element={<HomePage />} />
+            <Route path='/app/search' element={<SearchPage />} />
+            <Route path='/app/wallet' element={<WalletPage />} />
+            <Route path='/app/options' element={<SettingsPage />}>
+              <Route
+                path='/app/options/userpreferences'
+                element={<UserSettingsPage />}
+              />
+            </Route>
+            <Route path='/app/preferences/help' element={<HelpPage />} />
+            <Route path='/app/preferences/logout' element={<Logout />} />
+          </Route>
+
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='*' exact element={<ErrorPage />} />
+        </Routes>
+      </>
     );
   }
 }

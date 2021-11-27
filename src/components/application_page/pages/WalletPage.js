@@ -1,5 +1,4 @@
 import React from 'react';
-import NavBar from '../NavBar';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
 
@@ -63,9 +62,9 @@ class WalletPage extends React.Component {
 
   countBilanceFromActions = () => {
     let value = 0;
-    [...this.state.userActions].map((action) => {
-      value += action.price * action.numberOfActions;
-    });
+    [...this.state.userActions].map(
+      (action) => (value += action.price * action.numberOfActions)
+    );
 
     return value;
   };
@@ -99,7 +98,6 @@ class WalletPage extends React.Component {
   render() {
     return (
       <>
-        <NavBar />
         <main className='wallet-page'>
           <div className='wallet-page__money'>
             <i

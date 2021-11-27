@@ -1,6 +1,6 @@
 nav.app__nav {
   @extend %navbar;
-  position: relative;
+  position: sticky;
   height: 7vh;
   //   border-bottom: 3px solid $activeColor;
   //   box-shadow: 0 0 20px 5px $activeColor;
