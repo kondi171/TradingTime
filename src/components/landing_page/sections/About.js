@@ -35,7 +35,7 @@ class About extends React.Component {
 
   changeOpinion = () => {
     let currentActiveOpinion = 0;
-    const intervalId = setInterval(() => {
+    this.intervalId = setInterval(() => {
       let opinionsArr = [...this.state.opinions];
 
       opinionsArr.forEach((opinion) => {
@@ -58,7 +58,9 @@ class About extends React.Component {
   componentDidMount() {
     this.changeOpinion();
   }
-
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
   render() {
     const { id, name, text } = this.state.opinions;
     const opinionsArr = this.state.opinions.map((opinion) => {
