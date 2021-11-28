@@ -1,5 +1,3 @@
-import allegro from '../../assets/img/testimages/allegro-favicon.png';
-
 function WalletAction({
   name,
   price,

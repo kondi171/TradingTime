@@ -71,19 +71,39 @@ class HowItWorks extends React.Component {
         <h2>Jak to działa?</h2>
         <div className='how-it-works__steps'>
           <div>
-            <img className='how-it-works__steps--imgOne' src={firstStep} alt='Pierwszy krok' />
-            <span className='how-it-works__steps--spanOne'>Zarejestruj się</span>
+            <img
+              className='how-it-works__steps--imgOne'
+              src={firstStep}
+              alt='Pierwszy krok'
+            />
+            <span className='how-it-works__steps--spanOne'>
+              Zarejestruj się
+            </span>
           </div>
           <div>
-            <img className='how-it-works__steps--imgTwo' src={secondStep} alt='Pierwszy krok' />
+            <img
+              className='how-it-works__steps--imgTwo'
+              src={secondStep}
+              alt='Pierwszy krok'
+            />
             <span className='how-it-works__steps--spanTwo'>Poznaj system</span>
           </div>
           <div>
-            <img className='how-it-works__steps--imgThree' src={thirdStep} alt='Pierwszy krok' />
-            <span className='how-it-works__steps--spanThree'>Sprawdź działanie</span>
+            <img
+              className='how-it-works__steps--imgThree'
+              src={thirdStep}
+              alt='Pierwszy krok'
+            />
+            <span className='how-it-works__steps--spanThree'>
+              Sprawdź działanie
+            </span>
           </div>
           <div>
-            <img className='how-it-works__steps--imgFour' src={fourthStep} alt='Pierwszy krok' />
+            <img
+              className='how-it-works__steps--imgFour'
+              src={fourthStep}
+              alt='Pierwszy krok'
+            />
             <span className='how-it-works__steps--spanFour'>Zarabiaj!</span>
           </div>
         </div>

@@ -13,6 +13,7 @@ import Logout from './application_page/Logout';
 import MainLayout from './application_page/MainLayout';
 import SettingsPage from './application_page/pages/SettingsPage';
 import UserSettingsPage from './application_page/pages/UserSettingsPage';
+import AppSettingsPage from './application_page/pages/AppSettingsPage';
 
 class TradingTime extends React.Component {
   render() {
@@ -28,6 +29,10 @@ class TradingTime extends React.Component {
               <Route
                 path='/app/options/userpreferences'
                 element={<UserSettingsPage />}
+              />
+              <Route
+                path='/app/options/applicationpreferences'
+                element={<AppSettingsPage />}
               />
             </Route>
             <Route path='/app/preferences/help' element={<HelpPage />} />
