@@ -5,13 +5,14 @@ function SettingsPage() {
     <>
       <main className='settings-page'>
         <aside className='settings-page__categories'>
+          <h1>Ustawienia</h1>
           <ul>
             <li>
               <NavLink
                 className='settings-page__categories--navigation'
                 to='userpreferences'
               >
-                <i class='fa fa-user' aria-hidden='true'></i>Ustawienia
+                <i className='fa fa-user' aria-hidden='true'></i>Ustawienia
                 użytkownika
               </NavLink>
             </li>
@@ -20,7 +21,7 @@ function SettingsPage() {
                 className='settings-page__categories--navigation'
                 to='applicationpreferences'
               >
-                <i class='fa fa-cogs' aria-hidden='true'></i>
+                <i className='fa fa-cogs' aria-hidden='true'></i>
                 Ustawienia aplikacji
               </NavLink>
             </li>
@@ -29,7 +30,7 @@ function SettingsPage() {
                 className='settings-page__categories--navigation'
                 to='walletpreferences'
               >
-                <i class='fa fa-credit-card-alt' aria-hidden='true'></i>
+                <i className='fa fa-credit-card-alt' aria-hidden='true'></i>
                 Ustawienia portfela
               </NavLink>
             </li>

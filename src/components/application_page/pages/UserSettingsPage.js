@@ -1,4 +1,5 @@
 import React from 'react';
+import Validation from '../Validation';
 
 class UserSettingsPage extends React.Component {
   state = {
@@ -26,7 +27,9 @@ class UserSettingsPage extends React.Component {
   };
 
   handleChangeOption = (className) => {
-    const element = document.querySelector(`.${className}`);
+    const element = document.querySelector(
+      `.settings-page__preferences__list__${className}`
+    );
     const icon = element.querySelector(`.fa`);
 
     element.classList.toggle('edit');
@@ -58,30 +61,111 @@ class UserSettingsPage extends React.Component {
 
     if (className === 'password') {
       const passwordField = document.querySelectorAll('.password-field');
-      let passwordValidation = false;
 
-      if (passwordField[0].value === passwordField[1].value)
-        passwordValidation = true;
-
-      if (passwordValidation) {
-        userData.password = this.state.newPassword;
+      if (
+        Validation(
+          className,
+          passwordField[0].value,
+          passwordField[1].value
+        ) === true
+      ) {
+        userData.password = passwordField[0].value;
         this.handleChangeOption(className);
         this.setState({ userData });
-      } else {
+      } else if (
+        Validation(
+          className,
+          passwordField[0].value,
+          passwordField[1].value
+        ) === 'DifferentValues'
+      )
         alert('Hasła się nie zgadzają!');
-      }
+      else alert('Hasło nie spełnia minimalnych wymogów bezpieczeństwa!');
     } //później bezpośrednie wywołanie skryptu php do bazy
 
     if (className === 'email') {
-      userData.email = this.state.newEmail;
-      this.setState({ userData });
-      this.handleChangeOption(className);
+      if (Validation(className, this.state.newEmail)) {
+        userData.email = this.state.newEmail;
+        this.setState({ userData });
+        this.handleChangeOption(className);
+      } else alert('Format nowego adresu e-mail jest niepoprawny!');
     }
+
     if (className === 'telephone') {
-      userData.telephone = this.state.newTelephone;
-      this.setState({ userData });
-      this.handleChangeOption(className);
+      if (Validation(className, this.state.newTelephone)) {
+        userData.telephone = this.state.newTelephone;
+        this.setState({ userData });
+        this.handleChangeOption(className);
+      } else alert('Format nowego numeru telefonu jest niepoprawny!');
     }
+  };
+
+  displayEditFields = (className) => {
+    if (className === 'password') {
+      if (this.state.passwordChange) {
+        return (
+          <>
+            <div className='new-password changing'>
+              <p>Nowe hasło: </p>
+              <span>
+                <input type='text' class='password-field' id='password' />
+              </span>
+            </div>
+            <div className='confirm-password changing'>
+              <p>Potwierdź hasło: </p>
+              <span>
+                <input
+                  type='password'
+                  class='password-field'
+                  id='confirm-password'
+                />
+              </span>
+              <i
+                className='fa fa-check'
+                onClick={() => this.handleChangeData('password')}
+              ></i>
+            </div>
+          </>
+        );
+      }
+    } else if (className === 'email') {
+      if (this.state.emailChange) {
+        return (
+          <div className='email changing'>
+            <p>Nowy e-mail: </p>
+            <span>
+              <input
+                type='text'
+                onChange={(e) => this.handleChangeInput(e, 'email')}
+              />
+            </span>
+            <i
+              className='fa fa-check'
+              onClick={() => this.handleChangeData('email')}
+            ></i>
+          </div>
+        );
+      }
+    } else if (className === 'telephone') {
+      if (this.state.telephoneChange) {
+        return (
+          <div className='telephone changing'>
+            <p>Nowy numer telefonu: </p>
+            <span>
+              <input
+                type='number'
+                min='0'
+                onChange={(e) => this.handleChangeInput(e, 'telephone')}
+              />
+            </span>
+            <i
+              className='fa fa-check'
+              onClick={() => this.handleChangeData('telephone')}
+            ></i>
+          </div>
+        );
+      }
+    } else return null;
   };
 
   render() {
@@ -101,145 +185,91 @@ class UserSettingsPage extends React.Component {
     } = this.state.userData;
 
     return (
-      <>
-        <section className='settings-page__user-preferences'>
-          <h1>Ustawienia użytkownika</h1>
-          <div className='settings-page__user-preferences__list'>
-            <h2>Dane podstawowe </h2>
-            <div>
-              <p>Imię i nazwisko: </p>
-              <span>
-                {name} {lastname}
-              </span>
-            </div>
-
-            <div>
-              <p>Login: </p>
-              <span>{login}</span>
-            </div>
-
-            <div className='password'>
-              <p>Hasło: </p>
-              <span>*********</span>
-              <i
-                className='fa fa-pencil-square-o'
-                aria-hidden='true'
-                onClick={() => this.handleChangeOption('password')}
-              ></i>
-            </div>
-
-            {this.state.passwordChange ? (
-              <>
-                <div className='new-password changing'>
-                  <p>Nowe hasło: </p>
-                  <span>
-                    <input type='text' class='password-field' id='password' />
-                  </span>
-                </div>
-                <div className='confirm-password changing'>
-                  <p>Potwierdź hasło: </p>
-                  <span>
-                    <input
-                      type='password'
-                      class='password-field'
-                      id='confirm-password'
-                    />
-                  </span>
-                  <i
-                    className='fa fa-check'
-                    onClick={() => this.handleChangeData('password')}
-                  ></i>
-                </div>
-              </>
-            ) : null}
-
-            <div className='email'>
-              <p>Adres e-mail: </p>
-              <span>{email}</span>
-              <i
-                className='fa fa-pencil-square-o'
-                aria-hidden='true'
-                onClick={() => this.handleChangeOption('email')}
-              ></i>
-            </div>
-
-            {this.state.emailChange ? (
-              <div className='email changing'>
-                <p>Nowy e-mail: </p>
-                <span>
-                  <input
-                    type='text'
-                    onChange={(e) => this.handleChangeInput(e, 'email')}
-                  />
-                </span>
-                <i
-                  className='fa fa-check'
-                  onClick={() => this.handleChangeData('email')}
-                ></i>
-              </div>
-            ) : null}
-
-            <div className='telephone'>
-              <p>Numer telefonu: </p>
-              <span>{telephone}</span>
-              <i
-                class='fa fa-pencil-square-o'
-                aria-hidden='true'
-                onClick={() => this.handleChangeOption('telephone')}
-              ></i>
-            </div>
-
-            {this.state.telephoneChange ? (
-              <div className='telephone changing'>
-                <p>Nowy numer telefonu: </p>
-                <span>
-                  <input
-                    type='number'
-                    min='0'
-                    onChange={(e) => this.handleChangeInput(e, 'telephone')}
-                  />
-                </span>
-                <i
-                  className='fa fa-check'
-                  onClick={() => this.handleChangeData('telephone')}
-                ></i>
-              </div>
-            ) : null}
+      <section className='settings-page__preferences'>
+        <h1>Ustawienia użytkownika</h1>
+        <div className='settings-page__preferences__list'>
+          <h2>Dane podstawowe </h2>
+          <div>
+            <p>Imię i nazwisko: </p>
+            <span>
+              {name} {lastname}
+            </span>
           </div>
 
-          <div className='settings-page__user-preferences__list'>
-            <h2>Dane adresowe</h2>
-
-            <div>
-              <p>Miejscowość: </p>
-              <span>{city}</span>
-            </div>
-
-            <div>
-              <p>Ulica: </p>
-              <span>{street}</span>
-            </div>
-            <div>
-              <p>
-                {(apartment !== '-' && 'Nr domu / mieszkania:') || 'Nr domu:'}
-              </p>
-              <span>{(apartment !== '-' && house / apartment) || house}</span>
-            </div>
-            <div>
-              <p>Kod pocztowy: </p>
-              <span>{postalCode}</span>
-            </div>
-            <div>
-              <p>Numer PESEL: </p>
-              <span>{pesel}</span>
-            </div>
-            <div>
-              <p>Numer dowodu osobistego: </p>
-              <span>{personalId}</span>
-            </div>
+          <div>
+            <p>Login: </p>
+            <span>{login}</span>
           </div>
-        </section>
-      </>
+
+          <div className='settings-page__preferences__list__password'>
+            <p>Hasło: </p>
+            <span>*********</span>
+            <i
+              className='fa fa-pencil-square-o'
+              aria-hidden='true'
+              onClick={() => this.handleChangeOption('password')}
+            ></i>
+          </div>
+
+          {this.displayEditFields('password')}
+
+          <div className='settings-page__preferences__list__email'>
+            <p>Adres e-mail: </p>
+            <span>{email}</span>
+            <i
+              className='fa fa-pencil-square-o'
+              aria-hidden='true'
+              onClick={() => this.handleChangeOption('email')}
+            ></i>
+          </div>
+
+          {this.displayEditFields('email')}
+
+          <div className='settings-page__preferences__list__telephone'>
+            <p>Numer telefonu: </p>
+            <span>{telephone}</span>
+            <i
+              class='fa fa-pencil-square-o'
+              aria-hidden='true'
+              onClick={() => this.handleChangeOption('telephone')}
+            ></i>
+          </div>
+
+          {this.displayEditFields('telephone')}
+        </div>
+
+        <div className='settings-page__preferences__list'>
+          <h2>Dane adresowe</h2>
+
+          <div>
+            <p>Miejscowość: </p>
+            <span>{city}</span>
+          </div>
+
+          <div>
+            <p>Ulica: </p>
+            <span>{street}</span>
+          </div>
+          <div>
+            <p>
+              {(apartment !== '-' && 'Nr domu / mieszkania:') || 'Nr domu:'}
+            </p>
+            <span>{(apartment !== '-' && house / apartment) || house}</span>
+          </div>
+          <div>
+            <p>Kod pocztowy: </p>
+            <span>{postalCode}</span>
+          </div>
+          <div>
+            <p>Numer PESEL: </p>
+            <span>{pesel}</span>
+          </div>
+          <div>
+            <p>Numer dowodu osobistego: </p>
+            <span>{personalId}</span>
+          </div>
+        </div>
+      </section>
     );
   }
 }
