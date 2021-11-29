@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class Register extends React.Component {
 
   state = {
-    infoMessage: '',
+    infoVisible: false,
   }
 
   componentDidMount() {
@@ -14,60 +14,99 @@ class Register extends React.Component {
     this.basicForm.classList.add('active-form');
 
     this.login = document.getElementById('login');
-    this.name = document.getElementById('name');
-    this.lastname = document.getElementById('lastname');
+    this.mail = document.getElementById('mail');
     this.password1 = document.getElementById('password1');
     this.password2= document.getElementById('password2');
-    this.mail = document.getElementById('mail');
-    this.phone= document.getElementById('phone');
-    this.adress = document.getElementById('adress');
+    this.name = document.getElementById('name');
+    this.lastname = document.getElementById('lastname');
     this.personalId = document.getElementById('personalId');
     this.pesel = document.getElementById('pesel');
-    this.info = document.getElementById('infoModal');
+    this.street = document.getElementById('street');
+    this.city = document.getElementById('city');
+    this.postcode = document.getElementById('postcode');
+    this.phone= document.getElementById('phone');
+
+    this.infoMessage = document.getElementById('infoMessage');
+    this.infoModal = document.getElementById('infoModal');
     this.handleCheckActive();
   }
 
-  componentDidUpdate() { this.handleCheckActive(); }
+  componentDidUpdate() {
+    this.handleCheckActive(); 
+  }
 
   handleCheckActive = () => {
-    if(this.state.infoMessage === '') this.info.classList.add('active');
-    else this.info.classList.remove('active');
+    if(this.state.infoVisible) this.infoModal.classList.add('active');
+    else this.infoModal.classList.remove('active');
   }
   handleLogin = () => {
-      if(this.login === document.activeElement) console.log('active!');
-      if(this.login.value.length < 6 || this.login.value.length > 12) this.setState({ infoMessage: 'Login musi mieścić się w przedziale od 6 do 12 znaków' });
-      else this.setState({ infoMessage: '' });
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Login musi mieścić się w przedziale od 6 do 12 znaków';
   }
-
-  handleName = () => {
-    if(this.name.value.length < 3 || this.name.value.length > 12) this.setState({ infoMessage: 'Imię musi mieścić się w przedziale od 3 do 12 znaków' });
-    else this.setState({ infoMessage: '' });
+  handleMail = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Mail musi mieć domenę poprzedzoną znakiem at(@)';
   }
-
-  handleLastName = () => {
-    if(this.lastname.value.length < 3 || this.lastname.value.length > 18) this.setState({ infoMessage: 'Nazwisko musi mieścić się w przedziale od 3 do 18 znaków' });
-    else this.setState({ infoMessage: '' });
-  }
-
   handlePassword1 = () => {
-    if(this.password1.value.length < 8) this.setState({ infoMessage: 'Hasło musi miec conajmniej 8 znaków' });
-    else this.setState({ infoMessage: '' });
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Hasło musi miec conajmniej 8 znaków';
   }
-
   handlePassword2 = () => {
-    if(this.password1.value !== this.password2.value) this.setState({ infoMessage: 'Hasła muszą być identyczne' });
-    else this.setState({ infoMessage: '' });
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Hasła muszą być identyczne';
   }
-
-  handlePhone = () => {
-    if(this.phone.value.length !== 9) this.setState({ infoMessage: 'Numer telefonu musi mieć dokładnie 9 cyfr' });
-    else this.setState({ infoMessage: '' });
+  handleName = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Imię musi mieścić się w przedziale od 3 do 16 znaków';
   }
-
+  handleLastName = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Nazwisko musi mieścić się w przedziale od 3 do 18 znaków';
+  }
+  handleId = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Nr dowodu musi składać się z trzech liter i sześciu cyfr';
+  }
   handlePesel = () => {
-    if(this.pesel.value.length !== 11) this.setState({ infoMessage: 'PESEL musi mieć dokładnie 11 cyfr' });
-    else this.setState({ infoMessage: '' });
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'PESEL musi mieć dokładnie 11 cyfr';
   }
+  handleStreet = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Ulica musi zawierać conajmniej 5 znaków';
+  }
+  handleCity = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Miasto musi zawierać conajmniej 3 znaki';
+  }
+  handlePostCode = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Kod pocztowy musi być w formacie 12-345';
+  }
+  handlePhone = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage.textContent = 'Numer telefonu musi mieć dokładnie 9 cyfr';
+  }
+
+  
+
+  handleRemoveActiveInfo = () => {
+    if(this.login === document.activeElement) this.setState({ infoVisible: true });
+    else if(this.mail === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.password1 === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.password2 === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.name === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.lastname === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.personalId === document.activeElement) this.setState({ infoVisible: true });
+    else if(this.pesel === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.street === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.city === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.postcode === document.activeElement) this.setState({ infoVisible: true }); 
+    else if(this.phone === document.activeElement) this.setState({ infoVisible: true }); 
+    
+    else this.setState({ infoVisible: false });
+  }
+
 
   handleRemoveDisplay = () => {
     this.basicForm.classList.remove('active-form');
@@ -89,33 +128,33 @@ class Register extends React.Component {
 
   render(){
     return ( 
-      <div className="register-wrapper">
+      <div onClick={this.handleRemoveActiveInfo}  className="register-wrapper">
         <h2 className="register-header">Zarejestruj się</h2>
         <form className="form"> 
               <div id="basicForm" className="basic-data">
                 <h2>1. Dane Podstawowe</h2>
-                <label htmlFor="login"><i class="fa fa-user"></i> Login</label>
+                <label htmlFor="login"><i className="fa fa-user"></i> Login</label>
                 <input onClick={this.handleLogin} id="login" type="text" name="login" placeholder="Wprowadź nazwę użytkownika"/>
-                <label htmlFor="email"><i class="fa fa-envelope"></i> E-mail</label>
-                <input id="mail" type="email" name="email" placeholder="Wprowadź adres e-mail"/>
-                <label htmlFor="password1"><i class="fa fa-unlock"></i> Hasło</label>
-                <input onChange={this.handlePassword1} id="password1" type="password" name="password1" placeholder="Wprowadź hasło"/>
-                <label htmlFor="password2"><i class="fa fa-unlock-alt"></i> Powtórz Hasło</label>
-                <input onChange={this.handlePassword2} id="password2" type="password" name="password2" placeholder="Powtórz hasło"/>  
+                <label htmlFor="email"><i className="fa fa-envelope"></i> E-mail</label>
+                <input onClick={this.handleMail} id="mail" type="email" name="email" placeholder="Wprowadź adres e-mail"/>
+                <label htmlFor="password1"><i className="fa fa-unlock"></i> Hasło</label>
+                <input onClick={this.handlePassword1} id="password1" type="password" name="password1" placeholder="Wprowadź hasło"/>
+                <label htmlFor="password2"><i className="fa fa-unlock-alt"></i> Powtórz Hasło</label>
+                <input onClick={this.handlePassword2} id="password2" type="password" name="password2" placeholder="Powtórz hasło"/>  
                 <div className="btn-wrapper">
                   <input onClick={this.handlePersonalForm} type="button" value="Dalej" />  
                 </div>
               </div>
               <div id="personalForm" className="personal-data">
                 <h2>2. Dane Osobowe</h2>
-                <label htmlFor="name"><i class="fa fa-user-circle-o"></i> Imię</label>
+                <label htmlFor="name"><i className="fa fa-user-circle-o"></i> Imię</label>
                 <input onClick={this.handleName} id="name" type="text" name="name" placeholder="Wprowadź imię"/>
-                <label htmlFor="lastname"><i class="fa fa-user-circle"></i> Nazwisko</label>
+                <label htmlFor="lastname"><i className="fa fa-user-circle"></i> Nazwisko</label>
                 <input onClick={this.handleLastName} id="lastname" type="text" name="lastname" placeholder="Wprowadź nazwisko"/>
-                <label htmlFor="personalId"><i class="fa fa-user"></i> Nr dowodu</label>
-                <input id="personalId" type="text" name="personalId" placeholder="Wprowadź numer dowodu osobistego"/>
-                <label htmlFor="pesel"><i class="fa fa-user"></i> PESEL</label>
-                <input onChange={this.handlePesel} id="pesel" type="text" name="pesel" placeholder="Wprowadź PESEL"/> 
+                <label htmlFor="personalId"><i className="fa fa-user"></i> Nr dowodu</label>
+                <input onClick={this.handleId} id="personalId" type="text" name="personalId" placeholder="Wprowadź numer dowodu osobistego"/>
+                <label htmlFor="pesel"><i className="fa fa-user"></i> PESEL</label>
+                <input onClick={this.handlePesel} id="pesel" type="text" name="pesel" placeholder="Wprowadź PESEL"/> 
                 <div className="btn-wrapper">
                   <input onClick={this.handleBasicForm} type="button" value="Wstecz" />
                   <input onClick={this.handleAdressForm} type="button" value="Dalej" />
@@ -123,14 +162,14 @@ class Register extends React.Component {
               </div>
               <div id="adressForm" className="adress-data">
                 <h2>3. Adres</h2>
-                <label htmlFor="street"><i class="fa fa-address-card"></i> Ulica</label>
-                <input id="street" type="text" name="street" placeholder="Wprowadź ulice"/>
-                <label htmlFor="city"><i class="fa fa-map-marker"></i> Miasto</label>
-                <input id="city" type="text" name="city" placeholder="Wprowadź miasto"/>
-                <label htmlFor="postcode"><i class="fa fa-location-arrow"></i> Kod Pocztowy</label>
-                <input id="postcode" type="text" name="postcode" placeholder="Wprowadź kod pocztowy"/>
-                <label htmlFor="phone"><i class="fa fa-phone"></i> Nr telefonu</label>
-                <input onChange={this.handlePhone} id="phone" type="text" name="phone" placeholder="Wprowadź numer telefonu"/>
+                <label htmlFor="street"><i className="fa fa-address-card"></i> Ulica</label>
+                <input onClick={this.handleStreet} id="street" type="text" name="street" placeholder="Wprowadź ulice"/>
+                <label htmlFor="city"><i className="fa fa-map-marker"></i> Miasto</label>
+                <input onClick={this.handleCity} id="city" type="text" name="city" placeholder="Wprowadź miasto"/>
+                <label htmlFor="postcode"><i className="fa fa-location-arrow"></i> Kod Pocztowy</label>
+                <input onClick={this.handlePostCode} id="postcode" type="text" name="postcode" placeholder="Wprowadź kod pocztowy"/>
+                <label htmlFor="phone"><i className="fa fa-phone"></i> Nr telefonu</label>
+                <input onClick={this.handlePhone} id="phone" type="text" name="phone" placeholder="Wprowadź numer telefonu"/>
                 <div className="btn-wrapper">
                   <input onClick={this.handlePersonalForm} type="button" value="Wstecz" />
                   <input onClick={this.handleRegister} type="button" value="Zarejestruj się" />
@@ -138,7 +177,9 @@ class Register extends React.Component {
               </div>
               
         </form>
-        <div className="info-modal" id="infoModal"><i class="fa fa-info-circle"></i> { this.state.infoMessage }</div>
+        <div className="info-modal" id="infoModal">
+          <i className="fa fa-info-circle"></i> <span id="infoMessage">{this.state.infoVissible ? this.infoMessage: ''} </span> 
+        </div>
         <div className="links">
           <Link to="/login">Masz już konto? Zaloguj się!</Link>
           <Link to="/">Powrót do Strony Głównej</Link>

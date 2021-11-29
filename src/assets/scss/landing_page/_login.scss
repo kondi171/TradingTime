@@ -35,4 +35,5 @@
             align-self: center;
         }
     }
+    .links { @extend %links; }
 }

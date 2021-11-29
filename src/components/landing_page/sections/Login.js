@@ -7,7 +7,7 @@ function Login() {
       <form className='form'>
         <h2>Zaloguj się</h2>
         <label htmlFor='login'>
-          <i class='fa fa-user'></i> Login
+          <i className='fa fa-user'></i> Login
         </label>
         <input
           type='text'
@@ -15,17 +15,19 @@ function Login() {
           placeholder='Wprowadź nazwę użytkownika'
         />
         <label htmlFor='password'>
-          <i class='fa fa-key'></i> Hasło
+          <i className='fa fa-key'></i> Hasło
         </label>
         <input type='password' name='password' placeholder='Wprowadź hasło' />
-        <Link to='/register'>Nie jeszcze masz konta? Załóż je!</Link>
         <input type='button' value='Zaloguj się' />
         <button className='facebook'>
           <i className='fa fa-facebook'></i>
           <span>Zaloguj się z Facebook</span>
         </button>
-        <Link to='/'>Powrót do Strony Głównej</Link>
       </form>
+      <div className="links">
+          <Link to="/register">Nie masz jeszcze konta? Załóż je!</Link>
+          <Link to="/">Powrót do Strony Głównej</Link>
+        </div>
     </div>
   );
 }

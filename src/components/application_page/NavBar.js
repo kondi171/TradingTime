@@ -22,7 +22,7 @@ function NavBar() {
           <img src={PanBogdan} alt='Twój Awatar' />
           <ul>
             <li>
-              <NavLink className='app__user-panel--link' to='/app/options'>
+              <NavLink className='app__user-panel--link' to='/app/options/userpreferences'>
                 <i className='fa fa-cogs'></i> Konto
               </NavLink>
             </li>

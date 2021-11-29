@@ -90,3 +90,29 @@
     }
 }
 
+%links {
+    position: absolute;
+    width: 20%;
+    background-color: darken($light,60%);
+    border: 2px solid $activeColor;
+    padding: 2vh;
+    border-radius: 10px;
+    bottom: 4vh;
+    left: 2vh;
+    a {
+        font-family: $ubuntuFont;
+        margin: 10px 0;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: $activeColor;
+        font-size: 32px;
+        transition-duration: .4s;
+        &:hover {
+            text-shadow: 2px 2px 2px $black;
+            color: darken($activeColor,20%);
+            letter-spacing: 1px;
+        }
+    }
+}
+

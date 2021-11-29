@@ -229,7 +229,7 @@ class UserSettingsPage extends React.Component {
             <p>Numer telefonu: </p>
             <span>{telephone}</span>
             <i
-              class='fa fa-pencil-square-o'
+              className='fa fa-pencil-square-o'
               aria-hidden='true'
               onClick={() => this.handleChangeOption('telephone')}
             ></i>

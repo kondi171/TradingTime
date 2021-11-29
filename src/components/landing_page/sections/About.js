@@ -62,12 +62,12 @@ class About extends React.Component {
     clearInterval(this.intervalId);
   }
   render() {
-    const { id, name, text } = this.state.opinions;
     const opinionsArr = this.state.opinions.map((opinion) => {
       if (opinion.active)
         return (
           <Opinion key={opinion.id} name={opinion.name} text={opinion.text} />
         );
+        else return null;
     });
 
     return (
