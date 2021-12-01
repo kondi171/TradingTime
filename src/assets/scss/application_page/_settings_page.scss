@@ -118,14 +118,32 @@
             }
           }
           input[type='image'] {
+            width: 80%;
             box-sizing: content-box;
-            width: 180px;
-            height: 100px;
-            margin: 0 10px 20px 0;
+            user-select: none;
+
+            &.wallpaper {
+              width: 180px;
+              height: 100px;
+              margin: 0 10px 20px 0;
+            }
+
+            &.avatar {
+              width: 128px;
+              height: 128px;
+              background-color: #fff;
+              margin: 0 20px 30px 0;
+            }
+
+            &.theme {
+              width: 180px;
+              height: 100px;
+              border: 1px solid black;
+              margin: 0 10px 20px 0;
+            }
 
             &.active {
               border: 3px solid blue;
-              // display: none;
             }
           }
         }

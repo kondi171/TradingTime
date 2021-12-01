@@ -2,6 +2,14 @@ import React from 'react';
 import earth from '../../../assets/img/earth.jpg';
 import synth from '../../../assets/img/synth.jpg';
 import lake from '../../../assets/img/lake.jpg';
+import male1 from '../../../assets/img/avatars/avatar_male_blonde_red_glasses.png';
+import male2 from '../../../assets/img/avatars/avatar_male_dark_blue_sunglasses.png';
+import female1 from '../../../assets/img/avatars/avatar_female_auburn_blue_glasses.png';
+import female2 from '../../../assets/img/avatars/avatar_female_blonde_pink.png';
+import avatarDefault from '../../../assets/img/avatars/default_blank.png';
+import theme1 from '../../../assets/img/themes/theme1.png';
+import theme2 from '../../../assets/img/themes/theme2.png';
+import theme3 from '../../../assets/img/themes/theme3.png';
 
 class AppSettingsPage extends React.Component {
   state = {
@@ -11,11 +19,13 @@ class AppSettingsPage extends React.Component {
       twoFactorAuthentication: true,
       wallpaper: '1',
       theme: '1',
-      avatar: '9',
+      avatar: '4',
     },
 
     showSaveButtons: false,
     wallpaperChange: false,
+    avatarChange: false,
+    themeChange: false,
   };
 
   handleToggleInput = (option) => {
@@ -65,21 +75,45 @@ class AppSettingsPage extends React.Component {
 
     if (className === 'wallpaper')
       this.setState({ wallpaperChange: !this.state.wallpaperChange });
+    if (className === 'avatar')
+      this.setState({ avatarChange: !this.state.avatarChange });
+    if (className === 'theme')
+      this.setState({ themeChange: !this.state.themeChange });
   };
 
-  handleWallpaperChange = (e) => {
+  handleImageInputChange = (e, category) => {
     let appPreferences = this.state.appPreferences;
-    appPreferences.wallpaper = e.target.dataset.wallpaperid;
+
+    if (category === 'wallpaper')
+      appPreferences.wallpaper = e.target.dataset.wallpaperid;
+    if (category === 'avatar')
+      appPreferences.avatar = e.target.dataset.avatarid;
+    if (category === 'theme') appPreferences.theme = e.target.dataset.themeid;
+
     this.setState({ appPreferences });
 
     this.setState({ showSaveButtons: true });
   };
 
-  toggleImageSelector = () => {
-    let images = document.querySelectorAll('.wallpaper.changing input');
+  toggleImageSelector = (className) => {
+    let wallpapers = document.querySelectorAll(`.wallpaper.changing input`);
+    let avatars = document.querySelectorAll(`.avatar.changing input`);
+    let themes = document.querySelectorAll(`.theme.changing input`);
 
-    [...images].forEach((element) => {
+    [...wallpapers].forEach((element) => {
       if (element.dataset.wallpaperid === this.state.appPreferences.wallpaper)
+        element.classList.add('active');
+      else element.classList.remove('active');
+    });
+
+    [...avatars].forEach((element) => {
+      if (element.dataset.avatarid === this.state.appPreferences.avatar)
+        element.classList.add('active');
+      else element.classList.remove('active');
+    });
+
+    [...themes].forEach((element) => {
+      if (element.dataset.themeid === this.state.appPreferences.theme)
         element.classList.add('active');
       else element.classList.remove('active');
     });
@@ -92,26 +126,115 @@ class AppSettingsPage extends React.Component {
           <div className='wallpaper changing'>
             <input
               type='image'
+              className='wallpaper'
               src={earth}
               alt='Earth from space'
               data-wallpaperid='1'
-              onClick={this.handleWallpaperChange}
+              onClick={(e) => this.handleImageInputChange(e, className)}
               readOnly={true}
             />
             <input
               type='image'
+              className='wallpaper'
               src={synth}
               alt='Wallpaper in Synthwave style'
               data-wallpaperid='2'
-              onClick={this.handleWallpaperChange}
+              onClick={(e) => this.handleImageInputChange(e, className)}
               readOnly={true}
             />
             <input
               type='image'
+              className='wallpaper'
               src={lake}
               alt='Beatiful lake in storm'
               data-wallpaperid='3'
-              onClick={this.handleWallpaperChange}
+              onClick={(e) => this.handleImageInputChange(e, className)}
+              readOnly={true}
+            />
+          </div>
+        );
+      }
+    } else if (className === 'avatar') {
+      if (this.state.avatarChange) {
+        return (
+          <div className='avatar changing'>
+            <input
+              type='image'
+              className='avatar'
+              src={male1}
+              alt='Male, glasses, red clothes, blonde'
+              data-avatarid='1'
+              onClick={(e) => this.handleImageInputChange(e, className)}
+              readOnly={true}
+            />
+            <input
+              type='image'
+              className='avatar'
+              src={male2}
+              alt='Male, sunglasses, blue clothes, dark hair'
+              data-avatarid='2'
+              onClick={(e) => this.handleImageInputChange(e, className)}
+              readOnly={true}
+            />
+            <input
+              type='image'
+              className='avatar'
+              src={female1}
+              alt='Female, glasses, blue clothes, auburn'
+              data-avatarid='3'
+              onClick={(e) => this.handleImageInputChange(e, className)}
+              readOnly={true}
+            />
+            <input
+              type='image'
+              className='avatar'
+              src={female2}
+              alt='Female, pink clothes, blonde'
+              data-avatarid='4'
+              onClick={(e) => this.handleImageInputChange(e, className)}
+              readOnly={true}
+            />
+            <input
+              type='image'
+              src={avatarDefault}
+              className='avatar'
+              alt='Deafult avatar image'
+              data-avatarid='5'
+              onClick={(e) => this.handleImageInputChange(e, className)}
+              readOnly={true}
+            />
+          </div>
+        );
+      }
+    } else if (className === 'theme') {
+      if (this.state.themeChange) {
+        return (
+          <div className='theme changing'>
+            <input
+              type='image'
+              className='theme'
+              src={theme1}
+              alt='Theme - gray colors'
+              data-themeid='1'
+              onClick={(e) => this.handleImageInputChange(e, className)}
+              readOnly={true}
+            />
+            <input
+              type='image'
+              className='theme'
+              src={theme2}
+              alt='theme - blue colors'
+              data-themeid='2'
+              onClick={(e) => this.handleImageInputChange(e, className)}
+              readOnly={true}
+            />
+            <input
+              type='image'
+              className='theme'
+              src={theme3}
+              alt='Theme - blue-yellow color'
+              data-themeid='3'
+              onClick={(e) => this.handleImageInputChange(e, className)}
               readOnly={true}
             />
           </div>
@@ -174,6 +297,9 @@ class AppSettingsPage extends React.Component {
                 onClick={() => this.handleChangeOption('avatar')}
               ></i>
             </div>
+
+            {this.displayEditFields('avatar')}
+
             <div className='settings-page__preferences__list__theme'>
               <p>Motyw aplikacji: </p>
               <span></span>
@@ -183,6 +309,8 @@ class AppSettingsPage extends React.Component {
                 onClick={() => this.handleChangeOption('theme')}
               ></i>
             </div>
+
+            {this.displayEditFields('theme')}
           </div>
 
           <div className='settings-page__preferences__list'>
