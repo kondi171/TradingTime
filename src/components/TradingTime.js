@@ -15,6 +15,7 @@ import SettingsPage from './application_page/pages/SettingsPage';
 import UserSettingsPage from './application_page/pages/UserSettingsPage';
 import AppSettingsPage from './application_page/pages/AppSettingsPage';
 import WalletSettingsPage from './application_page/pages/WalletSettingsPage';
+// import WithdrawMoneyModal from './application_page/WithdrawMoneyModal';
 
 class TradingTime extends React.Component {
   render() {
