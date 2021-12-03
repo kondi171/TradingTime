@@ -1,6 +1,6 @@
 function WithdrawMoneyModal(props) {
   return (
-    <div className='settings-page__preferences__modal'>
+    <aside className='settings-page__preferences__modal'>
       <div className='settings-page__preferences__modal__wrapper'>
         <i
           className='fa fa-times'
@@ -23,7 +23,7 @@ function WithdrawMoneyModal(props) {
           <button>Wypłać</button>
         </form>
       </div>
-    </div>
+    </aside>
   );
 }
 

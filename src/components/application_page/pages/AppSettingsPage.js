@@ -1,4 +1,5 @@
 import React from 'react';
+import QuestionModal from '../QuestionModal';
 import earth from '../../../assets/img/earth.jpg';
 import synth from '../../../assets/img/synth.jpg';
 import lake from '../../../assets/img/lake.jpg';
@@ -26,6 +27,8 @@ class AppSettingsPage extends React.Component {
     wallpaperChange: false,
     avatarChange: false,
     themeChange: false,
+
+    showModal: false,
   };
 
   handleToggleInput = (option) => {
@@ -33,13 +36,9 @@ class AppSettingsPage extends React.Component {
 
     this.setState({ showSaveButtons: true });
 
-    if (option === 'simulationMode') {
-      appPreferences.simulationMode = !this.state.appPreferences.simulationMode;
+    if (option === 'simulationMode')
+      this.setState({ showModal: !this.state.showModal });
 
-      this.setState({
-        appPreferences,
-      });
-    }
     if (option === 'smartAssistant') {
       appPreferences.smartAssistant = !this.state.appPreferences.smartAssistant;
 
@@ -243,6 +242,24 @@ class AppSettingsPage extends React.Component {
     } else return null;
   };
 
+  handleChangeSimulationMode = () => {
+    let appPreferences = this.state.appPreferences;
+    appPreferences.simulationMode = !this.state.appPreferences.simulationMode;
+
+    this.setState({ appPreferences });
+
+    this.hideQuestionModal();
+  };
+
+  hideQuestionModal = () => this.setState({ showModal: false });
+
+  displayQuestionModal = () => (
+    <QuestionModal
+      changePermission={this.handleChangeSimulationMode}
+      hideQuestionModal={this.hideQuestionModal}
+    />
+  );
+
   saveOptions = () => {
     alert('zapisuje dane');
     this.setState({ showSaveButtons: false });
@@ -272,6 +289,7 @@ class AppSettingsPage extends React.Component {
       this.state.appPreferences;
     return (
       <>
+        {this.state.showModal ? this.displayQuestionModal() : null}
         <section className='settings-page__preferences'>
           <h1>Ustawienia aplikacji</h1>
           <div className='settings-page__preferences__list'>
@@ -315,7 +333,6 @@ class AppSettingsPage extends React.Component {
 
           <div className='settings-page__preferences__list'>
             <h2>Funkcjonalności</h2>
-
             <div>
               <p>Tryb symulacji: </p>
               <span className='settings-page__preferences__list--switch-button'>
@@ -378,6 +395,7 @@ class AppSettingsPage extends React.Component {
               </span>
             </div>
           </div>
+
           <footer className='settings-page__preferences__footer'>
             <button
               onClick={this.saveOptions}
