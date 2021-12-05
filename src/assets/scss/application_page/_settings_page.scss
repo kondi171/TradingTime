@@ -4,6 +4,8 @@
   min-height: 93vh;
   background-color: #aaa;
 
+  @extend %modal;
+
   &__categories {
     position: fixed;
     top: 7vh;
@@ -201,8 +203,9 @@
           letter-spacing: 1px;
           color: black;
           position: relative;
+          z-index: 0;
           padding-right: 120px;
-          position: relative;
+          // position: relative;
 
           & span {
             position: absolute;

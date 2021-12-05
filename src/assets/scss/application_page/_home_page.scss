@@ -1,81 +1,112 @@
 main.home-page {
-    background-image: url('../../img/earth.jpg');
-    background-color: darken($light, 70%);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-blend-mode: overlay;
-    height: 93vh;
-    overflow-y: hidden;
-    position: relative;
-    .home-page__favourites {
-        @include modal(11vh, 5vh);
-        h2 {
-            text-align: center;
-            padding: 10px;
-            color: #cecece;
-        }
-        .home-page__favourites--icons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            img {
-                width: 20%;
-                height: 20%;
-                border-radius: 50%;
-                margin: .5vh 2.5vh;
-            }
-            a {
-                text-align: center;
-                display: block;
-                width: 25%;
-                height: 10vh;
-                border-radius: 4px;
-                background-color: #303030;
-                padding: 1.2vh;
-                font-size: 64px;
-                text-decoration: none;
-                color: #cecece;
-                margin: 10px;
-                transition-duration: .4s;
-                z-index: 10;
-                &:hover {
-                    color: $activeColor;
-                    box-shadow: inset 0px 0px 24px 0px $activeColor;
-                }
-            }
-        }
+  background-image: url('../../img/earth.jpg');
+  background-color: darken($light, 70%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: overlay;
+  height: 93vh;
+  overflow-y: hidden;
+  position: relative;
+  .home-page__favourites {
+    @include modal(11vh, 5vh);
+    h2 {
+      text-align: center;
+      padding: 10px;
+      color: #cecece;
     }
-    .home-page__clock {
-        position: absolute;
+    &--icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 20%;
+        height: 20%;
+        border-radius: 50%;
+        margin: 0.5vh 2.5vh;
+      }
+      a {
         text-align: center;
-        top: 15vh;
-        right: 5vw;
-        width: 35%;
-        height: 30vh;
-        color: $activeColor;
-        font-weight: bold;
-        .home-page__clock--time {
-            font-size: 72px;    
+        display: block;
+        width: 25%;
+        height: 10vh;
+        border-radius: 4px;
+        background-color: #303030;
+        padding: 1.2vh;
+        font-size: 64px;
+        text-decoration: none;
+        color: #cecece;
+        margin: 10px;
+        transition-duration: 0.4s;
+        z-index: 10;
+        &:hover {
+          color: $activeColor;
+          box-shadow: inset 0px 0px 24px 0px $activeColor;
         }
-        .home-page__clock--date {
-            font-size: 64px;
-            letter-spacing: 3px;
-            font-family: $cursiveFont;
-        }
+      }
     }
-    .home-page__actions {
-        @include modal(50vh, 5vh);
-        h2 {
-            text-align: center;
-            padding: 10px;
-            color: #cecece;
-        }
-        .home-page__actions--action-content {
-            color: #cecece;
-            margin-top: 64px;
-            font-size: 34px;
-            text-align: center;
-        }
+  }
+  .home-page__clock {
+    position: absolute;
+    text-align: center;
+    top: 15vh;
+    right: 5vw;
+    width: 35%;
+    height: 30vh;
+    color: $activeColor;
+    font-weight: bold;
+    .home-page__clock--time {
+      font-size: 72px;
     }
+    .home-page__clock--date {
+      font-size: 64px;
+      letter-spacing: 3px;
+      font-family: $cursiveFont;
+    }
+  }
+  .home-page__actions {
+    @include modal(50vh, 5vh);
+    h2 {
+      text-align: center;
+      padding: 10px;
+      color: #cecece;
+    }
+    .home-page__actions--action-content {
+      color: #cecece;
+      margin-top: 64px;
+      font-size: 34px;
+      text-align: center;
+    }
+    &--icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 20%;
+        height: 20%;
+        border-radius: 50%;
+        margin: 0.5vh 2.5vh;
+      }
+      a {
+        text-align: center;
+        display: block;
+        width: 25%;
+        height: 10vh;
+        border-radius: 4px;
+        background-color: #303030;
+        padding: 1.2vh;
+        font-size: 64px;
+        text-decoration: none;
+        color: #cecece;
+        margin: 10px;
+        transition-duration: 0.4s;
+        z-index: 10;
+        &:hover {
+          color: $activeColor;
+          box-shadow: inset 0px 0px 24px 0px $activeColor;
+        }
+      }
+    }
+  }
 }
