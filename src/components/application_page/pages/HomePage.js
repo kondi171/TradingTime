@@ -87,7 +87,10 @@ class HomePage extends React.Component {
         time: this.state.time + 1,
       });
     }, 1000);
+    this.setTime();
+  }
 
+  componentDidUpdate() {
     this.setTime();
   }
 
