@@ -1,0 +1,120 @@
+.marketplace-page {
+  display: flex;
+  width: 100%;
+  height: 93vh;
+  position: relative;
+  // padding: 20px;
+  @extend %switch-button;
+  @extend %button;
+  @extend %inputField;
+
+  &__details {
+    padding: 20px;
+    display: flex;
+    // flex-wrap: wrap;
+    flex-direction: column;
+    width: 35%;
+    height: 100%;
+    background-color: #444;
+  }
+
+  &__choosen-action {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    height: 10%;
+    width: 100%;
+    border-radius: 15px;
+
+    & img {
+      width: 64px;
+      height: 64px;
+      margin: 20px 15px;
+    }
+
+    & h1 {
+      flex-grow: 1;
+      font-size: 30px;
+    }
+
+    & i {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      height: 100%;
+      width: 100px;
+
+      cursor: pointer;
+
+      &::before {
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-wrap: wrap;
+    height: 30%;
+    justify-items: center;
+    align-items: center;
+
+    font-size: 20px;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    margin: 50px 0;
+    padding: 0 10px;
+
+    p {
+      font-size: 24px;
+      width: 100%;
+      color: #444;
+      &:first-of-type {
+        color: #4bd151;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__trade {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+
+    & form {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+      height: 80%;
+      align-self: flex-end;
+
+      p {
+        font-size: 24px;
+        color: whitesmoke;
+      }
+      input {
+        margin-right: 10px;
+      }
+      .button:last-of-type {
+        margin-left: -5px;
+        width: 40%;
+        font-size: 24px;
+      }
+    }
+  }
+
+  &__transaction-type {
+    display: flex;
+    align-items: center;
+    width: 65%;
+    justify-content: space-between;
+  }
+
+  &__action {
+    width: 65%;
+    height: 100%;
+    background-color: blue;
+  }
+}
