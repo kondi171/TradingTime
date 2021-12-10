@@ -1,7 +1,7 @@
 function WithdrawMoneyModal(props) {
   return (
-    <aside className='settings-page__preferences__modal'>
-      <div className='settings-page__preferences__modal__wrapper'>
+    <aside className='modal'>
+      <div className='modal__wrapper'>
         <i
           className='fa fa-times'
           aria-hidden='true'
@@ -20,7 +20,7 @@ function WithdrawMoneyModal(props) {
             onChange={props.handleWithdrawInputChange}
           />
 
-          <button>Wypłać</button>
+          <button className='button'>Wypłać</button>
         </form>
       </div>
     </aside>

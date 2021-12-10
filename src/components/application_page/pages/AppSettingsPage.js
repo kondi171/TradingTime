@@ -257,6 +257,7 @@ class AppSettingsPage extends React.Component {
     <QuestionModal
       changePermission={this.handleChangeSimulationMode}
       hideQuestionModal={this.hideQuestionModal}
+      info='Czy na pewno chcesz przełączyć tryb pracy? Wiąże się to z utratą środków w obecnym portfelu. Zmian nie można cofnąć!'
     />
   );
 
@@ -273,12 +274,12 @@ class AppSettingsPage extends React.Component {
   componentDidUpdate() {
     if (this.state.showSaveButtons) {
       document
-        .querySelectorAll('.settings-page__preferences__footer > button')
-        .forEach((element) => element.classList.remove('hidden'));
+        .querySelectorAll('.settings-page__preferences__footer > .button')
+        .forEach((element) => element.classList.remove('button--hidden'));
     } else {
       document
-        .querySelectorAll('.settings-page__preferences__footer > button')
-        .forEach((element) => element.classList.add('hidden'));
+        .querySelectorAll('.settings-page__preferences__footer > .button')
+        .forEach((element) => element.classList.add('button--hidden'));
     }
 
     this.toggleImageSelector();
@@ -335,18 +336,17 @@ class AppSettingsPage extends React.Component {
             <h2>Funkcjonalności</h2>
             <div>
               <p>Tryb symulacji: </p>
-              <span className='settings-page__preferences__list--switch-button'>
-                <span className='settings-page__preferences__list--switch-button--second-option'>
-                  Włączony
-                </span>
+
+              <span className='switch-button'>
+                <span className='switch-button__first-option'>Włączony</span>
                 <input
-                  className='settings-page__preferences__list--switch-button--checkbox'
+                  className='switch-button__checkbox'
                   type='checkbox'
                   checked={simulationMode}
                   onChange={() => this.handleToggleInput('simulationMode')}
                 ></input>
-                <label className='settings-page__preferences__list--switch-button--label'>
-                  <span className='settings-page__preferences__list--switch-button--label--span'>
+                <label className='switch-button__label'>
+                  <span className='switch-button__second-option'>
                     Wyłączony
                   </span>
                 </label>
@@ -355,18 +355,17 @@ class AppSettingsPage extends React.Component {
 
             <div>
               <p>Inteligentny asystent: </p>
-              <span className='settings-page__preferences__list--switch-button'>
-                <span className='settings-page__preferences__list--switch-button--second-option'>
-                  Włączony
-                </span>
+
+              <span className='switch-button'>
+                <span className='switch-button__first-option'>Włączony</span>
                 <input
-                  className='settings-page__preferences__list--switch-button--checkbox'
+                  className='switch-button__checkbox'
                   type='checkbox'
                   checked={smartAssistant}
                   onChange={() => this.handleToggleInput('smartAssistant')}
                 ></input>
-                <label className='settings-page__preferences__list--switch-button--label'>
-                  <span className='settings-page__preferences__list--switch-button--label--span'>
+                <label className='switch-button__label'>
+                  <span className='switch-button__second-option'>
                     Wyłączony
                   </span>
                 </label>
@@ -375,21 +374,19 @@ class AppSettingsPage extends React.Component {
 
             <div>
               <p>Uwierzytelnianie dwuetapowe:</p>
-              <span className='settings-page__preferences__list--switch-button'>
-                <span className='settings-page__preferences__list--switch-button--second-option'>
-                  Włączone
-                </span>
+              <span className='switch-button'>
+                <span className='switch-button__first-option'>Włączony</span>
                 <input
-                  className='settings-page__preferences__list--switch-button--checkbox'
+                  className='switch-button__checkbox'
                   type='checkbox'
                   checked={twoFactorAuthentication}
                   onChange={() =>
                     this.handleToggleInput('twoFactorAuthentication')
                   }
                 ></input>
-                <label className='settings-page__preferences__list--switch-button--label'>
-                  <span className='settings-page__preferences__list--switch-button--label--span'>
-                    Wyłączone
+                <label className='switch-button__label'>
+                  <span className='switch-button__second-option'>
+                    Wyłączony
                   </span>
                 </label>
               </span>
@@ -399,13 +396,13 @@ class AppSettingsPage extends React.Component {
           <footer className='settings-page__preferences__footer'>
             <button
               onClick={this.saveOptions}
-              className='settings-page__preferences__footer--save-button hidden'
+              className='button button--hidden'
             >
               Zapisz
             </button>
             <button
               onClick={this.cancelOptions}
-              className='settings-page__preferences__footer--cancel-button hidden'
+              className='button button--hidden'
             >
               Anuluj
             </button>

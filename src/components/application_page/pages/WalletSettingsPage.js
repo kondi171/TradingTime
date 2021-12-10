@@ -65,10 +65,16 @@ class WalletSettingsPage extends React.Component {
             </div>
 
             <div className='settings-page__preferences__list__account-buttons'>
-              <button onClick={this.handleModal}>
+              <button
+                className='button button--large'
+                onClick={this.handleModal}
+              >
                 Wypłać pieniądze na konto
               </button>
-              <button onClick={this.handleDepositMoney}>
+              <button
+                className='button button--large'
+                onClick={this.handleDepositMoney}
+              >
                 Wpłać pieniądze do aplikacji
               </button>
             </div>
