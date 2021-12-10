@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import LandingPage from './landing_page/LandingPage';
 import HomePage from './application_page/pages/HomePage';
 import SearchPage from './application_page/pages/SearchPage';

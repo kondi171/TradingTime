@@ -4,8 +4,6 @@ import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
 
 import WalletAction from '../WalletAction';
 
-import TradingTime from '../../TradingTime';
-
 class WalletPage extends React.Component {
   // State zawiera elementy wyciągniete z tabeli o akcjach posiadanych przez uzytkownika oraz stanie konta
 

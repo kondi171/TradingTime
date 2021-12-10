@@ -71,16 +71,7 @@ const MarketplacePage = () => {
     e.preventDefault();
   };
 
-  const {
-    id,
-    actionNAme,
-    price,
-    image,
-    isFavourite,
-    isBought,
-    lastUpdate,
-    numberOfActions,
-  } = actionDetails;
+  const { price, numberOfActions } = actionDetails;
 
   return (
     <main className='marketplace-page'>
