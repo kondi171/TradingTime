@@ -2,15 +2,106 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import SwitchButton from '../elements/SwitchButton';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
+import ActionChart from '../ActionChart';
+
 const actionDetails = {
   id: 0,
   actionName: 'Allegro',
-  price: 4.2,
+  price: 39.16,
   image: '',
   isFavourite: true,
   isBought: true,
-  lastUpdate: '22.11.2021',
+  lastUpdate: '09.12.2021 17:00',
   numberOfActions: 20,
+};
+
+const actionValues = {
+  today: [
+    {
+      day: '09.12.2021',
+      hour: 9,
+      value: '37.94',
+    },
+    {
+      day: '09.12.2021',
+      hour: 10,
+      value: '38.96',
+    },
+    {
+      day: '09.12.2021',
+      hour: 11,
+      value: '39.16',
+    },
+    {
+      day: '09.12.2021',
+      hour: 12,
+      value: '39.15',
+    },
+    {
+      day: '09.12.2021',
+      hour: 13,
+      value: '39.08',
+    },
+    {
+      day: '09.12.2021',
+      hour: 14,
+      value: '38.83',
+    },
+    {
+      day: '09.12.2021',
+      hour: 15,
+      value: '38.90',
+    },
+    {
+      day: '09.12.2021',
+      hour: 16,
+      value: '39.12',
+    },
+    {
+      day: '09.12.2021',
+      hour: 17,
+      value: '39.16',
+    },
+  ],
+
+  week: [
+    {
+      day: '02.12.2021',
+      value: '36.38',
+    },
+    {
+      day: '03.12.2021',
+      value: '36.54',
+    },
+    {
+      day: '06.12.2021',
+      value: '34.72',
+    },
+    {
+      day: '07.12.2021',
+      value: '37.26',
+    },
+    {
+      day: '08.12.2021',
+      value: '37.97',
+    },
+    {
+      day: '09.12.2021',
+      value: '39.16',
+    },
+    {
+      day: '10.12.2021',
+      value: '38.00',
+    },
+    {
+      day: '11.12.2021',
+      value: '38.20',
+    },
+  ],
+
+  month: [],
+
+  quarter: [],
 };
 
 const userData = {
@@ -22,15 +113,14 @@ let interval = 0;
 const MarketplacePage = () => {
   const [inputActionsAmount, setInputActionsAmount] = useState(0);
   const [purchaseAction, setPurchaseAction] = useState(true);
+  const [chartRange, setChartRange] = useState('today');
 
-  const URLParams = () => {
-    let params = useParams();
-    console.log(params.actionId);
-    return null;
-  };
+  const changeChartView = (range) => setChartRange(range);
 
-  const handleChangePurchaseAction = () => {
-    setPurchaseAction(!purchaseAction);
+  const handleChangePurchaseAction = () => setPurchaseAction(!purchaseAction);
+
+  const handleFinalizeTransaction = (e) => {
+    e.preventDefault();
   };
 
   const handleInputActionsValueChange = (e, type, mouseEvent = 'click') => {
@@ -67,15 +157,16 @@ const MarketplacePage = () => {
     }
   };
 
-  const handleFinalizeTransaction = (e) => {
-    e.preventDefault();
+  const URLParams = () => {
+    let params = useParams();
+    console.log(params.actionId);
+    return null;
   };
 
   const { price, numberOfActions } = actionDetails;
 
   return (
     <main className='marketplace-page'>
-      {URLParams()}
       <section className='marketplace-page__details'>
         <div className='marketplace-page__choosen-action'>
           <img src={allegro} alt='' />
@@ -105,6 +196,7 @@ const MarketplacePage = () => {
               readOnly
               value={inputActionsAmount}
             />
+
             <button
               className='button button--math'
               onMouseDown={(e) =>
@@ -151,7 +243,41 @@ const MarketplacePage = () => {
           </form>
         </section>
       </section>
-      <section className='marketplace-page__action'></section>
+
+      <section className='marketplace-page__action-chart'>
+        <ActionChart
+          actionName={actionDetails.actionName}
+          actionValues={actionValues}
+          chartRange={chartRange}
+        />
+
+        <div className='marketplace-page__chart-buttons'>
+          <button
+            className='button marketplace-page__chart-button'
+            onClick={() => changeChartView('today')}
+          >
+            Dzisiaj
+          </button>
+          <button
+            className='button marketplace-page__chart-button'
+            onClick={() => changeChartView('week')}
+          >
+            Ostatnie 7 dni
+          </button>
+          <button
+            className='button marketplace-page__chart-button'
+            onClick={() => changeChartView('month')}
+          >
+            Ostatni miesiąc
+          </button>
+          <button
+            className='button marketplace-page__chart-button'
+            onClick={() => changeChartView('quarter')}
+          >
+            Ostatnie 3 miesiące
+          </button>
+        </div>
+      </section>
     </main>
   );
 };

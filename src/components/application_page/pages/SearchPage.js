@@ -143,26 +143,24 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <>
-        <main className='search-page'>
-          <div className='search-page_search-wrapper'>
-            <div className='search-page_searcher'>
-              <input
-                type='text'
-                onChange={this.handleSearch}
-                value={this.state.searchQuery}
-                placeholder='Wyszukaj...'
-              />
-            </div>
-
-            <div className='search-page_results'>{this.actionList}</div>
+      <main className='search-page'>
+        <div className='search-page_search-wrapper'>
+          <div className='search-page_searcher'>
+            <input
+              type='text'
+              onChange={this.handleSearch}
+              value={this.state.searchQuery}
+              placeholder='Wyszukaj...'
+            />
           </div>
-          <ActionInfo
-            {...this.state.activeActionProps}
-            toggleFavourite={this.toggleFavourite}
-          />
-        </main>
-      </>
+
+          <div className='search-page_results'>{this.actionList}</div>
+        </div>
+        <ActionInfo
+          {...this.state.activeActionProps}
+          toggleFavourite={this.toggleFavourite}
+        />
+      </main>
     );
   }
 }
