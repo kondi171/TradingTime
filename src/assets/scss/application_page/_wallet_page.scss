@@ -1,7 +1,7 @@
 .wallet-page {
   display: flex;
   width: 100%;
-  min-height: 93vh;
+  height: 93vh;
   flex-direction: column;
 
   @extend %navlink;
@@ -78,9 +78,7 @@
     font-size: 22px;
 
     //scrollbar
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
+    overflow-y: auto;
 
     div.wallet-page__actions__action {
       display: flex;

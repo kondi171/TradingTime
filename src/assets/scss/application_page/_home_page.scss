@@ -47,21 +47,28 @@ main.home-page {
     }
   }
   .home-page__clock {
+    font-family: 'Saira Condensed';
     position: absolute;
     text-align: center;
-    top: 15vh;
-    right: 5vw;
-    width: 35%;
-    height: 30vh;
-    color: $activeColor;
-    font-weight: bold;
+    top: 7vh;
+    right: 1vw;
+    width: auto;
+    height: auto;
+    padding: 25px;
+    color: white;
+    font-weight: 100;
+    background-color: rgba($color: #ddd, $alpha: 0.2);
+    border-radius: 15px;
+    user-select: none;
+
     .home-page__clock--time {
       font-size: 72px;
     }
     .home-page__clock--date {
       font-size: 64px;
       letter-spacing: 3px;
-      font-family: $cursiveFont;
+      font-family: 'Saira Condensed';
+      // font-family: $cursiveFont;
     }
   }
   .home-page__actions {

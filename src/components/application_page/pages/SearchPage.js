@@ -11,11 +11,17 @@ class SearchPage extends React.Component {
       {
         id: 0,
         actionName: 'Allegro',
-        price: '4,20',
+        price: '4.20',
         image: allegro,
         isFavourite: true,
         isBought: true,
         lastUpdate: '22.11.2021',
+        short: 'ALE',
+        volume: '1,593,265',
+        open: '38.54',
+        close: '38.00',
+        change: '-1.16',
+        changePercentage: '-2.96',
       },
       {
         id: 1,
@@ -25,6 +31,12 @@ class SearchPage extends React.Component {
         isFavourite: false,
         isBought: false,
         lastUpdate: '18.11.2021',
+        short: 'CDR',
+        volume: '147,386',
+        open: '177.23',
+        close: '178.54',
+        change: '-1.60',
+        changePercentage: '-0.89',
       },
     ],
     activeAction: '',
@@ -37,6 +49,12 @@ class SearchPage extends React.Component {
       isFavourite: '',
       isBought: '',
       lastUpdate: '',
+      short: '',
+      volume: '',
+      open: '',
+      close: '',
+      change: '',
+      changePercentage: '',
     },
   };
 
@@ -98,7 +116,7 @@ class SearchPage extends React.Component {
     document
       .querySelector('.search-page_search-wrapper')
       .classList.toggle('minimized');
-    document.querySelector('.search-page_info').classList.toggle('active');
+    document.querySelector('.search-page__info').classList.toggle('active');
   };
 
   takeActionDetails = (activeAction) => {
@@ -158,6 +176,7 @@ class SearchPage extends React.Component {
         <ActionInfo
           {...this.state.activeActionProps}
           toggleFavourite={this.toggleFavourite}
+          handleShowInfo={this.handleShowInfo}
         />
       </main>
     );
