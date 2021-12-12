@@ -7,6 +7,14 @@
   @extend %switch-button;
   @extend %button;
   @extend %inputField;
+  @extend %modal;
+  @extend %navlink;
+
+  p,
+  h1 {
+    cursor: default;
+    user-select: none;
+  }
 
   &__details {
     padding: 20px;

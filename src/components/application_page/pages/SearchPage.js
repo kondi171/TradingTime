@@ -45,7 +45,6 @@ class SearchPage extends React.Component {
     this.takeActionDetails(id);
 
     if (currentId === '') {
-      // console.log('warunek 1');
       this.handleShowInfo();
       this.setState({ activeAction: id });
     } else if (currentId === id) {

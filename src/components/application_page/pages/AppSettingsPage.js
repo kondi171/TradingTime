@@ -255,8 +255,8 @@ class AppSettingsPage extends React.Component {
 
   displayQuestionModal = () => (
     <QuestionModal
-      changePermission={this.handleChangeSimulationMode}
-      hideQuestionModal={this.hideQuestionModal}
+      acceptAction={this.handleChangeSimulationMode}
+      denyAction={this.hideQuestionModal}
       info='Czy na pewno chcesz przełączyć tryb pracy? Wiąże się to z utratą środków w obecnym portfelu. Zmian nie można cofnąć!'
     />
   );

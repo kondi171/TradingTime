@@ -4,10 +4,10 @@ const QuestionModal = (props) => {
       <div className='modal__wrapper'>
         <p className='modal__info'>{props.info}</p>
 
-        <button className='button' onClick={props.changePermission}>
+        <button className='button' onClick={props.acceptAction}>
           Tak
         </button>
-        <button className='button' onClick={props.hideQuestionModal}>
+        <button className='button' onClick={props.denyAction}>
           Nie
         </button>
       </div>

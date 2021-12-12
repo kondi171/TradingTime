@@ -3,7 +3,7 @@ function WithdrawMoneyModal(props) {
     <aside className='modal'>
       <div className='modal__wrapper'>
         <i
-          className='fa fa-times'
+          className='fa fa-times modal__exit-button'
           aria-hidden='true'
           onClick={props.handleModal}
         ></i>

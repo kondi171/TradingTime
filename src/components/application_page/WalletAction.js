@@ -8,7 +8,6 @@ function WalletAction({
   lastUpdate,
   numberOfActions,
   toggleFavourite,
-  passActionIdToReactRouter,
 }) {
   return (
     <div className='wallet-page__actions__action'>
@@ -34,11 +33,11 @@ function WalletAction({
           } wallet-page__actions__action--options--favouriteHeart`}
           onClick={toggleFavourite}
         ></i>
-        <NavLink to={`/app/marketplace/${actionId}`} className='nav-option'>
-          <i
-            className='fa fa-line-chart'
-            onClick={passActionIdToReactRouter}
-          ></i>
+        <NavLink
+          to={`/app/marketplace/${actionId}`}
+          className='navlink--casual'
+        >
+          <i className='fa fa-line-chart'></i>
         </NavLink>
 
         {/* {displayHeart()} */}

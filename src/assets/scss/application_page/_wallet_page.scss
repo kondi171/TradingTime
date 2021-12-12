@@ -4,6 +4,8 @@
   min-height: 93vh;
   flex-direction: column;
 
+  @extend %navlink;
+
   div.wallet-page__money {
     display: flex;
     flex-direction: column;

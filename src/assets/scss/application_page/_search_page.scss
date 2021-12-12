@@ -7,62 +7,6 @@
   flex-direction: column;
   flex-wrap: wrap;
 
-  .search-page_search-wrapper {
-    display: flex;
-
-    flex-direction: column;
-    width: 100%;
-    min-height: 93vh;
-    transition: 0.3s linear;
-    flex-grow: 1;
-
-    &.minimized {
-      width: 60%;
-    }
-    .search-page_searcher {
-      display: flex;
-      align-items: center;
-      background-color: #999;
-      // height: 100px;
-      // text-align: center;
-      // margin: 10px 0 10px 0;
-
-      input {
-        height: 75px;
-        width: 800px;
-        font-size: 20px;
-        padding-left: 20px;
-        margin: 13px 20px;
-      }
-    }
-
-    .search-page_results {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      background-color: #aaa;
-
-      .search-page_result {
-        margin: 20px;
-        width: 90%;
-        display: flex;
-        align-items: center;
-        justify-items: center;
-        background-color: white;
-        border-radius: 15px;
-        img {
-          width: 48px;
-          height: 48px;
-          margin: 20px;
-        }
-        h3 {
-          color: black;
-          font-size: 28px;
-        }
-      }
-    }
-  }
-
   .search-page_info {
     position: fixed;
     top: 7vh;
@@ -99,6 +43,62 @@
       li {
         color: whitesmoke;
       }
+    }
+  }
+}
+
+.search-page_results {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: #aaa;
+  // overflow: hidden;
+  overflow-y: scroll;
+  .search-page_result {
+    margin: 20px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    background-color: white;
+    border-radius: 15px;
+    img {
+      width: 48px;
+      height: 48px;
+      margin: 20px;
+    }
+    h3 {
+      color: black;
+      font-size: 28px;
+    }
+  }
+}
+.search-page_search-wrapper {
+  display: flex;
+
+  flex-direction: column;
+  width: 100%;
+  min-height: 93vh;
+  transition: 0.3s linear;
+  flex-grow: 1;
+
+  &.minimized {
+    width: 60%;
+  }
+  .search-page_searcher {
+    display: flex;
+    align-items: center;
+    background-color: #999;
+    // height: 100px;
+    // text-align: center;
+    // margin: 10px 0 10px 0;
+
+    input {
+      height: 75px;
+      width: 800px;
+      font-size: 20px;
+      padding-left: 20px;
+      margin: 13px 20px;
     }
   }
 }

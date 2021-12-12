@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import SwitchButton from '../elements/SwitchButton';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import ActionChart from '../ActionChart';
-
+import QuestionModal from '../QuestionModal';
 const actionDetails = {
   id: 0,
   actionName: 'Allegro',
@@ -114,13 +114,40 @@ const MarketplacePage = () => {
   const [inputActionsAmount, setInputActionsAmount] = useState(0);
   const [purchaseAction, setPurchaseAction] = useState(true);
   const [chartRange, setChartRange] = useState('today');
+  const [displayConfirmModal, setDisplayConfirmModal] = useState(false);
 
   const changeChartView = (range) => setChartRange(range);
 
+  //wysłanie info do bazy o dokonanej transakcji
+  const confirmTransaction = () => {
+    if (purchaseAction) {
+      userData.accountBalance -= actionDetails.price * inputActionsAmount;
+      actionDetails.numberOfActions += inputActionsAmount;
+    } else {
+      userData.accountBalance += actionDetails.price * inputActionsAmount;
+      actionDetails.numberOfActions -= inputActionsAmount;
+    }
+    setInputActionsAmount(0);
+    setDisplayConfirmModal(!displayConfirmModal);
+  };
+
   const handleChangePurchaseAction = () => setPurchaseAction(!purchaseAction);
 
-  const handleFinalizeTransaction = (e) => {
+  const handleConfirmTransaction = (e) => {
     e.preventDefault();
+    if (inputActionsAmount <= 0) alert('Określ liczbę akcji.');
+    else if (
+      inputActionsAmount * actionDetails.price > userData.accountBalance &&
+      purchaseAction &&
+      purchaseAction
+    )
+      alert('Nie masz wystarczających środków na koncie!');
+    else if (
+      inputActionsAmount > actionDetails.numberOfActions &&
+      !purchaseAction
+    )
+      alert('Nie posiadasz tylu akcji na sprzedaż!');
+    else setDisplayConfirmModal(!displayConfirmModal);
   };
 
   const handleInputActionsValueChange = (e, type, mouseEvent = 'click') => {
@@ -163,15 +190,38 @@ const MarketplacePage = () => {
     return null;
   };
 
+  const modalTextSetter = () => {
+    let inflection = 'akcji';
+    let transactionType = 'kupić';
+    let text = '';
+    if (inputActionsAmount > 1 && inputActionsAmount < 5) inflection = 'akcje';
+    else if (inputActionsAmount === 1) inflection = 'akcję';
+
+    if (!purchaseAction) transactionType = 'sprzedać';
+
+    text = `Czy na pewno chcesz ${transactionType} ${inputActionsAmount} ${inflection} ${actionDetails.actionName}?`;
+    return text;
+  };
+
   const { price, numberOfActions } = actionDetails;
 
   return (
     <main className='marketplace-page'>
+      {displayConfirmModal ? (
+        <QuestionModal
+          acceptAction={confirmTransaction}
+          denyAction={() => setDisplayConfirmModal(!displayConfirmModal)}
+          info={modalTextSetter()}
+        />
+      ) : null}
+
       <section className='marketplace-page__details'>
         <div className='marketplace-page__choosen-action'>
           <img src={allegro} alt='' />
           <h1>{actionDetails.actionName}</h1>
-          <i className='fa fa-search' aria-hidden='true'></i>
+          <NavLink to={`/app/search`} className='navlink--casual'>
+            <i className='fa fa-search' aria-hidden='true'></i>
+          </NavLink>
         </div>
         <section className='marketplace-page__info'>
           <p className='marketplace-page__account-balance'>
@@ -189,7 +239,7 @@ const MarketplacePage = () => {
         </section>
 
         <section className='marketplace-page__trade'>
-          <form onSubmit={handleFinalizeTransaction}>
+          <form onSubmit={handleConfirmTransaction}>
             <input
               className='marketplace-page__input input'
               type='text'
@@ -239,7 +289,9 @@ const MarketplacePage = () => {
               />
             </div>
 
-            <button className='button'>Finalizuj</button>
+            <button className='button' type='submit'>
+              Finalizuj
+            </button>
           </form>
         </section>
       </section>

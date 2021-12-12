@@ -34,6 +34,11 @@ class TradingTime extends React.Component {
                 element={<MarketplacePage />}
                 component={<MarketplacePage />}
               />
+              <Route
+                path='/app/marketplace'
+                element={<MarketplacePage />}
+                component={<MarketplacePage />}
+              />
               <Route path='/app/options' element={<SettingsPage />}>
                 <Route
                   path='/app/options/userpreferences'
