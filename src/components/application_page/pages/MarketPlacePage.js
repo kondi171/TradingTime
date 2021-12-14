@@ -4,6 +4,9 @@ import SwitchButton from '../elements/SwitchButton';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import ActionChart from '../ActionChart';
 import QuestionModal from '../QuestionModal';
+import EMA from '../forecasting scripts/EMA';
+import BB from '../forecasting scripts/BB';
+
 const actionDetails = {
   id: 0,
   actionName: 'Allegro',
@@ -99,7 +102,62 @@ const actionValues = {
     },
   ],
 
-  month: [],
+  month: [
+    { value: '49.295' },
+    { value: '49.3' },
+    { value: '49.48' },
+    { value: '50.35' },
+    { value: '48.67' },
+    { value: '46.87' },
+    { value: '47.36' },
+    { value: '45.95' },
+    { value: '45.12' },
+    { value: '44.16' },
+    { value: '43.5' },
+    { value: '44.5' },
+    { value: '49.25' },
+    { value: '47.695' },
+    { value: '42.34' },
+    { value: '42.3' },
+    { value: '40.8' },
+    { value: '41.7' },
+    { value: '44.03' },
+    { value: '42.71' },
+    { value: '44.965' },
+    { value: '45.4' },
+    { value: '43.085' },
+    { value: '43.25' },
+    { value: '40.37' },
+    { value: '40.35' },
+    { value: '42' },
+    { value: '40.94' },
+    { value: '39.995' },
+    { value: '38.48' },
+    {
+      value: '36.38',
+    },
+    {
+      value: '36.54',
+    },
+    {
+      value: '34.72',
+    },
+    {
+      value: '37.26',
+    },
+    {
+      value: '37.97',
+    },
+    {
+      value: '39.16',
+    },
+    {
+      value: '38.00',
+    },
+    {
+      value: '38.20',
+    },
+  ],
 
   quarter: [],
 };
@@ -117,6 +175,20 @@ const MarketplacePage = () => {
   const [displayConfirmModal, setDisplayConfirmModal] = useState(false);
 
   const changeChartView = (range) => setChartRange(range);
+
+  const countEMAInMP = () => {
+    const actionCloseValues = actionValues.month.map((action) =>
+      parseFloat(action.value)
+    );
+
+    let emaVal = EMA(10, actionCloseValues);
+
+    console.log(emaVal);
+
+    let bbnds = BB(2, 10, actionCloseValues, EMA(10, actionCloseValues));
+
+    console.log(bbnds);
+  };
 
   //wysłanie info do bazy o dokonanej transakcji
   const confirmTransaction = () => {
@@ -207,6 +279,7 @@ const MarketplacePage = () => {
 
   return (
     <main className='marketplace-page'>
+      {countEMAInMP()}
       {displayConfirmModal ? (
         <QuestionModal
           acceptAction={confirmTransaction}
@@ -214,7 +287,6 @@ const MarketplacePage = () => {
           info={modalTextSetter()}
         />
       ) : null}
-
       <section className='marketplace-page__details'>
         <div className='marketplace-page__choosen-action'>
           <img src={allegro} alt='' />
@@ -295,7 +367,6 @@ const MarketplacePage = () => {
           </form>
         </section>
       </section>
-
       <section className='marketplace-page__action-chart'>
         <ActionChart
           actionName={actionDetails.actionName}
