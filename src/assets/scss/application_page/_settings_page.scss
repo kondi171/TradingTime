@@ -5,6 +5,8 @@
   background-color: #aaa;
 
   @extend %modal;
+  @extend %switch-button;
+  @extend %button;
 
   &__categories {
     position: fixed;
@@ -192,94 +194,6 @@
             color: white;
           }
         }
-
-        .settings-page__preferences__list--switch-button {
-          background-color: rgba(255, 255, 255, 0.56);
-          border-radius: 30px;
-          overflow: hidden;
-          width: 240px;
-          text-align: center;
-          font-size: 18px;
-          letter-spacing: 1px;
-          color: black;
-          position: relative;
-          z-index: 0;
-          padding-right: 120px;
-          // position: relative;
-
-          & span {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            width: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-            pointer-events: none;
-          }
-
-          &--checkbox {
-            cursor: pointer;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            z-index: 2;
-
-            &:checked
-              + .settings-page__preferences__list--switch-button--label::before {
-              transform: translateX(120px);
-              transition: 0.2s linear;
-            }
-
-            & + .settings-page__preferences__list--switch-button--label {
-              position: relative;
-              padding: 10px 0;
-              display: block;
-              user-select: none;
-              pointer-events: none;
-
-              &::before {
-                content: '';
-                background: #fff;
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                left: 0;
-                top: 0;
-                border-radius: 30px;
-                transform: translateX(0);
-                transition: 0.2s linear;
-              }
-
-              .settings-page__preferences__list--switch-button--label--span {
-                position: relative;
-              }
-            }
-          }
-        }
-
-        button {
-          height: 50px;
-          width: 350px;
-          margin: 20px 50px 0 0;
-          border: 1px solid black;
-          border-radius: 20px;
-          font-size: 18px;
-          text-transform: uppercase;
-          cursor: pointer;
-          transition: linear 0.2s;
-
-          &:hover {
-            background-color: #333;
-            color: whitesmoke;
-          }
-        }
       }
     }
 
@@ -288,37 +202,11 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      // background-color: red;
       width: 100%;
-
-      &--save-button,
-      &--cancel-button {
-        cursor: pointer;
-        border-radius: 30px;
-        border: 2px solid gray;
-        background-color: #333;
-        // text-transform: uppercase;
-        font-size: 20px;
-        height: 50px;
-        width: 120px;
-        margin: 0 10px 0 10px;
-        color: whitesmoke;
-        transition: 0.15s ease;
-
-        &:hover {
-          color: black;
-          background-color: whitesmoke;
-        }
-
-        &.hidden {
-          display: none;
-        }
-      }
     }
 
     &__modal {
       position: fixed;
-      // display: block;
       top: 0;
       left: 0;
       background-color: rgba($color: #000000, $alpha: 0.5);
@@ -347,7 +235,6 @@
           display: flex;
           width: 100%;
           height: 100%;
-          // flex-direction: column;
           flex-wrap: wrap;
           align-items: center;
           justify-content: center;
@@ -366,19 +253,6 @@
             margin: 0 20%;
             position: relative;
             display: inline-block;
-          }
-
-          button {
-            display: block;
-            font-size: 24px;
-            width: 120px;
-            height: 50px;
-            color: white;
-            background-color: black;
-            border: 2px solid black;
-            align-self: flex-end;
-            margin-bottom: 5%;
-            cursor: pointer;
           }
         }
       }

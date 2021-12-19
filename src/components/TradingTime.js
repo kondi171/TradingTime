@@ -15,7 +15,7 @@ import SettingsPage from './application_page/pages/SettingsPage';
 import UserSettingsPage from './application_page/pages/UserSettingsPage';
 import AppSettingsPage from './application_page/pages/AppSettingsPage';
 import WalletSettingsPage from './application_page/pages/WalletSettingsPage';
-// import WithdrawMoneyModal from './application_page/WithdrawMoneyModal';
+import MarketplacePage from './application_page/pages/MarketPlacePage';
 
 class TradingTime extends React.Component {
   isLogged = true;
@@ -29,6 +29,16 @@ class TradingTime extends React.Component {
               <Route path='home' element={<HomePage />} />
               <Route path='/app/search' element={<SearchPage />} />
               <Route path='/app/wallet' element={<WalletPage />} />
+              <Route
+                path='/app/marketplace/:actionId'
+                element={<MarketplacePage />}
+                component={<MarketplacePage />}
+              />
+              <Route
+                path='/app/marketplace'
+                element={<MarketplacePage />}
+                component={<MarketplacePage />}
+              />
               <Route path='/app/options' element={<SettingsPage />}>
                 <Route
                   path='/app/options/userpreferences'

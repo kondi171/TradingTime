@@ -3,6 +3,7 @@ import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
 
 import WalletAction from '../WalletAction';
+
 class WalletPage extends React.Component {
   // State zawiera elementy wyciągniete z tabeli o akcjach posiadanych przez uzytkownika oraz stanie konta
 
@@ -35,10 +36,18 @@ class WalletPage extends React.Component {
 
   WalletActionArray = null;
 
+  // tradingTime = new TradingTime();
+
+  // passActionIdToReactRouter = (id) => {
+  //   console.log(id);
+  //   this.tradingTime.takeActionIdForMarketPlace(id);
+  // };
+
   displayUserActions = () =>
     (this.WalletActionArray = [...this.state.userActions].map((userAction) => (
       <WalletAction
         key={userAction.id}
+        actionId={userAction.id}
         name={userAction.actionName}
         price={userAction.price}
         image={userAction.image}
@@ -46,6 +55,9 @@ class WalletPage extends React.Component {
         lastUpdate={userAction.lastUpdate}
         numberOfActions={userAction.numberOfActions}
         toggleFavourite={() => this.toggleFavourite(userAction.id)}
+        // passActionIdToReactRouter={() =>
+        //   this.passActionIdToReactRouter(userAction.id)
+        // }
       />
     )));
 

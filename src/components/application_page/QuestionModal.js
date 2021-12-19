@@ -1,24 +1,18 @@
-function QuestionModal(props) {
+const QuestionModal = (props) => {
   return (
-    <aside className='question-modal'>
-      <div className='question-modal__wrapper'>
-        <p>Czy na pewno...</p>
+    <aside className='modal'>
+      <div className='modal__wrapper'>
+        <p className='modal__info'>{props.info}</p>
 
-        <button
-          className='question-modal__wrapper--button'
-          onClick={props.changePermission}
-        >
+        <button className='button' onClick={props.acceptAction}>
           Tak
         </button>
-        <button
-          className='question-modal__wrapper--button'
-          onClick={props.hideQuestionModal}
-        >
+        <button className='button' onClick={props.denyAction}>
           Nie
         </button>
       </div>
     </aside>
   );
-}
+};
 
 export default QuestionModal;
