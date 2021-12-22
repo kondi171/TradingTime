@@ -4,8 +4,6 @@ import SwitchButton from '../elements/SwitchButton';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import ActionChart from '../ActionChart';
 import QuestionModal from '../QuestionModal';
-import EMA from '../forecasting scripts/EMA';
-import BB from '../forecasting scripts/BB';
 
 const actionDetails = {
   id: 0,
@@ -67,29 +65,99 @@ const actionValues = {
     },
   ],
 
-  week: [
+  // week: [
+  //   {
+  //     day: '02.12.2021',
+  //     value: '36.38',
+  //   },
+  //   {
+  //     day: '03.12.2021',
+  //     value: '36.54',
+  //   },
+  //   {
+  //     day: '06.12.2021',
+  //     value: '34.72',
+  //   },
+  //   {
+  //     day: '07.12.2021',
+  //     value: '37.26',
+  //   },
+  //   {
+  //     day: '08.12.2021',
+  //     value: '37.97',
+  //   },
+  //   {
+  //     day: '09.12.2021',
+  //     value: '39.16',
+  //   },
+  //   {
+  //     day: '10.12.2021',
+  //     value: '38.00',
+  //   },
+  //   {
+  //     day: '11.12.2021',
+  //     value: '38.20',
+  //   },
+  // ],
+
+  pastValues: [
+    { day: '15.10.2021', value: '50.69' },
+    { day: '18.10.2021', value: '50.8' },
+    { day: '19.10.2021', value: '49.295' },
+    { day: '20.10.2021', value: '49.3' },
+    { day: '21.10.2021', value: '49.48' },
+    { day: '22.10.2021', value: '50.35' },
+    { day: '25.10.2021', value: '48.67' },
+    { day: '26.10.2021', value: '46.87' },
+    { day: '27.10.2021', value: '47.36' },
+    { day: '28.10.2021', value: '45.95' },
+    { day: '29.10.2021', value: '45.12' },
+    { day: '2.11.2021', value: '44.16' },
+    { day: '3.11.2021', value: '43.5' },
+    { day: '4.11.2021', value: '44.5' },
+    { day: '5.11.2021', value: '49.25' },
+    { day: '8.11.2021', value: '47.695' },
+    { day: '9.11.2021', value: '42.34' },
+    { day: '10.11.2021', value: '42.3' },
+    { day: '12.11.2021', value: '40.8' },
+    { day: '15.11.2021', value: '41.7' },
+    { day: '16.11.2021', value: '44.03' },
+    { day: '17.11.2021', value: '42.71' },
+    { day: '18.11.2021', value: '44.965' },
+    { day: '19.11.2021', value: '45.4' },
+    { day: '22.11.2021', value: '43.085' },
+    { day: '23.11.2021', value: '43.25' },
+    { day: '24.11.2021', value: '40.37' },
+    { day: '25.11.2021', value: '40.35' },
+    { day: '26.11.2021', value: '42' },
+    { day: '29.11.2021', value: '40.94' },
+    { day: '30.11.2021', value: '39.995' },
     {
-      day: '02.12.2021',
+      day: '1.12.2021',
+      value: '38.48',
+    },
+    {
+      day: '2.12.2021',
       value: '36.38',
     },
     {
-      day: '03.12.2021',
+      day: '3.12.2021',
       value: '36.54',
     },
     {
-      day: '06.12.2021',
+      day: '6.12.2021',
       value: '34.72',
     },
     {
-      day: '07.12.2021',
+      day: '7.12.2021',
       value: '37.26',
     },
     {
-      day: '08.12.2021',
+      day: '8.12.2021',
       value: '37.97',
     },
     {
-      day: '09.12.2021',
+      day: '9.12.2021',
       value: '39.16',
     },
     {
@@ -97,73 +165,15 @@ const actionValues = {
       value: '38.00',
     },
     {
-      day: '11.12.2021',
+      day: '13.12.2021',
       value: '38.20',
     },
   ],
-
-  month: [
-    { value: '49.295' },
-    { value: '49.3' },
-    { value: '49.48' },
-    { value: '50.35' },
-    { value: '48.67' },
-    { value: '46.87' },
-    { value: '47.36' },
-    { value: '45.95' },
-    { value: '45.12' },
-    { value: '44.16' },
-    { value: '43.5' },
-    { value: '44.5' },
-    { value: '49.25' },
-    { value: '47.695' },
-    { value: '42.34' },
-    { value: '42.3' },
-    { value: '40.8' },
-    { value: '41.7' },
-    { value: '44.03' },
-    { value: '42.71' },
-    { value: '44.965' },
-    { value: '45.4' },
-    { value: '43.085' },
-    { value: '43.25' },
-    { value: '40.37' },
-    { value: '40.35' },
-    { value: '42' },
-    { value: '40.94' },
-    { value: '39.995' },
-    { value: '38.48' },
-    {
-      value: '36.38',
-    },
-    {
-      value: '36.54',
-    },
-    {
-      value: '34.72',
-    },
-    {
-      value: '37.26',
-    },
-    {
-      value: '37.97',
-    },
-    {
-      value: '39.16',
-    },
-    {
-      value: '38.00',
-    },
-    {
-      value: '38.20',
-    },
-  ],
-
-  quarter: [],
 };
 
 const userData = {
   accountBalance: 200,
+  smartAssistant: true,
 };
 
 let interval = 0;
@@ -175,20 +185,6 @@ const MarketplacePage = () => {
   const [displayConfirmModal, setDisplayConfirmModal] = useState(false);
 
   const changeChartView = (range) => setChartRange(range);
-
-  const countEMAInMP = () => {
-    const actionCloseValues = actionValues.month.map((action) =>
-      parseFloat(action.value)
-    );
-
-    let emaVal = EMA(10, actionCloseValues);
-
-    console.log(emaVal);
-
-    let bbnds = BB(2, 10, actionCloseValues, EMA(10, actionCloseValues));
-
-    console.log(bbnds);
-  };
 
   //wysłanie info do bazy o dokonanej transakcji
   const confirmTransaction = () => {
@@ -279,7 +275,8 @@ const MarketplacePage = () => {
 
   return (
     <main className='marketplace-page'>
-      {countEMAInMP()}
+      {/* {getBollingerBands()} */}
+      {/* {fillDataArrays()} */}
       {displayConfirmModal ? (
         <QuestionModal
           acceptAction={confirmTransaction}
