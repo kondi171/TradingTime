@@ -5,15 +5,21 @@ const BB = (standard, observationDays, actionCloseValues, arrayEMA) => {
     let component = [];
     let standardDevArray = [];
 
-    for (let i = 0; i < actionCloseValues.length - observationDays; i++) {
+    for (let i = 0; i < actionCloseValues.length - observationDays + 1; i++) {
       for (let j = 0; j < observationDays; j++) {
         component[j] = actionCloseValues[i + j];
         sum += actionCloseValues[i + j];
+        // console.log(component[j]);
       }
+
+      // console.log(sum);
+      // console.log('----------------------------------');
 
       mean[i] = sum / observationDays;
       sum = 0;
 
+      // console.log(mean[i]);
+      // console.log('=========================');
       standardDevArray[i] = Math.sqrt(
         component
           .map((element) => {
@@ -22,6 +28,8 @@ const BB = (standard, observationDays, actionCloseValues, arrayEMA) => {
           .reduce((a, b) => a + b) / observationDays
       );
     }
+
+    // console.log(standardDevArray);
     return standardDevArray;
   };
 
@@ -31,7 +39,9 @@ const BB = (standard, observationDays, actionCloseValues, arrayEMA) => {
     let standardDeviationArray = getStandardDeviation();
     let bollingerBandsArray = [];
 
-    for (let i = 0; i < actionCloseValues.length - observationDays; i++) {
+    // console.log()
+
+    for (let i = 0; i < actionCloseValues.length - observationDays + 1; i++) {
       upperBollingerBand[i] =
         arrayEMA[i] + standardDeviationArray[i] * standard;
       lowerBollingerBand[i] =
