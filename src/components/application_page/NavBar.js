@@ -23,7 +23,8 @@ function NavBar() {
           <ul>
             <li>
               <div className='app__user-panel--username'>
-                <i className='fa fa-user'></i>Bogdan Ryjec
+                <i className='fa fa-user'></i><span>Bogdan Ryjec</span>
+                <hr />
               </div>
             </li>
 

@@ -1,0 +1,116 @@
+.help-page {
+  width: 90%;
+  margin: 0 auto;
+  .help-page__header {
+    padding: 24px;
+    font-size: 44px;
+    text-align: center;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 10px 10px 8px darken($light,40%);
+  }
+  .flex-container {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .help-page__aside {
+    flex-basis: 20%;
+    background-color: darken($light,30%);
+    border-radius: 4px;
+    padding: 24px;
+    box-shadow: 2px 2px 10px 1px rgba(66, 68, 90, 1);
+    h2.help-page__aside--header {
+      text-align: center;
+      color: $light;
+      text-shadow: 2px 2px 2px black;
+      font-size: 32px;
+    }
+    ul.help-page__aside--list {
+      list-style: none;
+      li {
+        margin: 10px 0;
+      }
+      span {
+        display: block;
+        text-align: center;
+        padding: 10px;
+      }
+      a {
+        display: block;
+        text-decoration: none;
+        color: darken($activeColor,30%);
+        text-align: center;
+        transition-duration: .4s;
+        &:hover {
+          color: darken($activeColor,10%);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .help-page__main {
+    display: flex;
+    justify-content: center;
+    // background-color: red;
+    flex-wrap: wrap;
+    flex-basis: 80%;
+    .help-page__main--tile {
+      width: 30%;
+      padding: 20px;
+      height: 30vh;
+      margin: 10px;
+      background-color: $light;
+      border-radius: 4px;
+      box-shadow: 2px 2px 15px 1px rgba(66, 68, 90, 1);
+      h3 {
+        text-align: center;
+        margin-bottom: 5px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid black;
+      }
+      p {
+        text-align: justify;
+        text-align-last: center;
+        margin-top: 10px;
+      }
+    }
+  }
+  .help-page__contact {
+    font-size: 34px;
+    margin-top: 40px;
+    text-align: center;
+    span {
+      color: $activeColor;
+    }
+  }
+  .help-page__main--tile:nth-child(1) {
+    background-color: rgba(73, 133, 16, 0.6);
+    animation: changeColor 2s infinite;
+  }
+  .help-page__main--tile:nth-child(2) {
+    background-color: rgba(224, 212, 38, 0.6);
+  }
+  .help-page__main--tile:nth-child(3) {
+    background-color: rgba(16, 129, 133, 0.6);
+  }
+  .help-page__main--tile:nth-child(4) {
+    background-color: rgba(156, 12, 120, 0.6);
+  }
+  .help-page__main--tile:nth-child(5) {
+    background-color: rgba(95, 0, 0, 0.6);
+  }
+  .help-page__main--tile:nth-child(6) {
+    background-color: rgba(255, 166, 0, 0.6);
+  }
+  @keyframes changeColor {
+    0% {
+      background-color: rgba(73, 133, 16, 0.6);
+    }
+    50% {
+      background-color: lighten(rgba(73, 133, 16, 0.6),10%);
+    }
+    100% {
+      background-color: rgba(73, 133, 16, 0.6);
+    }
+  }
+}

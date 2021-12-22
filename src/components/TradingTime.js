@@ -26,7 +26,8 @@ class TradingTime extends React.Component {
           <Route path='/' element={<LandingPage />} />
           {this.isLogged ? (
             <Route path='app' element={<MainLayout />}>
-              <Route path='home' element={<HomePage />} />
+              <Route path='/app' exact element={<HomePage />} />
+              <Route path='/app/home' element={<HomePage />} />
               <Route path='/app/search' element={<SearchPage />} />
               <Route path='/app/wallet' element={<WalletPage />} />
               <Route

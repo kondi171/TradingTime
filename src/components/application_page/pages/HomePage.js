@@ -7,6 +7,7 @@ import HomePageDate from '../HomePageDate';
 class HomePage extends React.Component {
   state = {
     time: 0,
+    wallpaper: 1,
     actions: [
       {
         actionId: 0,
@@ -47,9 +48,15 @@ class HomePage extends React.Component {
     ],
   };
 
+  // componentDidMount() {
+  //   const homePage = document.getElementById('home');
+  //   console.log(this.props.wallpaper);
+  //   homePage.style.backgroundImage = 'none';
+  // }
+
   render() {
     return (
-      <main className='home-page'>
+      <main id="home" className='home-page'>
         <HomePageFavourites actions={this.state.actions} />
         <HomePageDate />
         <HomePageBought actions={this.state.actions} />

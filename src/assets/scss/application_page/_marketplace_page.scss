@@ -4,7 +4,7 @@
   height: 93vh;
   position: relative;
   // padding: 20px;
-  @extend %switch-button;
+  @extend %switchButton;
   @extend %button;
   @extend %inputField;
   @extend %modal;

@@ -1,8 +1,8 @@
 import React from 'react';
 import QuestionModal from '../QuestionModal';
-import earth from '../../../assets/img/earth.jpg';
-import synth from '../../../assets/img/synth.jpg';
-import lake from '../../../assets/img/lake.jpg';
+import earth from '../../../assets/img/wallpapers/earth.jpg';
+import synth from '../../../assets/img/wallpapers/synth.jpg';
+import lake from '../../../assets/img/wallpapers/lake.jpg';
 import male1 from '../../../assets/img/avatars/avatar_male_blonde_red_glasses.png';
 import male2 from '../../../assets/img/avatars/avatar_male_dark_blue_sunglasses.png';
 import female1 from '../../../assets/img/avatars/avatar_female_auburn_blue_glasses.png';
@@ -11,6 +11,7 @@ import avatarDefault from '../../../assets/img/avatars/default_blank.png';
 import theme1 from '../../../assets/img/themes/theme1.png';
 import theme2 from '../../../assets/img/themes/theme2.png';
 import theme3 from '../../../assets/img/themes/theme3.png';
+import LoadingBar from '../../features/LoadingBar';
 
 class AppSettingsPage extends React.Component {
   state = {
@@ -27,7 +28,8 @@ class AppSettingsPage extends React.Component {
     wallpaperChange: false,
     avatarChange: false,
     themeChange: false,
-
+    loading: false,
+    undisplayTime: 1500,
     showModal: false,
   };
 
@@ -262,8 +264,13 @@ class AppSettingsPage extends React.Component {
   );
 
   saveOptions = () => {
-    alert('zapisuje dane');
-    this.setState({ showSaveButtons: false });
+    this.setState({
+      showSaveButtons: false,
+      loading: true,
+    });
+    setTimeout(() => {
+      this.setState({ loading: !this.state.loading });
+    }, this.state.undisplayTime);
   }; //wysłanie danych do bazy
 
   cancelOptions = () => {
@@ -284,7 +291,6 @@ class AppSettingsPage extends React.Component {
 
     this.toggleImageSelector();
   }
-
   render() {
     const { simulationMode, smartAssistant, twoFactorAuthentication } =
       this.state.appPreferences;
@@ -407,6 +413,7 @@ class AppSettingsPage extends React.Component {
               Anuluj
             </button>
           </footer>
+          {this.state.loading && <LoadingBar loading={this.state.loading} time={this.state.undisplayTime} />}
         </section>
       </>
     );

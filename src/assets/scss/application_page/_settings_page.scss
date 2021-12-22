@@ -5,9 +5,9 @@
   background-color: #aaa;
 
   @extend %modal;
-  @extend %switch-button;
+  @extend %switchButton;
   @extend %button;
-
+  @extend %loadingModal;
   &__categories {
     position: fixed;
     top: 7vh;
@@ -258,6 +258,15 @@
       }
     }
   }
+  .info-modal {
+    @extend %infoModal;
+    background-color: #666;
+    opacity: 0.9;
+  }
+  .active-modal {
+    display: flex;
+  }
+  
 }
 
 // 20:16

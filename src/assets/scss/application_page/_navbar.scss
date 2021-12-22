@@ -19,7 +19,6 @@ nav.app__nav {
     justify-content: center;
     align-items: center;
     padding: 5px 20px;
-
     border-radius: 10px;
     position: relative;
     &:hover {
@@ -30,7 +29,8 @@ nav.app__nav {
       width: 3vw;
       height: 3vw;
       border-radius: 50%;
-      border: 2px solid $activeColor;
+      border: 2px solid $light;
+      box-shadow: 0px 0px 2px 5px rgba(66, 68, 90, 1);
     }
     span {
       padding-right: 2vw;
@@ -45,14 +45,25 @@ nav.app__nav {
       display: none;
       border-radius: 5px;
       // width: 300px;
-
       li {
         display: block;
         width: 250px;
-        height: 5vh;
+        &:first-of-type > div{
+          padding: 10px;
+          color: $light;
+          margin-bottom: 10px;
+          & > i{
+            margin: 10px;
+            // width: 100%;
+            padding-left: 20px;
+          }
+          hr {
+            display: block;
+            margin-top: 10px;
+          }
+        }
         .app__user-panel--link {
           display: block;
-          width: 100%;
           &:hover {
             color: $activeColor;
             background-color: lighten(#000, 40%);
@@ -66,12 +77,12 @@ nav.app__nav {
     }
     &:hover ul {
       position: absolute;
-      top: 7vh;
+      top: calc(5vw - 30px);
       right: 0;
       display: block;
       text-align: center;
       width: 250px;
-      height: 22vh;
+      height: 280px;
     }
   }
 }

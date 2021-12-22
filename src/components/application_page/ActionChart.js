@@ -2,7 +2,7 @@ import React from 'react';
 import { Line, defaults } from 'react-chartjs-2';
 
 const ActionChart = ({ actionName, actionValues, chartRange }) => {
-  //Settings for chart tooltip title
+  // Settings for chart tooltip title
   defaults.plugins.tooltip.callbacks.title = function () {
     let prefix;
     if (chartRange === 'today') prefix = 'Godzina: ';
@@ -11,7 +11,7 @@ const ActionChart = ({ actionName, actionValues, chartRange }) => {
     return prefix + this.dataPoints[0].label;
   };
 
-  //Settings for chart tooltip label
+  // Settings for chart tooltip label
   defaults.plugins.tooltip.callbacks.label = function (context) {
     let label = context.dataset.label || '';
     if (label) {

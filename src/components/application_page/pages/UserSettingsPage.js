@@ -1,6 +1,6 @@
 import React from 'react';
 import Validation from '../Validation';
-
+import InfoModal from '../../features/InfoModal';
 class UserSettingsPage extends React.Component {
   state = {
     userData: {
@@ -21,7 +21,7 @@ class UserSettingsPage extends React.Component {
     passwordChange: false,
     emailChange: false,
     telephoneChange: false,
-
+    infoVisble: false,
     newEmail: '',
     newTelephone: '',
   };
@@ -79,8 +79,8 @@ class UserSettingsPage extends React.Component {
           passwordField[1].value
         ) === 'DifferentValues'
       )
-        alert('Hasła się nie zgadzają!');
-      else alert('Hasło nie spełnia minimalnych wymogów bezpieczeństwa!');
+        this.displayInfoModal('Hasła się nie zgadzają!');
+      else this.displayInfoModal('Hasło nie spełnia minimalnych wymogów bezpieczeństwa!');
     } //później bezpośrednie wywołanie skryptu php do bazy
 
     if (className === 'email') {
@@ -88,7 +88,7 @@ class UserSettingsPage extends React.Component {
         userData.email = this.state.newEmail;
         this.setState({ userData });
         this.handleChangeOption(className);
-      } else alert('Format nowego adresu e-mail jest niepoprawny!');
+      } else this.displayInfoModal('Format nowego adresu e-mail jest niepoprawny!');
     }
 
     if (className === 'telephone') {
@@ -96,7 +96,7 @@ class UserSettingsPage extends React.Component {
         userData.telephone = this.state.newTelephone;
         this.setState({ userData });
         this.handleChangeOption(className);
-      } else alert('Format nowego numeru telefonu jest niepoprawny!');
+      } else this.displayInfoModal('Format nowego numeru telefonu jest niepoprawny!');
     }
   };
 
@@ -108,7 +108,7 @@ class UserSettingsPage extends React.Component {
             <div className='new-password changing'>
               <p>Nowe hasło: </p>
               <span>
-                <input type='text' class='password-field' id='password' />
+                <input type='text' className='password-field' id='password' />
               </span>
             </div>
             <div className='confirm-password changing'>
@@ -116,7 +116,7 @@ class UserSettingsPage extends React.Component {
               <span>
                 <input
                   type='password'
-                  class='password-field'
+                  className='password-field'
                   id='confirm-password'
                 />
               </span>
@@ -167,6 +167,13 @@ class UserSettingsPage extends React.Component {
       }
     } else return null;
   };
+  displayInfoModal = message => {
+    this.setState({ infoVisble: true });
+    this.infoMessage = message;
+    setTimeout(() => {
+      this.setState({ infoVisble: false });
+    }, 3000);
+  }
 
   render() {
     const {
@@ -269,6 +276,7 @@ class UserSettingsPage extends React.Component {
             <span>{personalId}</span>
           </div>
         </div>
+        <InfoModal message={this.infoMessage} visible={this.state.infoVisble} position="right" />
       </section>
     );
   }

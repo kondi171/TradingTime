@@ -3,8 +3,8 @@ function Validation(type, value, confirmValue) {
   let isCorrect;
 
   if (type === 'password') {
-    console.log(value);
-    console.log(confirmValue);
+    // console.log(value);
+    // console.log(confirmValue);
     const regex = /(?=.*\w)(?=.*\W)(?=.*[A-Z]).{8,}/;
     if (value === confirmValue) isCorrect = new RegExp(regex).test(value);
     else isCorrect = 'DifferentValues';
@@ -21,7 +21,7 @@ function Validation(type, value, confirmValue) {
     isCorrect = new RegExp(regex).test(value);
   }
 
-  console.log(isCorrect);
+  // console.log(isCorrect);
   return isCorrect;
 }
 
