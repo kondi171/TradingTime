@@ -258,6 +258,86 @@
       }
     }
   }
+
+  .users-info-list {
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s linear;
+    height: 100%;
+    width: 90%;
+    // background-color: gray;
+    &.minimized {
+      width: 35%;
+    }
+  }
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80px;
+    background-color: white;
+    border: 1px solid gray;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    padding-left: 20px;
+
+    .personal-data {
+      font-size: 24px;
+    }
+  }
+
+  .user-info-details {
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 7vh;
+    right: -40%;
+    color: whitesmoke;
+    height: 100vh;
+    width: 40%;
+    background-color: #222;
+    transition: 0.3s linear;
+    &.active {
+      right: 0;
+    }
+    // .search-page__options {
+    //   display: flex;
+    //   flex-direction: column;
+    //   align-items: center;
+    //   justify-content: space-evenly;
+    //   position: absolute;
+    //   top: 0;
+    //   right: 0;
+    //   width: 100px;
+    //   height: 300px;
+    //   font-size: 16px;
+    //   // background-color: red;
+
+    //   i {
+    //     color: #ddd;
+    //     font-size: 40px;
+    //     padding-bottom: 10px;
+    //     cursor: pointer;
+    //   }
+    //   .fa-times {
+    //     font-size: 55px;
+    //   }
+  }
+
+  .searcher-wrapper {
+    height: 100px;
+    width: 35%;
+    input {
+      height: 50px;
+      width: 100%;
+      font-size: 24px;
+      padding: 10px;
+      border-radius: 15px;
+    }
+  }
+
   .info-modal {
     @extend %infoModal;
     background-color: #666;
@@ -266,7 +346,6 @@
   .active-modal {
     display: flex;
   }
-  
 }
 
 // 20:16
