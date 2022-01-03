@@ -14,6 +14,7 @@ import MainLayout from './application_page/MainLayout';
 import SettingsPage from './application_page/pages/SettingsPage';
 import UserSettingsPage from './application_page/pages/UserSettingsPage';
 import AppSettingsPage from './application_page/pages/AppSettingsPage';
+import AdminOptionsPage from './application_page/pages/AdminOptionsPage';
 import WalletSettingsPage from './application_page/pages/WalletSettingsPage';
 import MarketplacePage from './application_page/pages/MarketPlacePage';
 
@@ -52,6 +53,10 @@ class TradingTime extends React.Component {
                 <Route
                   path='/app/options/walletpreferences'
                   element={<WalletSettingsPage />}
+                />
+                <Route
+                  path='/app/options/adminoptions'
+                  element={<AdminOptionsPage />}
                 />
               </Route>
               <Route path='/app/preferences/help' element={<HelpPage />} />

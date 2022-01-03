@@ -1,6 +1,7 @@
 import { Outlet, NavLink } from 'react-router-dom';
 
-function SettingsPage() {
+const SettingsPage = () => {
+  const isAdmin = true;
   return (
     <>
       <main className='settings-page'>
@@ -34,6 +35,18 @@ function SettingsPage() {
                 Ustawienia portfela
               </NavLink>
             </li>
+
+            {isAdmin ? (
+              <li>
+                <NavLink
+                  className='settings-page__categories--navigation'
+                  to='adminoptions'
+                >
+                  <i className='fa fa-cog' aria-hidden='true'></i>
+                  Ustawienia administracyjne
+                </NavLink>
+              </li>
+            ) : null}
           </ul>
         </aside>
 
@@ -41,6 +54,6 @@ function SettingsPage() {
       </main>
     </>
   );
-}
+};
 
 export default SettingsPage;
