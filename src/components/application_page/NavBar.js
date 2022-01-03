@@ -30,7 +30,7 @@ function NavBar() {
 
             <li>
               <NavLink
-                className='app__user-panel--link'
+                className='app__user-panel--link border-none'
                 to='/app/options/userpreferences'
               >
                 <i className='fa fa-cogs'></i> Konto
@@ -38,7 +38,7 @@ function NavBar() {
             </li>
             <li>
               <NavLink
-                className='app__user-panel--link'
+                className='app__user-panel--link border-none'
                 to='/app/preferences/help'
               >
                 <i className='fa fa-question-circle'></i> Pomoc
@@ -46,7 +46,7 @@ function NavBar() {
             </li>
             <li>
               <NavLink
-                className='app__user-panel--link'
+                className='app__user-panel--link border-none'
                 to='/app/preferences/logout'
               >
                 <i className='fa fa-sign-out'></i> Wyloguj

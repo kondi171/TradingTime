@@ -138,4 +138,12 @@
       width: 200px;
     }
   }
+  .info-modal {
+    @extend %infoModal;
+    background-color: #666;
+    opacity: 0.9;
+  }
+  .active-modal {
+    display: flex;
+  }
 }

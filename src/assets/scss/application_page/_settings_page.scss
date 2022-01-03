@@ -116,7 +116,7 @@
               width: 80%;
               height: 35px;
               border-radius: 10px;
-              border: 2px solid blue;
+              border: 2px solid $activeColor;
               font-size: 20px;
               padding-left: 5px;
             }
@@ -147,7 +147,7 @@
             }
 
             &.active {
-              border: 3px solid blue;
+              border: 3px solid $activeColor;
             }
           }
         }

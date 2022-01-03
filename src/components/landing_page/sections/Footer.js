@@ -22,12 +22,10 @@ function Footer() {
         <div className='footer__wrapper--privacy-policy'>
           <h4>Polityka Prywatności</h4>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse hic
-            vel itaque. Ipsam, sequi laudantium voluptatibus dolores unde vel
-            facere magnam tenetur voluptas accusantium fugiat assumenda itaque
-            iusto, error alias praesentium magni nihil suscipit optio nam
-            delectus blanditiis. Recusandae, ex! Doloribus praesentium placeat
-            nulla eligendi recusandae atque rem quos ullam?
+            Traktując jako priorytet bezpieczeństwo danych osobowych przetwarzanych przez system dbamy aby wszystkie nasze działania pozostawały
+            w zgodzie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych
+            w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE
+            (ogólne rozporządzenie o ochronie danych), dalej także jako RODO.
           </p>
         </div>
         <div className='footer__wrapper--copyrights'>
@@ -39,5 +37,4 @@ function Footer() {
 }
 
 /* <div>Icons made by <a href="https://www.flaticon.com/authors/erifqi-zetiawan" title="Erifqi Zetiawan">Erifqi Zetiawan</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */
-// Obraz <a href="https://pixabay.com/pl/users/itneverends-6669706/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2930704"> ItNeverEnds</a> z <a href="https://pixabay.com/pl/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2930704"> Pixabay</a>
 export default Footer;
