@@ -4,6 +4,7 @@ import SwitchButton from '../elements/SwitchButton';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import ActionChart from '../ActionChart';
 import QuestionModal from '../QuestionModal';
+import InfoModal from '../../features/InfoModal';
 
 const actionDetails = {
   id: 0,
@@ -179,13 +180,14 @@ const userData = {
 let interval = 0;
 
 const MarketplacePage = () => {
+  const [infoVisible, setInfoVisible] = useState(false);
+  const [infoMessage, setInfoMessage] = useState('');
   const [inputActionsAmount, setInputActionsAmount] = useState(0);
   const [purchaseAction, setPurchaseAction] = useState(true);
   const [chartRange, setChartRange] = useState('today');
   const [displayConfirmModal, setDisplayConfirmModal] = useState(false);
 
   const changeChartView = (range) => setChartRange(range);
-
   //wysłanie info do bazy o dokonanej transakcji
   const confirmTransaction = () => {
     if (purchaseAction) {
@@ -203,18 +205,18 @@ const MarketplacePage = () => {
 
   const handleConfirmTransaction = (e) => {
     e.preventDefault();
-    if (inputActionsAmount <= 0) alert('Określ liczbę akcji.');
+    if (inputActionsAmount <= 0) displayInfoModal('Określ liczbę akcji!');
     else if (
       inputActionsAmount * actionDetails.price > userData.accountBalance &&
       purchaseAction &&
       purchaseAction
     )
-      alert('Nie masz wystarczających środków na koncie!');
+      displayInfoModal('Nie masz wystarczających środków na koncie!');
     else if (
       inputActionsAmount > actionDetails.numberOfActions &&
       !purchaseAction
     )
-      alert('Nie posiadasz tylu akcji na sprzedaż!');
+      displayInfoModal('Nie posiadasz tylu akcji na sprzedaż!');
     else setDisplayConfirmModal(!displayConfirmModal);
   };
 
@@ -272,11 +274,18 @@ const MarketplacePage = () => {
   };
 
   const { price, numberOfActions } = actionDetails;
-
+  const displayInfoModal = message => {
+    setInfoMessage(message);
+    setInfoVisible(true);
+    setTimeout(() => {
+      setInfoVisible(false);
+    }, 3000);
+  }
   return (
     <main className='marketplace-page'>
       {/* {getBollingerBands()} */}
       {/* {fillDataArrays()} */}
+      {console.log(infoMessage)}
       {displayConfirmModal ? (
         <QuestionModal
           acceptAction={confirmTransaction}
@@ -398,6 +407,8 @@ const MarketplacePage = () => {
           </button>
         </div>
       </section>
+      <InfoModal message={infoMessage} visible={infoVisible} position="right" />
+      {console.log(infoMessage)}
     </main>
   );
 };

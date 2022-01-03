@@ -13,6 +13,7 @@ nav.app__nav {
     margin-top: -5px;
     // border-radius: 50%;
     // border-bottom: 1px solid $activeColor;
+    &.border-none { border: none; }
   }
   .app__user-panel {
     display: flex;
