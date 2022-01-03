@@ -49,6 +49,41 @@ const AdminOptionsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [userIdDetails, setUserIdDetails] = useState('');
   const [state, dispatch] = useReducer(usersReducer, users);
+  const [userToDelete, setUserToDelete] = useState('');
+
+  const resetEditOptions = () => {
+    const deleteButton = document.querySelector('.fa-undo');
+    const lineThroughElements = document.querySelectorAll('.deleted');
+    const inputFields = document.querySelectorAll('.edit-input-field');
+    const propertyValues = document.querySelectorAll('.property-value.hidden');
+    const editButtons = document.querySelectorAll('li i.fa-times');
+    const acceptButtons = document.querySelectorAll('li i.fa-check');
+
+    if (deleteButton !== null) {
+      deleteButton.classList.remove('fa-undo');
+      deleteButton.classList.add('fa-trash');
+    }
+
+    if ([...lineThroughElements].length !== 0)
+      [...lineThroughElements].forEach((element) =>
+        element.classList.remove('deleted')
+      );
+
+    [...inputFields].forEach((field) => {
+      if (![field.classList].includes('hidden')) field.classList.add('hidden');
+    });
+
+    [...propertyValues].forEach((property) => {
+      property.classList.remove('hidden');
+    });
+
+    [...editButtons].forEach((button) => {
+      button.classList.remove('fa-times');
+      button.classList.add('fa-pencil-square-o');
+    });
+
+    [...acceptButtons].forEach((button) => button.remove());
+  };
 
   const handleShowInfo = () => {
     document.querySelector('.users-info-list').classList.toggle('minimized');
@@ -66,6 +101,7 @@ const AdminOptionsPage = () => {
       setUserIdDetails('');
     } else if (currentId !== id) {
       setUserIdDetails(id);
+      resetEditOptions();
     }
   };
 
@@ -104,7 +140,10 @@ const AdminOptionsPage = () => {
         <div className='users-info-list'>{displayUsers(searchQuery)}</div>
       </section>
 
-      <UserInfoDetails id={userIdDetails} />
+      <UserInfoDetails
+        id={userIdDetails}
+        handleChangeActiveAction={handleChangeActiveAction}
+      />
     </>
   );
 };
