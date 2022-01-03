@@ -4,8 +4,8 @@ import InfoModal from '../../features/InfoModal';
 class UserSettingsPage extends React.Component {
   state = {
     userData: {
-      name: 'Bogdan',
-      lastname: 'Ryjec',
+      firstName: 'Bogdan',
+      lastName: 'Ryjec',
       login: 'bogus_96',
       email: 'bogdan.ryjec87@gmail.com',
       telephone: '696707821',
@@ -80,7 +80,10 @@ class UserSettingsPage extends React.Component {
         ) === 'DifferentValues'
       )
         this.displayInfoModal('Hasła się nie zgadzają!');
-      else this.displayInfoModal('Hasło nie spełnia minimalnych wymogów bezpieczeństwa!');
+      else
+        this.displayInfoModal(
+          'Hasło nie spełnia minimalnych wymogów bezpieczeństwa!'
+        );
     } //później bezpośrednie wywołanie skryptu php do bazy
 
     if (className === 'email') {
@@ -88,7 +91,8 @@ class UserSettingsPage extends React.Component {
         userData.email = this.state.newEmail;
         this.setState({ userData });
         this.handleChangeOption(className);
-      } else this.displayInfoModal('Format nowego adresu e-mail jest niepoprawny!');
+      } else
+        this.displayInfoModal('Format nowego adresu e-mail jest niepoprawny!');
     }
 
     if (className === 'telephone') {
@@ -96,7 +100,10 @@ class UserSettingsPage extends React.Component {
         userData.telephone = this.state.newTelephone;
         this.setState({ userData });
         this.handleChangeOption(className);
-      } else this.displayInfoModal('Format nowego numeru telefonu jest niepoprawny!');
+      } else
+        this.displayInfoModal(
+          'Format nowego numeru telefonu jest niepoprawny!'
+        );
     }
   };
 
@@ -167,18 +174,18 @@ class UserSettingsPage extends React.Component {
       }
     } else return null;
   };
-  displayInfoModal = message => {
+  displayInfoModal = (message) => {
     this.setState({ infoVisble: true });
     this.infoMessage = message;
     setTimeout(() => {
       this.setState({ infoVisble: false });
     }, 3000);
-  }
+  };
 
   render() {
     const {
-      name,
-      lastname,
+      firstName,
+      lastName,
       login,
       email,
       telephone,
@@ -199,7 +206,7 @@ class UserSettingsPage extends React.Component {
           <div>
             <p>Imię i nazwisko: </p>
             <span>
-              {name} {lastname}
+              {firstName} {lastName}
             </span>
           </div>
 
@@ -276,7 +283,11 @@ class UserSettingsPage extends React.Component {
             <span>{personalId}</span>
           </div>
         </div>
-        <InfoModal message={this.infoMessage} visible={this.state.infoVisble} position="right" />
+        <InfoModal
+          message={this.infoMessage}
+          visible={this.state.infoVisble}
+          position='right'
+        />
       </section>
     );
   }

@@ -24,10 +24,10 @@ function Login() {
           <span>Zaloguj się z Facebook</span>
         </button>
       </form>
-      <div className="links">
-          <Link to="/register">Nie masz jeszcze konta? Załóż je!</Link>
-          <Link to="/">Powrót do Strony Głównej</Link>
-        </div>
+      <div className='links'>
+        <Link to='/register'>Nie masz jeszcze konta? Załóż je!</Link>
+        <Link to='/'>Powrót do Strony Głównej</Link>
+      </div>
     </div>
   );
 }
