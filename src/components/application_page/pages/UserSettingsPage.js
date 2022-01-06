@@ -193,7 +193,8 @@ const UserSettingsPage = () => {
   }; //docelowo aktualizacja state z bazy danych niezmienionych danych
 
   useEffect(() => {
-    setUserData(userPersonalData);
+    setUserData({ ...userPersonalData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
