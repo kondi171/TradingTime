@@ -1,4 +1,4 @@
-function Validation(type, value, confirmValue) {
+const Validation = (type, value, confirmValue) => {
   let regex;
   let isCorrect;
 
@@ -30,6 +30,6 @@ function Validation(type, value, confirmValue) {
   }
 
   return isCorrect;
-}
+};
 
 export default Validation;
