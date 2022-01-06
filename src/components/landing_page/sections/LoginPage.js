@@ -2,17 +2,13 @@ import React, { useState, useContext } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../AppContext';
-import { useEffect } from 'react/cjs/react.development';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
 
   const { toggleLoggedState } = useContext(AppContext);
-  const { isUserLogged } = useContext(AppContext);
   const { fetchUserData } = useContext(AppContext);
-  const { userPersonalData } = useContext(AppContext);
-  const { setUserActions } = useContext(AppContext);
   const { fetchUserSettings } = useContext(AppContext);
   const { fetchAccountBalance } = useContext(AppContext);
   const { fetchUserFavouriteActions } = useContext(AppContext);

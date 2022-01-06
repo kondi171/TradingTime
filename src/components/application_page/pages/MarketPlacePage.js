@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import SwitchButton from '../elements/SwitchButton';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import ActionChart from '../ActionChart';
@@ -267,11 +267,11 @@ const MarketplacePage = () => {
     }
   };
 
-  const URLParams = () => {
-    let params = useParams();
-    console.log(params.actionId);
-    return null;
-  };
+  // const URLParams = () => {
+  //   let params = useParams();
+  //   console.log(params.actionId);
+  //   return null;
+  // };
 
   const modalTextSetter = () => {
     let inflection = 'akcji';
@@ -299,6 +299,7 @@ const MarketplacePage = () => {
   useEffect(() => {
     setAccountBalance(Number(userAccountBalance));
     setSmartAssistant(userSettings.smartAssistant);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

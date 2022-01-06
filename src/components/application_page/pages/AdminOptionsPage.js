@@ -1,9 +1,6 @@
-import React, { useReducer, useState, useEffect } from 'react';
-import Validation from '../Validation';
-import InfoModal from '../../features/InfoModal';
+import React, { useState, useEffect } from 'react';
 import AdminPageUserInfo from '../AdminPageUserInfo';
 import UserInfoDetails from '../UserInfoDetails';
-import SearchResult from '../SearchResult';
 
 // const users = [
 //   {

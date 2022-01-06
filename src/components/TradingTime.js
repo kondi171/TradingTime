@@ -1,11 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  Route,
-  Routes,
-  useNavigate,
-  Redirect,
-  Navigate,
-} from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import LandingPage from './landing_page/LandingPage';
 import HomePage from './application_page/pages/HomePage';
 import SearchPage from './application_page/pages/SearchPage';
@@ -27,11 +21,6 @@ import { AppContext } from '../AppContext';
 
 const TradingTime = () => {
   const { isUserLogged } = useContext(AppContext);
-  const navigate = useNavigate();
-  const navigateToLoginPage = () => {
-    alert('wykonuje redirect');
-    navigate('/login', { replace: true });
-  };
 
   return (
     <>

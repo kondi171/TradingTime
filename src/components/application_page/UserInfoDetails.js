@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import Validation from './Validation';
 import InfoModal from '../features/InfoModal';
 
-const userInfo = {
-  firstName: 'Imie',
-  lastName: 'Nazwisko',
-  login: 'login',
-  email: 'mail@mail.pl',
-  telephone: '111222333',
-  city: 'Miasto',
-  street: 'Ulica',
-  house: '11',
-  apartment: '1',
-  postalCode: '88-888',
-  pesel: '12345678912',
-  personalId: 'CCC 12345',
-};
+// const userInfo = {
+//   firstName: 'Imie',
+//   lastName: 'Nazwisko',
+//   login: 'login',
+//   email: 'mail@mail.pl',
+//   telephone: '111222333',
+//   city: 'Miasto',
+//   street: 'Ulica',
+//   house: '11',
+//   apartment: '1',
+//   postalCode: '88-888',
+//   pesel: '12345678912',
+//   personalId: 'CCC 12345',
+// };
 
 const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
   // const { userPersonalData } = useContext(AppContext);
@@ -192,6 +192,7 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
 
   useEffect(() => {
     if (id) fetchUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (

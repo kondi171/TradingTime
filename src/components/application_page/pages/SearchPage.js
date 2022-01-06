@@ -1,7 +1,6 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import SearchResult from '../SearchResult';
 import ActionInfo from '../ActionInfo';
-import LoadingBar from '../../features/LoadingBar';
 
 class SearchPage extends React.Component {
   state = {

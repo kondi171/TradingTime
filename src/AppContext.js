@@ -3,12 +3,6 @@ import React, { createContext, useState } from 'react';
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const userActions = [
-    {
-      id: 0,
-    },
-  ];
-
   // let userPersonalData = {
   //   first_name: 'asd',
   //   // last_name: '',
@@ -54,14 +48,14 @@ const AppProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  const fetchUserActions = async (id) => {
-    const API = `http://localhost/api/v1/user/${id}`;
+  // const fetchUserActions = async (id) => {
+  //   const API = `http://localhost/api/v1/user/${id}`;
 
-    fetch(API)
-      .then((response) => response.json())
-      .then((json) => (userActions = json.userActions))
-      .catch((err) => console.log(err));
-  };
+  //   fetch(API)
+  //     .then((response) => response.json())
+  //     .then((json) => (userActions = json.userActions))
+  //     .catch((err) => console.log(err));
+  // };
 
   const fetchUserSettings = async (id) => {
     const API = `http://localhost/api/v1/user/${id}`;
@@ -103,7 +97,7 @@ const AppProvider = ({ children }) => {
         toggleLoggedState,
         setLogin,
         fetchUserData,
-        fetchUserActions,
+        // fetchUserActions,
         fetchUserSettings,
         fetchUserFavouriteActions,
         fetchAccountBalance,

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
-import AppProvider, { AppContext } from '../../../AppContext';
+import { AppContext } from '../../../AppContext';
 import WalletAction from '../WalletAction';
 
 const WalletPage = () => {
@@ -58,6 +58,7 @@ const WalletPage = () => {
 
   const { userAccountBalance } = useContext(AppContext);
 
+  // eslint-disable-next-line no-unused-vars
   let walletActionArray = null;
 
   const displayUserActions = () =>
@@ -119,6 +120,7 @@ const WalletPage = () => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setAccountBalance(userAccountBalance), []);
 
   return (

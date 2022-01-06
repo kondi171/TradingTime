@@ -283,6 +283,7 @@ const AppSettingsPage = () => {
 
   useEffect(() => {
     setAppPreferences({ ...userSettings });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { simulationMode, smartAssistant, twoFactorAuthentication } =
@@ -305,7 +306,7 @@ const AppSettingsPage = () => {
             ></i>
           </div>
 
-          {/* {displayEditFields('wallpaper')} */}
+          {displayEditFields('wallpaper')}
 
           <div className='settings-page__preferences__list__avatar'>
             <p>Awatar użytkownika: </p>
@@ -317,7 +318,7 @@ const AppSettingsPage = () => {
             ></i>
           </div>
 
-          {/* {displayEditFields('avatar')} */}
+          {displayEditFields('avatar')}
 
           <div className='settings-page__preferences__list__theme'>
             <p>Motyw aplikacji: </p>
@@ -329,7 +330,7 @@ const AppSettingsPage = () => {
             ></i>
           </div>
 
-          {/* {displayEditFields('theme')} */}
+          {displayEditFields('theme')}
         </div>
 
         <div className='settings-page__preferences__list'>
