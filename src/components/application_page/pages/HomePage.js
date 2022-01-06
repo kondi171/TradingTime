@@ -56,7 +56,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <main id="home" className='home-page'>
+      <main id='home' className='home-page'>
         <HomePageFavourites actions={this.state.actions} />
         <HomePageDate />
         <HomePageBought actions={this.state.actions} />

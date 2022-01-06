@@ -14,6 +14,8 @@ const LoginPage = () => {
   const { userPersonalData } = useContext(AppContext);
   const { setUserActions } = useContext(AppContext);
   const { fetchUserSettings } = useContext(AppContext);
+  const { fetchAccountBalance } = useContext(AppContext);
+  const { fetchUserFavouriteActions } = useContext(AppContext);
 
   const login = async (e) => {
     e.preventDefault();
@@ -35,6 +37,8 @@ const LoginPage = () => {
       toggleLoggedState();
       fetchUserData(login.id_user);
       fetchUserSettings(login.id_user);
+      fetchUserFavouriteActions(login.id_user);
+      fetchAccountBalance(login.id_user);
       navigate('/app/home');
     }
   };

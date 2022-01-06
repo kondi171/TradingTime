@@ -18,6 +18,37 @@ const userInfo = {
 };
 
 const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
+  // const { userPersonalData } = useContext(AppContext);
+  // const { isUserLogged } = useContext(AppContext);
+  // const { userIds } = useContext(AppContext);
+
+  // const [userLogin, setUserLogin] = useState(login);
+  // const [userEmail, setUserEmail] = useState(email);
+  // const [userTelephone, setUserTelephone] = useState(telephone);
+  // const [userCity, setUserCity] = useState(city);
+  // const [userStreet, setUserStreet] = useState(street);
+  // const [userHouse, setUserHouse] = useState(house);
+  // const [userApartment, setUserApartment] = useState(apartment);
+  // const [userPostalCode, setUserPostalCode] = useState(postalCode);
+  // const [userPesel, setUserPesel] = useState(pesel);
+  // const [userPersonalId, setUserPersonalId] = useState(personalId);
+
+  const [newLogin, setNewLogin] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newTelephone, setNewTelephone] = useState('');
+  const [newCity, setNewCity] = useState('');
+  const [newStreet, setNewStreet] = useState('');
+  const [newHouse, setNewHouse] = useState('');
+  const [newApartment, setNewApartment] = useState('');
+  const [newPostalCode, setNewPostalCode] = useState('');
+  const [newPesel, setNewPesel] = useState('');
+  const [newPersonalId, setNewPersonalId] = useState('');
+
+  const [infoVisible, setInfoVisible] = useState(false);
+  const [infoMessage, setInfoMessage] = useState('');
+
+  const [userData, setUserData] = useState({});
+
   const {
     firstName,
     lastName,
@@ -31,30 +62,7 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
     postalCode,
     pesel,
     personalId,
-  } = userInfo;
-
-  const [userLogin, setUserLogin] = useState(login);
-  const [userEmail, setUserEmail] = useState(email);
-  const [userTelephone, setUserTelephone] = useState(telephone);
-  const [userCity, setUserCity] = useState(city);
-  const [userStreet, setUserStreet] = useState(street);
-  const [userHouse, setUserHouse] = useState(house);
-  const [userApartment, setUserApartment] = useState(apartment);
-  const [userPostalCode, setUserPostalCode] = useState(postalCode);
-  const [userPesel, setUserPesel] = useState(pesel);
-  const [userPersonalId, setUserPersonalId] = useState(personalId);
-
-  const [newEmail, setNewEmail] = useState(userEmail);
-  const [newTelephone, setNewTelephone] = useState(userTelephone);
-  const [newPostalCode, setNewPostalCode] = useState(userPostalCode);
-  const [newPesel, setNewPesel] = useState(userPesel);
-
-  const [infoVisible, setInfoVisible] = useState(false);
-  const [infoMessage, setInfoMessage] = useState('');
-
-  // this.displayInfoModal.bind(this);
-  // console.log(this.displayInfoModal('blabl').bind(this));
-  // console.log(InfoModal.displayInfoModal('bla'));
+  } = userData;
 
   const displayInfoModal = (message) => {
     setInfoVisible(true);
@@ -80,6 +88,8 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
   };
 
   const saveProperty = (e, type = '') => {
+    const tempUserData = userData;
+
     const parentNodeClass =
       '.' + e.target.parentNode.className.split(' ').join('.');
     const editButton = document.querySelector(`${parentNodeClass} i`);
@@ -97,31 +107,51 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
       acceptButton.classList.toggle('hidden');
     };
 
-    if (type === 'email') {
+    if (type === 'login') {
+      tempUserData.login = newLogin;
+      hideButtons();
+    } else if (type === 'email') {
       if (Validation(type, newEmail)) {
-        setUserEmail(newEmail);
+        tempUserData.email = newEmail;
         hideButtons();
       } else displayInfoModal('Format nowego adresu e-mail jest niepoprawny!');
     } else if (type === 'telephone') {
       if (Validation(type, newTelephone)) {
-        setUserTelephone(newTelephone);
+        tempUserData.telephone = newTelephone;
         hideButtons();
       } else
         displayInfoModal('Format nowego numeru telefonu jest niepoprawny!');
+    } else if (type === 'city') {
+      tempUserData.city = newCity;
+      hideButtons();
+    } else if (type === 'street') {
+      tempUserData.street = newStreet;
+      hideButtons();
+    } else if (type === 'house') {
+      tempUserData.house = newHouse;
+      hideButtons();
+    } else if (type === 'apartment') {
+      tempUserData.apartment = newApartment;
+      hideButtons();
     } else if (type === 'postalCode') {
       if (Validation(type, newPostalCode)) {
-        setUserPostalCode(newPostalCode);
+        tempUserData.postalCode = newPostalCode;
         hideButtons();
       } else
         displayInfoModal('Format nowego kodu pocztowego jest niepoprawny!');
     } else if (type === 'pesel') {
       if (Validation(type, newPesel)) {
-        setUserPesel(newPesel);
+        tempUserData.pesel = newPesel;
         hideButtons();
       } else displayInfoModal('Format nowego numeru PESEL jest niepoprawny!');
+    } else if (type === 'personalId') {
+      tempUserData.personalId = newPersonalId;
+      hideButtons();
     } else {
       hideButtons();
     }
+
+    setUserData({ ...tempUserData });
   };
 
   const editUserProperty = (e) => {
@@ -139,7 +169,7 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
     const acceptButton = document.querySelector(`${parentNodeClass} .fa-check`);
     console.log(acceptButton);
 
-    acceptButton.classList.toggle('hidden');
+    if (acceptButton) acceptButton.classList.toggle('hidden');
 
     input.classList.toggle('hidden');
     propertyValue.classList.toggle('hidden');
@@ -148,8 +178,27 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
     editButton.classList.toggle('fa-times');
   };
 
+  const fetchUserData = async () => {
+    const API = `http://localhost/api/v1/user/${id}`;
+    const userData = await fetch(API)
+      .then((request) => request.json())
+      .then((data) => data.user[0])
+      .catch((err) => console.log(err));
+
+    console.log(userData);
+
+    setUserData({ ...userData });
+  };
+
+  useEffect(() => {
+    if (id) fetchUserData();
+  }, [id]);
+
   return (
     <>
+      {/* {console.log(userPersonalData)}
+      {console.log(isUserLogged)}
+      {console.log(userIds)} */}
       <aside className='user-info-details'>
         <div className='user-info-details__edit-fields'>
           <ul>
@@ -170,14 +219,14 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                 <input
                   type='text'
                   className='edit-input-field hidden'
-                  value={userLogin}
-                  onChange={(e) => setUserLogin(e.target.value)}
+                  value={login}
+                  onChange={(e) => setNewLogin(e.target.value)}
                 />
-                <span className='property-value'>{userLogin}</span>
+                <span className='property-value'>{login}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
-                  onClick={(e) => saveProperty(e)}
+                  onClick={(e) => saveProperty(e, 'login')}
                 ></i>
               </p>
             </li>
@@ -209,10 +258,10 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                 <input
                   type='text'
                   className='edit-input-field hidden'
-                  value={newEmail}
+                  value={email}
                   onChange={(e) => setNewEmail(e.target.value)}
                 />
-                <span className='property-value'>{userEmail}</span>
+                <span className='property-value'>{email}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
@@ -232,10 +281,10 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                   type='number'
                   min='0'
                   className='edit-input-field hidden'
-                  value={newTelephone}
+                  value={telephone}
                   onChange={(e) => setNewTelephone(e.target.value)}
                 />
-                <span className='property-value'>{userTelephone}</span>
+                <span className='property-value'>{telephone}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
@@ -254,14 +303,14 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                 <input
                   type='text'
                   className='edit-input-field hidden'
-                  value={userCity}
-                  onChange={(e) => setUserCity(e.target.value)}
+                  value={city}
+                  onChange={(e) => setNewCity(e.target.value)}
                 />
-                <span className='property-value'>{userCity}</span>
+                <span className='property-value'>{city}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
-                  onClick={(e) => saveProperty(e)}
+                  onClick={(e) => saveProperty(e, 'city')}
                 ></i>
               </p>
             </li>
@@ -276,14 +325,14 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                 <input
                   type='text'
                   className='edit-input-field hidden'
-                  value={userStreet}
-                  onChange={(e) => setUserStreet(e.target.value)}
+                  value={street}
+                  onChange={(e) => setNewStreet(e.target.value)}
                 />
-                <span className='property-value'>{userStreet}</span>
+                <span className='property-value'>{street}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
-                  onClick={(e) => saveProperty(e)}
+                  onClick={(e) => saveProperty(e, 'street')}
                 ></i>
               </p>
             </li>
@@ -298,14 +347,14 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                 <input
                   type='text'
                   className='edit-input-field hidden'
-                  value={userHouse}
-                  onChange={(e) => setUserHouse(e.target.value)}
+                  value={house}
+                  onChange={(e) => setNewHouse(e.target.value)}
                 />
-                <span className='property-value'>{userHouse}</span>
+                <span className='property-value'>{house}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
-                  onClick={(e) => saveProperty(e)}
+                  onClick={(e) => saveProperty(e, 'house')}
                 ></i>
               </p>
             </li>
@@ -320,14 +369,14 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                 <input
                   type='text'
                   className='edit-input-field hidden'
-                  value={userApartment}
-                  onChange={(e) => setUserApartment(e.target.value)}
+                  value={apartment}
+                  onChange={(e) => setNewApartment(e.target.value)}
                 />
-                <span className='property-value'>{userApartment}</span>
+                <span className='property-value'>{apartment}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
-                  onClick={(e) => saveProperty(e)}
+                  onClick={(e) => saveProperty(e, 'apartment')}
                 ></i>
               </p>
             </li>
@@ -342,10 +391,10 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                 <input
                   type='text'
                   className='edit-input-field hidden'
-                  value={newPostalCode}
+                  value={postalCode}
                   onChange={(e) => setNewPostalCode(e.target.value)}
                 />
-                <span className='property-value'>{userPostalCode}</span>
+                <span className='property-value'>{postalCode}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
@@ -365,10 +414,10 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                   type='number'
                   min='0'
                   className='edit-input-field hidden'
-                  value={newPesel}
+                  value={pesel}
                   onChange={(e) => setNewPesel(e.target.value)}
                 />
-                <span className='property-value'>{userPesel}</span>
+                <span className='property-value'>{pesel}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
@@ -387,14 +436,14 @@ const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
                 <input
                   type='text'
                   className='edit-input-field hidden'
-                  value={userPersonalId}
-                  onChange={(e) => setUserPersonalId(e.target.value)}
+                  value={personalId}
+                  onChange={(e) => setNewPersonalId(e.target.value)}
                 />
-                <span className='property-value'>{userPersonalId}</span>
+                <span className='property-value'>{personalId}</span>
                 <i
                   className='fa fa-check save-button hidden'
                   aria-hidden='true'
-                  onClick={(e) => saveProperty(e)}
+                  onClick={(e) => saveProperty(e, 'personalId')}
                 ></i>
               </p>
             </li>

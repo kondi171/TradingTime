@@ -31,8 +31,8 @@ class SearchPage extends React.Component {
     activeAction: '',
 
     activeActionProps: {
-      id_action: '',
-      name: '',
+      id: '',
+      actionName: '',
       price: '',
       image: '',
       isFavourite: '',
@@ -82,7 +82,7 @@ class SearchPage extends React.Component {
     this.actionList = [...this.state.actions].map((result) => (
       <SearchResult
         key={result.id_action}
-        actionName={result.name}
+        actionName={result.actionName}
         price={result.price}
         image={result.image}
         click={() => this.handleChangeActiveAction(result.id_action)}
@@ -110,7 +110,7 @@ class SearchPage extends React.Component {
     this.actionList = results.map((result) => (
       <SearchResult
         key={result.id_action}
-        actionName={result.name}
+        actionName={result.actionName}
         price={result.price}
         image={result.image}
         click={() => this.handleChangeActiveAction(result.id_action)}
@@ -183,11 +183,7 @@ class SearchPage extends React.Component {
           </div>
 
           <div className='search-page_results'>
-            {!this.state.isLoaded ? (
-              <LoadingBar loading={true} time={2000} />
-            ) : (
-              this.actionList
-            )}
+            {!this.state.isLoaded ? null : this.actionList}
           </div>
         </div>
         <ActionInfo

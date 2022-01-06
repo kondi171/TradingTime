@@ -1,100 +1,107 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../../../AppContext';
 import WithdrawMoneyModal from '../WithdrawMoneyModal';
+// import modifyAccountNumber from '../../helpers/modifyAccountNumber';
+import modifyAccountNumber from '../../helpers/modifyAccountNumber';
 
-class WalletSettingsPage extends React.Component {
-  state = {
-    walletPreferences: {
-      accountNr: '23 1435 4452 1000 0000 6425 2357',
-      accountBalance: 200,
-    },
+const WalletSettingsPage = () => {
+  // state = {
+  //   walletPreferences: {
+  //     accountNr: '23 1435 4452 1000 0000 6425 2357',
+  //     accountBalance: 200,
+  //   },
 
-    amountToWithdraw: '',
+  //   amountToWithdraw: '',
 
-    withdrawMoneyModalShow: false,
-  };
+  //   withdrawMoneyModalShow: false,
+  // };
 
-  handleWithdrawMoney = (e, amountToWithdraw) => {
+  const [accountNr, setAccountNr] = useState('');
+  const [accountBalance, setAccountBalance] = useState(0);
+  const [amountToWithdraw, setAmountToWithdraw] = useState('');
+  const [withdrawMoneyModal, setWithdrawMoneyModal] = useState(0);
+
+  const { userAccountBalance } = useContext(AppContext);
+  const { userPersonalData } = useContext(AppContext);
+
+  const handleWithdrawMoney = (e, amountToWithdraw) => {
     e.preventDefault();
 
-    let walletPreferences = this.state.walletPreferences;
-    if (amountToWithdraw > walletPreferences.accountBalance)
-      alert('Nie masz tyle kasy ziomek');
+    if (amountToWithdraw > accountBalance)
+      alert('Nie posiadasz tyle pieniędzy na koncie.');
     else {
-      walletPreferences.accountBalance -= amountToWithdraw;
-      this.setState({
-        walletPreferences,
-        amountToWithdraw: '',
-      });
-      this.handleModal();
+      let tempAccountBalance = accountBalance;
+      tempAccountBalance -= amountToWithdraw;
+      setAccountBalance(tempAccountBalance);
+      setAmountToWithdraw('');
+
+      handleModal();
     }
   };
 
-  handleModal = () => {
-    this.setState({
-      withdrawMoneyModalShow: !this.state.withdrawMoneyModalShow,
-    });
+  const handleModal = () => {
+    setWithdrawMoneyModal(!withdrawMoneyModal);
   };
 
-  handleDepositMoney = () => {};
+  const handleDepositMoney = () => {};
 
-  handleWithdrawInputChange = (e) => {
+  const handleWithdrawInputChange = (e) => {
     const amountToWithdraw = e.target.value;
-
-    this.setState({ amountToWithdraw });
+    setAmountToWithdraw(amountToWithdraw);
   };
 
-  render() {
-    const { accountNr, accountBalance } = this.state.walletPreferences;
-    return (
-      <>
-        <section className='settings-page__preferences'>
-          <h1>Ustawienia portfela</h1>
-          <div className='settings-page__preferences__list'>
-            <h2>Ogólne</h2>
-            <div className='settings-page__preferences__list__resources'>
-              <p>Dostępne środki na koncie: </p>
-              <span>{accountBalance.toFixed(2)} zł</span>
-            </div>
+  useEffect(() => {
+    setAccountBalance(Number(userAccountBalance));
+    setAccountNr(userPersonalData.bankAccount);
+  }, []);
 
-            <div className='settings-page__preferences__list__account-number'>
-              <p>Numer konta do wpłat: </p>
-              <span>{accountNr}</span>
-              <i className='fa fa-question-circle-o' aria-hidden='true'>
-                <span></span>
-              </i>
-            </div>
-
-            <div className='settings-page__preferences__list__account-buttons'>
-              <button
-                className='button button--large'
-                onClick={this.handleModal}
-              >
-                Wypłać pieniądze na konto
-              </button>
-              <button
-                className='button button--large'
-                onClick={this.handleDepositMoney}
-              >
-                Wpłać pieniądze do aplikacji
-              </button>
-            </div>
+  return (
+    <>
+      {/* {console.log(modifyAccountNumber(23143544521000000064252357))} */}
+      <section className='settings-page__preferences'>
+        <h1>Ustawienia portfela</h1>
+        <div className='settings-page__preferences__list'>
+          <h2>Ogólne</h2>
+          <div className='settings-page__preferences__list__resources'>
+            <p>Dostępne środki na koncie: </p>
+            <span>{accountBalance.toFixed(2)} zł</span>
           </div>
 
-          {this.state.withdrawMoneyModalShow ? (
-            <WithdrawMoneyModal
-              handleModal={this.handleModal}
-              handleWithdrawMoney={(e) =>
-                this.handleWithdrawMoney(e, this.state.amountToWithdraw)
-              }
-              amountToWithdraw={this.state.amountToWithdraw}
-              handleWithdrawInputChange={this.handleWithdrawInputChange}
-              e={this.event}
-            />
-          ) : null}
-        </section>
-      </>
-    );
-  }
-}
+          <div className='settings-page__preferences__list__account-number'>
+            <p>Numer konta do wpłat: </p>
+            <span>{modifyAccountNumber(accountNr)}</span>
+            <i className='fa fa-question-circle-o' aria-hidden='true'>
+              <span></span>
+            </i>
+          </div>
+
+          <div className='settings-page__preferences__list__account-buttons'>
+            <button className='button button--large' onClick={handleModal}>
+              Wypłać pieniądze na konto
+            </button>
+            <button
+              className='button button--large'
+              onClick={handleDepositMoney}
+            >
+              Wpłać pieniądze do aplikacji
+            </button>
+          </div>
+        </div>
+
+        {withdrawMoneyModal ? (
+          <WithdrawMoneyModal
+            handleModal={handleModal}
+            handleWithdrawMoney={(e) =>
+              handleWithdrawMoney(e, amountToWithdraw)
+            }
+            amountToWithdraw={amountToWithdraw}
+            handleWithdrawInputChange={handleWithdrawInputChange}
+            e={this.event}
+          />
+        ) : null}
+      </section>
+    </>
+  );
+};
 
 export default WalletSettingsPage;

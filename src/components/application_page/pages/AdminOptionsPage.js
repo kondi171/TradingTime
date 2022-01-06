@@ -1,55 +1,50 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import Validation from '../Validation';
 import InfoModal from '../../features/InfoModal';
 import AdminPageUserInfo from '../AdminPageUserInfo';
 import UserInfoDetails from '../UserInfoDetails';
 import SearchResult from '../SearchResult';
 
-const users = [
-  {
-    id: 0,
-    firstName: 'Bogdan',
-    lastName: 'Ryjec',
-    login: 'bogus_96',
-  },
-  {
-    id: 1,
-    firstName: 'Bruno',
-    lastName: 'Beton',
-    login: 'betoniara776',
-  },
-  {
-    id: 2,
-    firstName: 'Radosław',
-    lastName: 'Kowal',
-    login: 'r_kowal',
-  },
-];
-
-// Obiekty akcji
-// {
-//   type: 'ADD', //obowiązkowe
-
-// }
-
-const usersReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD':
-      return;
-    case 'REMOVE':
-      return;
-    case 'FETCH':
-      return alert('Fetchuje id' + action.id);
-    default:
-      throw new Error('Błąd!');
-  }
-};
+// const users = [
+//   {
+//     id: 0,
+//     firstName: 'Bogdan',
+//     lastName: 'Ryjec',
+//     login: 'bogus_96',
+//   },
+//   {
+//     id: 1,
+//     firstName: 'Bruno',
+//     lastName: 'Beton',
+//     login: 'betoniara776',
+//   },
+//   {
+//     id: 2,
+//     firstName: 'Radosław',
+//     lastName: 'Kowal',
+//     login: 'r_kowal',
+//   },
+// ];
 
 const AdminOptionsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [userIdDetails, setUserIdDetails] = useState('');
-  const [state, dispatch] = useReducer(usersReducer, users);
   const [userToDelete, setUserToDelete] = useState('');
+
+  const [allUsers, setAllUsers] = useState('');
+
+  const fetchAllUsers = async () => {
+    const API = 'http://localhost/api/v1/user';
+
+    const users = await fetch(API)
+      .then((request) => request.json())
+      .then((data) => data.users)
+      .catch((err) => new Error(err));
+
+    setAllUsers(users);
+    // displayUsers('');
+    // console.log(users);
+  };
 
   const resetEditOptions = () => {
     const deleteButton = document.querySelector('.fa-undo');
@@ -108,7 +103,7 @@ const AdminOptionsPage = () => {
   const handleSearch = (e) => setSearchQuery(e.target.value);
 
   const displayUsers = (searchQuery) =>
-    users
+    allUsers
       .filter(
         (user) =>
           user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -117,11 +112,15 @@ const AdminOptionsPage = () => {
       )
       .map((user) => (
         <AdminPageUserInfo
-          key={user.id}
-          onClickHandler={() => handleChangeActiveAction(user.id)}
+          key={user.id_account}
+          onClickHandler={() => handleChangeActiveAction(user.id_account)}
           {...user}
         />
       ));
+
+  useEffect(() => fetchAllUsers(), []);
+
+  // useEffect(() => displayUsers(searchQuery), [searchQuery]);
 
   return (
     <>
@@ -137,7 +136,13 @@ const AdminOptionsPage = () => {
             />
           </div>
         </div>
-        <div className='users-info-list'>{displayUsers(searchQuery)}</div>
+        <div className='users-info-list'>
+          {console.log(allUsers === '')}
+          {allUsers !== ''
+            ? displayUsers(searchQuery)
+            : // console.log('all users zapełnione')
+              console.log('all users puste')}
+        </div>
       </section>
 
       <UserInfoDetails
