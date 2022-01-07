@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../../../AppContext';
 import WithdrawMoneyModal from '../WithdrawMoneyModal';
 // import modifyAccountNumber from '../../helpers/modifyAccountNumber';
-import modifyAccountNumber from '../../helpers/modifyAccountNumber';
+import modifyAccountNumber from '../../helpers/ModifyAccountNumber';
 
 const WalletSettingsPage = () => {
   // state = {

@@ -11,7 +11,6 @@ function WalletAction({
 }) {
   return (
     <div className='wallet-page__actions__action'>
-      {console.log(actionId)}
       <span className='wallet-page__actions__action--action-image'>
         <img src={image} alt='' />{' '}
       </span>

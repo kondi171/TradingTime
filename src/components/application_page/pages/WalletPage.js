@@ -37,7 +37,7 @@ const WalletPage = () => {
   const [accountBalance, setAccountBalance] = useState(0);
   const [userActions, setUserActions] = useState([
     {
-      id: 0,
+      id: 1,
       actionName: 'Allegro',
       price: 4.2,
       image: allegro,
@@ -46,7 +46,7 @@ const WalletPage = () => {
       numberOfActions: 20,
     },
     {
-      id: 1,
+      id: 9,
       actionName: 'CD Project Red',
       price: 1.1,
       image: cdpsa,
