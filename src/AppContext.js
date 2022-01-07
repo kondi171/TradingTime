@@ -33,6 +33,7 @@ const AppProvider = ({ children }) => {
   const [userPersonalData, setUserPersonalData] = useState({});
   const [userSettings, setUserSettings] = useState({});
   const [userFavouriteActions, setUserFavouriteActions] = useState({});
+  const [userBoughtActions, setUserBoughtActions] = useState({});
 
   const toggleLoggedState = () => {
     setIsUserLogged((prevValue) => !prevValue);
@@ -76,6 +77,15 @@ const AppProvider = ({ children }) => {
       .then((data) => setUserFavouriteActions(data))
       .catch((err) => console.log(err));
   };
+  const fetchUserBoughtActions = (id) => {
+    const API = `http://localhost/api/v1/stock/${id}`;
+
+    fetch(API)
+      .then((response) => response.json())
+      .then((data) => data.stock)
+      .then((data) => setUserBoughtActions(data))
+      .catch((err) => console.log(err));
+  };
 
   const fetchAccountBalance = (id) => {
     const API = `http://localhost/api/v1/wallet/${id}`;
@@ -87,8 +97,30 @@ const AppProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  const SetUserIdNumber = (id) => {
+  const setUserIdNumber = (id) => {
     setUserId(id);
+  };
+
+  const addActionToFavourite = async (userId, actionId) => {
+    const API = `http://localhost/api/v1/addfavourite/${userId}&${actionId}`;
+
+    const status = await fetch(API)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+
+    fetchUserFavouriteActions(userId);
+    return status;
+  };
+
+  const deleteActionFromFavourite = async (userId, actionId) => {
+    const API = `http://localhost/api/v1/deletefavourite/${userId}&${actionId}`;
+
+    const status = await fetch(API)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+
+    fetchUserFavouriteActions(userId);
+    return status;
   };
 
   return (
@@ -97,17 +129,20 @@ const AppProvider = ({ children }) => {
         toggleLoggedState,
         setLogin,
         fetchUserData,
-        // fetchUserActions,
+        fetchUserBoughtActions,
         fetchUserSettings,
         fetchUserFavouriteActions,
         fetchAccountBalance,
-        SetUserIdNumber,
+        setUserIdNumber,
+        deleteActionFromFavourite,
+        addActionToFavourite,
         isUserLogged,
         userPersonalData,
         userId,
         userSettings,
         userFavouriteActions,
         userAccountBalance,
+        userBoughtActions,
       }}
     >
       {children}
