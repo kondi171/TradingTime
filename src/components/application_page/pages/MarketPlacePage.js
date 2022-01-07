@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { useParams, NavLink } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import SwitchButton from '../elements/SwitchButton';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import ActionChart from '../ActionChart';
 import QuestionModal from '../QuestionModal';
 import InfoModal from '../../features/InfoModal';
+
+import { AppContext } from '../../../AppContext';
 
 const actionDetails = {
   id: 0,
@@ -172,10 +174,10 @@ const actionValues = {
   ],
 };
 
-const userData = {
-  accountBalance: 200,
-  smartAssistant: true,
-};
+// const userData = {
+//   accountBalance: 200,
+//   smartAssistant: true,
+// };
 
 let interval = 0;
 
@@ -186,16 +188,27 @@ const MarketplacePage = () => {
   const [purchaseAction, setPurchaseAction] = useState(true);
   const [chartRange, setChartRange] = useState('today');
   const [displayConfirmModal, setDisplayConfirmModal] = useState(false);
+  const [accountBalance, setAccountBalance] = useState(0);
+  const [smartAssistant, setSmartAssistant] = useState(true);
+
+  const { userAccountBalance } = useContext(AppContext);
+  const { userSettings } = useContext(AppContext);
 
   const changeChartView = (range) => setChartRange(range);
+
   //wysłanie info do bazy o dokonanej transakcji
   const confirmTransaction = () => {
     if (purchaseAction) {
-      userData.accountBalance -= actionDetails.price * inputActionsAmount;
+      let tempAccountBalance = accountBalance;
+      tempAccountBalance -= actionDetails.price * inputActionsAmount;
       actionDetails.numberOfActions += inputActionsAmount;
+
+      setAccountBalance(tempAccountBalance);
     } else {
-      userData.accountBalance += actionDetails.price * inputActionsAmount;
+      let tempAccountBalance = accountBalance;
+      tempAccountBalance += actionDetails.price * inputActionsAmount;
       actionDetails.numberOfActions -= inputActionsAmount;
+      setAccountBalance(tempAccountBalance);
     }
     setInputActionsAmount(0);
     setDisplayConfirmModal(!displayConfirmModal);
@@ -207,7 +220,7 @@ const MarketplacePage = () => {
     e.preventDefault();
     if (inputActionsAmount <= 0) displayInfoModal('Określ liczbę akcji!');
     else if (
-      inputActionsAmount * actionDetails.price > userData.accountBalance &&
+      inputActionsAmount * actionDetails.price > accountBalance &&
       purchaseAction &&
       purchaseAction
     )
@@ -254,11 +267,11 @@ const MarketplacePage = () => {
     }
   };
 
-  const URLParams = () => {
-    let params = useParams();
-    console.log(params.actionId);
-    return null;
-  };
+  // const URLParams = () => {
+  //   let params = useParams();
+  //   console.log(params.actionId);
+  //   return null;
+  // };
 
   const modalTextSetter = () => {
     let inflection = 'akcji';
@@ -274,13 +287,21 @@ const MarketplacePage = () => {
   };
 
   const { price, numberOfActions } = actionDetails;
-  const displayInfoModal = message => {
+
+  const displayInfoModal = (message) => {
     setInfoMessage(message);
     setInfoVisible(true);
     setTimeout(() => {
       setInfoVisible(false);
     }, 3000);
-  }
+  };
+
+  useEffect(() => {
+    setAccountBalance(Number(userAccountBalance));
+    setSmartAssistant(userSettings.smartAssistant);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <main className='marketplace-page'>
       {/* {getBollingerBands()} */}
@@ -303,7 +324,7 @@ const MarketplacePage = () => {
         </div>
         <section className='marketplace-page__info'>
           <p className='marketplace-page__account-balance'>
-            Stan konta: {userData.accountBalance.toFixed(2)} zł
+            Stan konta: {accountBalance ? accountBalance.toFixed(2) : null} zł
           </p>
           <p className='marketplace-page__action-price'>
             Aktualna cena akcji: {price.toFixed(2)} zł
@@ -407,7 +428,7 @@ const MarketplacePage = () => {
           </button>
         </div>
       </section>
-      <InfoModal message={infoMessage} visible={infoVisible} position="right" />
+      <InfoModal message={infoMessage} visible={infoVisible} position='right' />
       {console.log(infoMessage)}
     </main>
   );

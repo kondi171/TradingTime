@@ -290,6 +290,14 @@
       color: red;
     }
 
+    &--red_bgc {
+      background-color: red;
+    }
+
+    &--green_bgc {
+      background-color: green;
+    }
+
     &--math {
       display: inline-flex;
       align-items: center;
@@ -332,9 +340,9 @@
   padding: 20px;
   z-index: 90;
   i {
-      color: $activeColor;
-      font-size: 34px;
-      padding: 10px;
+    color: $activeColor;
+    font-size: 34px;
+    padding: 10px;
   }
 }
 %loadingModal {
@@ -345,7 +353,7 @@
     justify-content: center;
     position: fixed;
     top: 0;
-    left:0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.9);

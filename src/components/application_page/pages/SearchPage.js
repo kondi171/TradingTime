@@ -1,13 +1,32 @@
 import React from 'react';
 import SearchResult from '../SearchResult';
 import ActionInfo from '../ActionInfo';
-// import allegro from '../../../assets/img/testimages/allegro-favicon.png';
-// import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
 
 class SearchPage extends React.Component {
   state = {
     searchQuery: '',
-    actions: [],
+    actions: [
+      // {
+      //   id_action: 1,
+      //   name: 'Allegro',
+      //   image: 'images/actions/allegro-favicon.png',
+      // },
+      // {
+      //   id_action: 2,
+      //   name: 'CD Project Red',
+      //   // price: '1,10',
+      //   image: cdpsa,
+      //   // isFavourite: false,
+      //   // isBought: false,
+      //   // lastUpdate: '18.11.2021',
+      //   // short: 'CDR',
+      //   // volume: '147,386',
+      //   // open: '177.23',
+      //   // close: '178.54',
+      //   // change: '-1.60',
+      //   // changePercentage: '-0.89',
+      // },
+    ],
     activeAction: '',
 
     activeActionProps: {
@@ -25,6 +44,19 @@ class SearchPage extends React.Component {
       change: '',
       changePercentage: '',
     },
+
+    isLoaded: true,
+  };
+
+  fetchData = async () => {
+    const API = 'http://localhost/api/v1/action';
+
+    fetch(API)
+      .then((response) => response.json())
+      .then((json) => this.setState({ actions: json.actions }))
+      .then(() => this.loadActionList())
+      .then(() => this.setState({ isLoaded: true }))
+      .catch((err) => console.log(err));
   };
   componentDidMount() {
     window.setTimeout(this.fetchActions(), 3000);
@@ -56,15 +88,20 @@ class SearchPage extends React.Component {
     }
   };
 
-  actionList = [...this.state.actions].map((result) => (
-    <SearchResult
-      key={result.id}
-      actionName={result.actionName}
-      price={result.price}
-      image={result.image}
-      click={() => this.handleChangeActiveAction(result.id)}
-    />
-  ));
+  actionList = [];
+
+  loadActionList = () => {
+    console.log(this.state.actions);
+    this.actionList = [...this.state.actions].map((result) => (
+      <SearchResult
+        key={result.id_action}
+        actionName={result.actionName}
+        price={result.price}
+        image={result.image}
+        click={() => this.handleChangeActiveAction(result.id_action)}
+      />
+    ));
+  };
 
   handleSearch = (e) => {
     const searchQuery = e.target.value;
@@ -76,21 +113,20 @@ class SearchPage extends React.Component {
   };
 
   showResults = (searchQuery) => {
+    console.log(this.state.actions);
     let results = [...this.state.actions];
 
     results = results.filter((result) => {
-      return result.actionName
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+      return result.name.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
     this.actionList = results.map((result) => (
       <SearchResult
-        key={result.id}
+        key={result.id_action}
         actionName={result.actionName}
         price={result.price}
         image={result.image}
-        click={() => this.handleChangeActiveAction(result.id)}
+        click={() => this.handleChangeActiveAction(result.id_action)}
       />
     ));
   };
@@ -137,6 +173,11 @@ class SearchPage extends React.Component {
     });
   };
 
+  componentDidMount() {
+    this.fetchData();
+    this.loadActionList();
+  }
+
   componentDidUpdate() {
     this.checkFavourite();
   }
@@ -154,7 +195,9 @@ class SearchPage extends React.Component {
             />
           </div>
 
-          <div className='search-page_results'>{this.actionList}</div>
+          <div className='search-page_results'>
+            {!this.state.isLoaded ? null : this.actionList}
+          </div>
         </div>
         <ActionInfo
           {...this.state.activeActionProps}

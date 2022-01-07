@@ -295,35 +295,104 @@
     top: 7vh;
     right: -40%;
     color: whitesmoke;
-    height: 100vh;
+    height: 93vh;
     width: 40%;
     background-color: #222;
     transition: 0.3s linear;
+    overflow-y: auto;
     &.active {
       right: 0;
     }
-    // .search-page__options {
-    //   display: flex;
-    //   flex-direction: column;
-    //   align-items: center;
-    //   justify-content: space-evenly;
-    //   position: absolute;
-    //   top: 0;
-    //   right: 0;
-    //   width: 100px;
-    //   height: 300px;
-    //   font-size: 16px;
-    //   // background-color: red;
 
-    //   i {
-    //     color: #ddd;
-    //     font-size: 40px;
-    //     padding-bottom: 10px;
-    //     cursor: pointer;
-    //   }
-    //   .fa-times {
-    //     font-size: 55px;
-    //   }
+    &__edit-fields {
+      padding: 20px;
+      .user-info-details__user_names {
+        color: white;
+        font-size: 48px;
+        text-transform: uppercase;
+        padding: 30px 0;
+      }
+
+      .user-info-details__user_property {
+        font-size: 24px;
+        padding: 15px 5px;
+        color: #ddd;
+      }
+
+      ul {
+        list-style: none;
+        li {
+          color: whitesmoke;
+
+          &.deleted {
+            text-decoration: line-through;
+          }
+
+          i {
+            margin-right: 20px;
+            cursor: pointer;
+            font-size: 24px;
+            width: 24px;
+          }
+
+          i:last-child {
+            margin-left: 20px;
+          }
+        }
+      }
+
+      .property-title {
+        display: inline-block;
+        font-weight: bold;
+        width: 250px;
+        user-select: none;
+      }
+
+      .property-value.hidden,
+      .edit-input-field.hidden,
+      .save-button.hidden {
+        display: none;
+      }
+
+      .edit-input-field {
+        font-size: 20px;
+        border-radius: 15px;
+        padding: 2px 7px;
+      }
+    }
+
+    &__options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      // margin-right: 400px;
+      height: 300px;
+      font-size: 16px;
+      // background-color: red;
+
+      i {
+        color: #ddd;
+        font-size: 40px;
+        padding-bottom: 10px;
+        cursor: pointer;
+      }
+      .fa-times {
+        font-size: 55px;
+      }
+    }
+
+    &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 10%;
+      width: 100%;
+    }
   }
 
   .searcher-wrapper {

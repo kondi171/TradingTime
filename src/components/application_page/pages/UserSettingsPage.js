@@ -1,32 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Validation from '../Validation';
 import InfoModal from '../../features/InfoModal';
-class UserSettingsPage extends React.Component {
-  state = {
-    userData: {
-      name: 'Bogdan',
-      lastname: 'Ryjec',
-      login: 'bogus_96',
-      email: 'bogdan.ryjec87@gmail.com',
-      telephone: '696707821',
-      city: 'Zbąszynek',
-      street: 'Górna',
-      house: '54B',
-      apartment: '-',
-      postalCode: '10-241',
-      pesel: '91328719023',
-      personalId: 'CFE 23123',
-      password: 'llskasd2',
-    },
-    passwordChange: false,
-    emailChange: false,
-    telephoneChange: false,
-    infoVisble: false,
-    newEmail: '',
-    newTelephone: '',
-  };
+import LoadingBar from '../../features/LoadingBar';
 
-  handleChangeOption = (className) => {
+import { AppContext } from '../../../AppContext';
+
+const UserSettingsPage = () => {
+  const [passwordChange, setPasswordChange] = useState(false);
+  const [emailChange, setEmailChange] = useState(false);
+  const [telephoneChange, setTelephoneChange] = useState(false);
+  const [infoVisble, setInfoVisible] = useState(false);
+  const [infoMessage, setInfoMessage] = useState('');
+  const [newEmail, setNewEmail] = useState(false);
+  const [newTelephone, setNewTelephone] = useState(false);
+  const [userData, setUserData] = useState({});
+  const [showSaveButtons, setShowSaveButtons] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [undisplayTime, setUndisplayTime] = useState(1500);
+
+  const { userPersonalData } = useContext(AppContext);
+
+  const handleChangeOption = (className) => {
     const element = document.querySelector(
       `.settings-page__preferences__list__${className}`
     );
@@ -42,22 +36,18 @@ class UserSettingsPage extends React.Component {
       icon.classList.remove('fa-times');
     }
 
-    if (className === 'password')
-      this.setState({ passwordChange: !this.state.passwordChange });
-    if (className === 'email')
-      this.setState({ emailChange: !this.state.emailChange });
-    if (className === 'telephone')
-      this.setState({ telephoneChange: !this.state.telephoneChange });
+    if (className === 'password') setPasswordChange(!passwordChange);
+    if (className === 'email') setEmailChange(!emailChange);
+    if (className === 'telephone') setTelephoneChange(!telephoneChange);
   };
 
-  handleChangeInput = (e, className) => {
-    if (className === 'email') this.setState({ newEmail: e.target.value });
-    if (className === 'telephone')
-      this.setState({ newTelephone: e.target.value });
+  const handleChangeInput = (e, className) => {
+    if (className === 'email') setNewEmail(e.target.value);
+    if (className === 'telephone') setNewTelephone(e.target.value);
   };
 
-  handleChangeData = (className) => {
-    const userData = this.state.userData;
+  const handleChangeData = (className) => {
+    const userTempData = userData;
 
     if (className === 'password') {
       const passwordField = document.querySelectorAll('.password-field');
@@ -69,9 +59,10 @@ class UserSettingsPage extends React.Component {
           passwordField[1].value
         ) === true
       ) {
-        userData.password = passwordField[0].value;
-        this.handleChangeOption(className);
-        this.setState({ userData });
+        userTempData.password = passwordField[0].value;
+        handleChangeOption(className);
+        setUserData(userTempData);
+        setShowSaveButtons(true);
       } else if (
         Validation(
           className,
@@ -79,30 +70,36 @@ class UserSettingsPage extends React.Component {
           passwordField[1].value
         ) === 'DifferentValues'
       )
-        this.displayInfoModal('Hasła się nie zgadzają!');
-      else this.displayInfoModal('Hasło nie spełnia minimalnych wymogów bezpieczeństwa!');
+        displayInfoModal('Hasła się nie zgadzają!');
+      else
+        displayInfoModal(
+          'Hasło nie spełnia minimalnych wymogów bezpieczeństwa!'
+        );
     } //później bezpośrednie wywołanie skryptu php do bazy
 
     if (className === 'email') {
-      if (Validation(className, this.state.newEmail)) {
-        userData.email = this.state.newEmail;
-        this.setState({ userData });
-        this.handleChangeOption(className);
-      } else this.displayInfoModal('Format nowego adresu e-mail jest niepoprawny!');
+      if (Validation(className, newEmail)) {
+        userTempData.email = newEmail;
+        setUserData(userTempData);
+        handleChangeOption(className);
+        setShowSaveButtons(true);
+      } else displayInfoModal('Format nowego adresu e-mail jest niepoprawny!');
     }
 
     if (className === 'telephone') {
-      if (Validation(className, this.state.newTelephone)) {
-        userData.telephone = this.state.newTelephone;
-        this.setState({ userData });
-        this.handleChangeOption(className);
-      } else this.displayInfoModal('Format nowego numeru telefonu jest niepoprawny!');
+      if (Validation(className, newTelephone)) {
+        userTempData.telephone = newTelephone;
+        setUserData(userTempData);
+        handleChangeOption(className);
+        setShowSaveButtons(true);
+      } else
+        displayInfoModal('Format nowego numeru telefonu jest niepoprawny!');
     }
   };
 
-  displayEditFields = (className) => {
+  const displayEditFields = (className) => {
     if (className === 'password') {
-      if (this.state.passwordChange) {
+      if (passwordChange) {
         return (
           <>
             <div className='new-password changing'>
@@ -122,32 +119,32 @@ class UserSettingsPage extends React.Component {
               </span>
               <i
                 className='fa fa-check'
-                onClick={() => this.handleChangeData('password')}
+                onClick={() => handleChangeData('password')}
               ></i>
             </div>
           </>
         );
       }
     } else if (className === 'email') {
-      if (this.state.emailChange) {
+      if (emailChange) {
         return (
           <div className='email changing'>
             <p>Nowy e-mail: </p>
             <span>
               <input
                 type='text'
-                onChange={(e) => this.handleChangeInput(e, 'email')}
+                onChange={(e) => handleChangeInput(e, 'email')}
               />
             </span>
             <i
               className='fa fa-check'
-              onClick={() => this.handleChangeData('email')}
+              onClick={() => handleChangeData('email')}
             ></i>
           </div>
         );
       }
     } else if (className === 'telephone') {
-      if (this.state.telephoneChange) {
+      if (telephoneChange) {
         return (
           <div className='telephone changing'>
             <p>Nowy numer telefonu: </p>
@@ -155,131 +152,174 @@ class UserSettingsPage extends React.Component {
               <input
                 type='number'
                 min='0'
-                onChange={(e) => this.handleChangeInput(e, 'telephone')}
+                onChange={(e) => handleChangeInput(e, 'telephone')}
               />
             </span>
             <i
               className='fa fa-check'
-              onClick={() => this.handleChangeData('telephone')}
+              onClick={() => handleChangeData('telephone')}
             ></i>
           </div>
         );
       }
     } else return null;
   };
-  displayInfoModal = message => {
-    this.setState({ infoVisble: true });
-    this.infoMessage = message;
+
+  const displayInfoModal = (message) => {
+    setInfoVisible(true);
+    // this.setState({ infoVisble: true });
+    setInfoMessage(message);
+    // infoMessage = message;
     setTimeout(() => {
-      this.setState({ infoVisble: false });
+      // this.setState({ infoVisble: false });
+      setInfoVisible(false);
+      setInfoMessage('');
     }, 3000);
-  }
+  };
 
-  render() {
-    const {
-      name,
-      lastname,
-      login,
-      email,
-      telephone,
-      city,
-      street,
-      house,
-      apartment,
-      postalCode,
-      pesel,
-      personalId,
-    } = this.state.userData;
+  const saveOptions = () => {
+    setLoading(true);
+    setShowSaveButtons(false);
 
-    return (
-      <section className='settings-page__preferences'>
-        <h1>Ustawienia użytkownika</h1>
-        <div className='settings-page__preferences__list'>
-          <h2>Dane podstawowe </h2>
-          <div>
-            <p>Imię i nazwisko: </p>
-            <span>
-              {name} {lastname}
-            </span>
-          </div>
+    setTimeout(() => {
+      setLoading(!loading);
+    }, undisplayTime);
+  }; //wysłanie danych do bazy
 
-          <div>
-            <p>Login: </p>
-            <span>{login}</span>
-          </div>
+  const cancelOptions = () => {
+    setUserData({ ...userPersonalData });
+    setShowSaveButtons(false);
+    // window.location.reload(false);
+  }; //docelowo aktualizacja state z bazy danych niezmienionych danych
 
-          <div className='settings-page__preferences__list__password'>
-            <p>Hasło: </p>
-            <span>*********</span>
-            <i
-              className='fa fa-pencil-square-o'
-              aria-hidden='true'
-              onClick={() => this.handleChangeOption('password')}
-            ></i>
-          </div>
+  useEffect(() => {
+    setUserData({ ...userPersonalData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-          {this.displayEditFields('password')}
+  useEffect(() => {
+    if (showSaveButtons) {
+      document
+        .querySelectorAll('.settings-page__preferences__footer > .button')
+        .forEach((element) => element.classList.remove('button--hidden'));
+    } else {
+      document
+        .querySelectorAll('.settings-page__preferences__footer > .button')
+        .forEach((element) => element.classList.add('button--hidden'));
+    }
+  });
+  const {
+    firstName,
+    lastName,
+    login,
+    email,
+    telephone,
+    city,
+    street,
+    house,
+    apartment,
+    postalCode,
+    pesel,
+    personalId,
+  } = userData;
 
-          <div className='settings-page__preferences__list__email'>
-            <p>Adres e-mail: </p>
-            <span>{email}</span>
-            <i
-              className='fa fa-pencil-square-o'
-              aria-hidden='true'
-              onClick={() => this.handleChangeOption('email')}
-            ></i>
-          </div>
-
-          {this.displayEditFields('email')}
-
-          <div className='settings-page__preferences__list__telephone'>
-            <p>Numer telefonu: </p>
-            <span>{telephone}</span>
-            <i
-              className='fa fa-pencil-square-o'
-              aria-hidden='true'
-              onClick={() => this.handleChangeOption('telephone')}
-            ></i>
-          </div>
-
-          {this.displayEditFields('telephone')}
+  return (
+    <section className='settings-page__preferences'>
+      <h1>Ustawienia użytkownika</h1>
+      <div className='settings-page__preferences__list'>
+        <h2>Dane podstawowe </h2>
+        <div>
+          <p>Imię i nazwisko: </p>
+          <span>
+            {firstName} {lastName}
+          </span>
         </div>
 
-        <div className='settings-page__preferences__list'>
-          <h2>Dane adresowe</h2>
-
-          <div>
-            <p>Miejscowość: </p>
-            <span>{city}</span>
-          </div>
-
-          <div>
-            <p>Ulica: </p>
-            <span>{street}</span>
-          </div>
-          <div>
-            <p>
-              {(apartment !== '-' && 'Nr domu / mieszkania:') || 'Nr domu:'}
-            </p>
-            <span>{(apartment !== '-' && house / apartment) || house}</span>
-          </div>
-          <div>
-            <p>Kod pocztowy: </p>
-            <span>{postalCode}</span>
-          </div>
-          <div>
-            <p>Numer PESEL: </p>
-            <span>{pesel}</span>
-          </div>
-          <div>
-            <p>Numer dowodu osobistego: </p>
-            <span>{personalId}</span>
-          </div>
+        <div>
+          <p>Login: </p>
+          <span>{login}</span>
         </div>
-        <InfoModal message={this.infoMessage} visible={this.state.infoVisble} position="right" />
-      </section>
-    );
-  }
-}
+
+        <div className='settings-page__preferences__list__password'>
+          <p>Hasło: </p>
+          <span>*********</span>
+          <i
+            className='fa fa-pencil-square-o'
+            aria-hidden='true'
+            onClick={() => handleChangeOption('password')}
+          ></i>
+        </div>
+
+        {displayEditFields('password')}
+
+        <div className='settings-page__preferences__list__email'>
+          <p>Adres e-mail: </p>
+          <span>{email}</span>
+          <i
+            className='fa fa-pencil-square-o'
+            aria-hidden='true'
+            onClick={() => handleChangeOption('email')}
+          ></i>
+        </div>
+
+        {displayEditFields('email')}
+
+        <div className='settings-page__preferences__list__telephone'>
+          <p>Numer telefonu: </p>
+          <span>{telephone}</span>
+          <i
+            className='fa fa-pencil-square-o'
+            aria-hidden='true'
+            onClick={() => handleChangeOption('telephone')}
+          ></i>
+        </div>
+
+        {displayEditFields('telephone')}
+      </div>
+
+      <div className='settings-page__preferences__list'>
+        <h2>Dane adresowe</h2>
+
+        <div>
+          <p>Miejscowość: </p>
+          <span>{city}</span>
+        </div>
+
+        <div>
+          <p>Ulica: </p>
+          <span>{street}</span>
+        </div>
+        <div>
+          <p>{(apartment !== '-' && 'Nr domu / mieszkania:') || 'Nr domu:'}</p>
+          <span>{(apartment !== '-' && house / apartment) || house}</span>
+        </div>
+        <div>
+          <p>Kod pocztowy: </p>
+          <span>{postalCode}</span>
+        </div>
+        <div>
+          <p>Numer PESEL: </p>
+          <span>{pesel}</span>
+        </div>
+        <div>
+          <p>Numer dowodu osobistego: </p>
+          <span>{personalId}</span>
+        </div>
+      </div>
+
+      <footer className='settings-page__preferences__footer'>
+        <button onClick={saveOptions} className='button button--hidden'>
+          Zapisz
+        </button>
+        <button onClick={cancelOptions} className='button button--hidden'>
+          Anuluj
+        </button>
+      </footer>
+
+      {loading && <LoadingBar loading={loading} time={undisplayTime} />}
+      <InfoModal message={infoMessage} visible={infoVisble} position='right' />
+    </section>
+  );
+};
 
 export default UserSettingsPage;

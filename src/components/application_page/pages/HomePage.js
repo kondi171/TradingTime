@@ -73,14 +73,11 @@ class HomePage extends React.PureComponent {
 
   render() {
     return (
-      <AppContext.Provider value={{ wallpaper: this.state.wallpaper }} >
-        <main id="home" className='home-page'>
-          <HomePageFavourites actions={this.state.actions} />
-          <HomePageDate />
-          <HomePageBought actions={this.state.actions} />
-        </main>
-      </AppContext.Provider>
-
+      <main id='home' className='home-page'>
+        <HomePageFavourites actions={this.state.actions} />
+        <HomePageDate />
+        <HomePageBought actions={this.state.actions} />
+      </main>
     );
   }
 }

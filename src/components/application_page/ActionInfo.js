@@ -65,7 +65,7 @@ function ActionInfo({
             </li>
             <li>
               <p className='search-page__action-property'>
-                Skrót akcji: {short}{' '}
+                Skrót akcji: {short}
               </p>
             </li>
             <li>

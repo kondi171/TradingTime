@@ -1,10 +1,8 @@
-function Validation(type, value, confirmValue) {
+const Validation = (type, value, confirmValue) => {
   let regex;
   let isCorrect;
 
   if (type === 'password') {
-    // console.log(value);
-    // console.log(confirmValue);
     const regex = /(?=.*\w)(?=.*\W)(?=.*[A-Z]).{8,}/;
     if (value === confirmValue) isCorrect = new RegExp(regex).test(value);
     else isCorrect = 'DifferentValues';
@@ -21,8 +19,17 @@ function Validation(type, value, confirmValue) {
     isCorrect = new RegExp(regex).test(value);
   }
 
-  // console.log(isCorrect);
+  if (type === 'postalCode') {
+    regex = /([0-9]){2,2}-([0-9]){3,3}$/;
+    isCorrect = new RegExp(regex).test(value);
+  }
+
+  if (type === 'pesel') {
+    regex = /(?=.*[0-9])^.{11,11}$/;
+    isCorrect = new RegExp(regex).test(value);
+  }
+
   return isCorrect;
-}
+};
 
 export default Validation;
