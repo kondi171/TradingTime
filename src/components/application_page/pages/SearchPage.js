@@ -1,44 +1,13 @@
 import React from 'react';
 import SearchResult from '../SearchResult';
 import ActionInfo from '../ActionInfo';
-import allegro from '../../../assets/img/testimages/allegro-favicon.png';
-import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
+// import allegro from '../../../assets/img/testimages/allegro-favicon.png';
+// import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
 
 class SearchPage extends React.Component {
   state = {
     searchQuery: '',
-    actions: [
-      {
-        id: 0,
-        actionName: 'Allegro',
-        price: '4.20',
-        image: allegro,
-        isFavourite: true,
-        isBought: true,
-        lastUpdate: '22.11.2021',
-        short: 'ALE',
-        volume: '1,593,265',
-        open: '38.54',
-        close: '38.00',
-        change: '-1.16',
-        changePercentage: '-2.96',
-      },
-      {
-        id: 1,
-        actionName: 'CD Project Red',
-        price: '1,10',
-        image: cdpsa,
-        isFavourite: false,
-        isBought: false,
-        lastUpdate: '18.11.2021',
-        short: 'CDR',
-        volume: '147,386',
-        open: '177.23',
-        close: '178.54',
-        change: '-1.60',
-        changePercentage: '-0.89',
-      },
-    ],
+    actions: [],
     activeAction: '',
 
     activeActionProps: {
@@ -57,6 +26,20 @@ class SearchPage extends React.Component {
       changePercentage: '',
     },
   };
+  componentDidMount() {
+    window.setTimeout(this.fetchActions(), 3000);
+  }
+  fetchActions = () => {
+    const API = 'http://localhost/api/v1/action';
+    fetch(API)
+      .then(response => response.json())
+      .then(json => {
+        for (let i = 0; i < json.actions.length; i++) {
+          this.state.actions.push({ id: parseInt(json.actions[i].id_action), actionName: json.actions[i].name, short: json.actions[i].symbol });
+        }
+        console.log(this.state.actions);
+      })
+  }
 
   handleChangeActiveAction = (id) => {
     let currentId = this.state.activeAction;

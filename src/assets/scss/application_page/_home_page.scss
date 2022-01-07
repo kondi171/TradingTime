@@ -1,5 +1,5 @@
 main.home-page {
-  background-image: url('../../img/earth.jpg');
+  background-image: url('../../img/wallpapers/earth.jpg'); 
   background-color: darken($light, 70%);
   background-repeat: no-repeat;
   background-size: cover;
@@ -116,4 +116,7 @@ main.home-page {
       }
     }
   }
+  &.wallpaper1 { background-image: url('../../img/wallpapers/earth.jpg')!important; }
+  &.wallpaper2 { background-image: url('../../img/wallpapers/synth.jpg')!important; }
+  &.wallpaper3 { background-image: url('../../img/wallpapers/lake.jpg')!important; }
 }

@@ -85,7 +85,6 @@
   }
   .help-page__main--tile:nth-child(1) {
     background-color: rgba(73, 133, 16, 0.6);
-    animation: changeColor 2s infinite;
   }
   .help-page__main--tile:nth-child(2) {
     background-color: rgba(224, 212, 38, 0.6);
@@ -101,16 +100,5 @@
   }
   .help-page__main--tile:nth-child(6) {
     background-color: rgba(255, 166, 0, 0.6);
-  }
-  @keyframes changeColor {
-    0% {
-      background-color: rgba(73, 133, 16, 0.6);
-    }
-    50% {
-      background-color: lighten(rgba(73, 133, 16, 0.6),10%);
-    }
-    100% {
-      background-color: rgba(73, 133, 16, 0.6);
-    }
   }
 }

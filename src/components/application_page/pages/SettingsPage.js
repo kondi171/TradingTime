@@ -6,9 +6,9 @@ const SettingsPage = () => {
     <>
       <main className='settings-page'>
         <aside className='settings-page__categories'>
-          <h1>Ustawienia</h1>
+          <h1 id='settings-theme'>Ustawienia</h1>
           <ul>
-            <li>
+            <li className='aside-theme'>
               <NavLink
                 className='settings-page__categories--navigation'
                 to='userpreferences'
@@ -17,7 +17,7 @@ const SettingsPage = () => {
                 użytkownika
               </NavLink>
             </li>
-            <li>
+            <li className='aside-theme'>
               <NavLink
                 className='settings-page__categories--navigation'
                 to='applicationpreferences'
@@ -26,7 +26,7 @@ const SettingsPage = () => {
                 Ustawienia aplikacji
               </NavLink>
             </li>
-            <li>
+            <li className='aside-theme'>
               <NavLink
                 className='settings-page__categories--navigation'
                 to='walletpreferences'
@@ -37,7 +37,7 @@ const SettingsPage = () => {
             </li>
 
             {isAdmin ? (
-              <li>
+              <li className='aside-theme'>
                 <NavLink
                   className='settings-page__categories--navigation'
                   to='adminoptions'

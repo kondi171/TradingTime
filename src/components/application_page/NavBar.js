@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 function NavBar() {
   return (
     <>
-      <nav className='app__nav'>
+      <nav id="app__nav" className='app__nav'>
         <NavLink to='/app/home' className='nav-option'>
           <i className='fa fa-home'></i> Główny Panel
         </NavLink>
