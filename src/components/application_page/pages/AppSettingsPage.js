@@ -12,6 +12,7 @@ import theme1 from '../../../assets/img/themes/theme1.png';
 import theme2 from '../../../assets/img/themes/theme2.png';
 import theme3 from '../../../assets/img/themes/theme3.png';
 import LoadingBar from '../../features/LoadingBar';
+import { AppContext } from '../AppContext';
 
 class AppSettingsPage extends React.Component {
   state = {
@@ -19,11 +20,10 @@ class AppSettingsPage extends React.Component {
       simulationMode: true,
       smartAssistant: false,
       twoFactorAuthentication: true,
-      wallpaper: '1',
+      wallpaper: 1,
       theme: '1',
       avatar: '4',
     },
-
     showSaveButtons: false,
     wallpaperChange: false,
     avatarChange: false,
@@ -32,7 +32,53 @@ class AppSettingsPage extends React.Component {
     undisplayTime: 1500,
     showModal: false,
   };
+  handleChangeWallpaper = () => {
+    // this.state.wallpaper
+  }
+  handleChangeTheme = () => {
+    const navbar = document.getElementById('app__nav');
+    const aside = document.querySelectorAll('aside-theme');
+    const h1 = document.getElementById('settings-theme');
+    if (this.state.appPreferences.theme === '1') {
+      navbar.classList.add('theme1');
+      navbar.classList.remove('theme2');
+      navbar.classList.remove('theme3');
 
+      // aside.classList.add('theme1');
+      // aside.classList.remove('theme2');
+      // aside.classList.remove('theme3');
+
+      h1.classList.add('tile-theme1');
+      h1.classList.remove('tile-theme2');
+      h1.classList.remove('tile-theme3');
+    }
+    else if (this.state.appPreferences.theme === '2') {
+      navbar.classList.add('theme2');
+      navbar.classList.remove('theme1');
+      navbar.classList.remove('theme3');
+
+      //     aside.classList.add('theme2');
+      //    aside.classList.remove('theme1');
+      // aside.classList.remove('theme3');
+
+      h1.classList.add('tile-theme2');
+      h1.classList.remove('tile-theme1');
+      h1.classList.remove('tile-theme3');
+    }
+    else if (this.state.appPreferences.theme === '3') {
+      navbar.classList.add('theme3');
+      navbar.classList.remove('theme1');
+      navbar.classList.remove('theme2');
+
+      // aside.classList.add('theme3');
+      // aside.classList.remove('theme1');
+      // aside.classList.remove('theme2');
+
+      h1.classList.add('tile-theme3');
+      h1.classList.remove('tile-theme1');
+      h1.classList.remove('tile-theme2');
+    }
+  }
   handleToggleInput = (option) => {
     let appPreferences = this.state.appPreferences;
 
@@ -290,6 +336,8 @@ class AppSettingsPage extends React.Component {
     }
 
     this.toggleImageSelector();
+    this.handleChangeTheme();
+    this.handleChangeWallpaper();
   }
   render() {
     const { simulationMode, smartAssistant, twoFactorAuthentication } =
