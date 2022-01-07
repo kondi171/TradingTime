@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import SwitchButton from '../elements/SwitchButton';
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import ActionChart from '../ActionChart';
@@ -191,8 +191,26 @@ const MarketplacePage = () => {
   const [accountBalance, setAccountBalance] = useState(0);
   const [smartAssistant, setSmartAssistant] = useState(true);
 
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  const [todayValues, setTodayValues] = useState('');
+  const [pastValues, setPastValues] = useState('');
   const { userAccountBalance } = useContext(AppContext);
   const { userSettings } = useContext(AppContext);
+
+  const { actionId } = useParams();
+
+  const fetchActionValues = async () => {
+    const API = `http://localhost/api/v1/action/${actionId}`;
+
+    const actionValues = await fetch(API)
+      .then((request) => request.json())
+      .catch((err) => console.log(err));
+
+    if (actionValues) setIsDataLoaded(true);
+    setTodayValues([...actionValues.todayValues]);
+    setPastValues([...actionValues.pastValues]);
+  };
 
   const changeChartView = (range) => setChartRange(range);
 
@@ -299,6 +317,7 @@ const MarketplacePage = () => {
   useEffect(() => {
     setAccountBalance(Number(userAccountBalance));
     setSmartAssistant(userSettings.smartAssistant);
+    fetchActionValues();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -306,7 +325,7 @@ const MarketplacePage = () => {
     <main className='marketplace-page'>
       {/* {getBollingerBands()} */}
       {/* {fillDataArrays()} */}
-      {console.log(infoMessage)}
+
       {displayConfirmModal ? (
         <QuestionModal
           acceptAction={confirmTransaction}
@@ -395,41 +414,47 @@ const MarketplacePage = () => {
         </section>
       </section>
       <section className='marketplace-page__action-chart'>
-        <ActionChart
-          actionName={actionDetails.actionName}
-          actionValues={actionValues}
-          chartRange={chartRange}
-        />
+        {isDataLoaded && pastValues !== '' && todayValues !== '' ? (
+          <>
+            <ActionChart
+              actionName={actionDetails.actionName}
+              actionValues={actionValues}
+              todayActionValues={todayValues}
+              pastActionValues={pastValues}
+              chartRange={chartRange}
+            />
 
-        <div className='marketplace-page__chart-buttons'>
-          <button
-            className='button marketplace-page__chart-button'
-            onClick={() => changeChartView('today')}
-          >
-            Dzisiaj
-          </button>
-          <button
-            className='button marketplace-page__chart-button'
-            onClick={() => changeChartView('week')}
-          >
-            Ostatnie 7 dni
-          </button>
-          <button
-            className='button marketplace-page__chart-button'
-            onClick={() => changeChartView('month')}
-          >
-            Ostatni miesiąc
-          </button>
-          <button
-            className='button marketplace-page__chart-button'
-            onClick={() => changeChartView('quarter')}
-          >
-            Ostatnie 3 miesiące
-          </button>
-        </div>
+            <div className='marketplace-page__chart-buttons'>
+              <button
+                className='button marketplace-page__chart-button'
+                onClick={() => changeChartView('today')}
+              >
+                Dzisiaj
+              </button>
+              <button
+                className='button marketplace-page__chart-button'
+                onClick={() => changeChartView('week')}
+              >
+                Ostatnie 7 dni
+              </button>
+              <button
+                className='button marketplace-page__chart-button'
+                onClick={() => changeChartView('month')}
+              >
+                Ostatni miesiąc
+              </button>
+              <button
+                className='button marketplace-page__chart-button'
+                onClick={() => changeChartView('quarter')}
+              >
+                Ostatnie 3 miesiące
+              </button>
+            </div>
+          </>
+        ) : null}
       </section>
       <InfoModal message={infoMessage} visible={infoVisible} position='right' />
-      {console.log(infoMessage)}
+      {/* {console.log(infoMessage)} */}
     </main>
   );
 };
