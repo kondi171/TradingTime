@@ -12,8 +12,7 @@ import theme1 from '../../../assets/img/themes/theme1.png';
 import theme2 from '../../../assets/img/themes/theme2.png';
 import theme3 from '../../../assets/img/themes/theme3.png';
 import LoadingBar from '../../features/LoadingBar';
-
-import { AppContext } from '../../../AppContext';
+import { AppContext } from '../AppContext';
 
 const AppSettingsPage = () => {
   const [appPreferences, setAppPreferences] = useState({

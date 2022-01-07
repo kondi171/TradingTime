@@ -1,5 +1,7 @@
 nav.app__nav {
   @extend %navbar;
+  // background-color: #006494;
+  // background-color: #13293d;
   position: sticky;
   height: 7vh;
   //   border-bottom: 3px solid $activeColor;
@@ -87,3 +89,6 @@ nav.app__nav {
     }
   }
 }
+.theme1 { background-color: #333!important; }
+.theme2 { background-color: #13293d!important; }
+.theme3 { background-color: #345995!important; }

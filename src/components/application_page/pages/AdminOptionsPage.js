@@ -138,7 +138,7 @@ const AdminOptionsPage = () => {
           {allUsers !== ''
             ? displayUsers(searchQuery)
             : // console.log('all users zapełnione')
-              console.log('all users puste')}
+            console.log('all users puste')}
         </div>
       </section>
 

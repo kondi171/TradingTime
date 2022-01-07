@@ -4,10 +4,11 @@ import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
 import HomePageFavourites from '../HomePageFavourites';
 import HomePageBought from '../HomePageBought';
 import HomePageDate from '../HomePageDate';
-class HomePage extends React.Component {
+import { AppContext, defaultObject } from '../AppContext';
+class HomePage extends React.PureComponent {
   state = {
     time: 0,
-    wallpaper: 1,
+    wallpaper: defaultObject.wallpaper,
     actions: [
       {
         actionId: 0,
@@ -47,12 +48,28 @@ class HomePage extends React.Component {
       },
     ],
   };
+  handleChangeWallpaper = () => {
+    const home = document.getElementById('home');
+    if (this.state.wallpaper === 1) {
+      home.classList.add('wallpaper1');
+      home.classList.remove('wallpaper2');
+      home.classList.remove('wallpaper3');
+    }
+    else if (this.state.wallpaper === 2) {
+      home.classList.add('wallpaper2');
+      home.classList.remove('wallpaper1');
+      home.classList.remove('wallpaper3');
+    }
+    else if (this.state.wallpaper === 3) {
+      home.classList.add('wallpaper3');
+      home.classList.remove('wallpaper2');
+      home.classList.remove('wallpaper1');
+    }
+  }
 
-  // componentDidMount() {
-  //   const homePage = document.getElementById('home');
-  //   console.log(this.props.wallpaper);
-  //   homePage.style.backgroundImage = 'none';
-  // }
+  componentDidMount() {
+    this.handleChangeWallpaper();
+  }
 
   render() {
     return (

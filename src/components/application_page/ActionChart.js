@@ -63,11 +63,11 @@ const ActionChart = ({
       )
         console.log(
           'buy ' +
-            element.day +
-            ' ' +
-            element.value +
-            ' ' +
-            bollingerBandsReversed[index + 1].lowerBollingerBand
+          element.day +
+          ' ' +
+          element.value +
+          ' ' +
+          bollingerBandsReversed[index + 1].lowerBollingerBand
         );
       // console.log(bollingerBands[index].upperBollingerBand);
       // console.log(element);
