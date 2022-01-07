@@ -27,7 +27,6 @@ const SearchPage = () => {
       .then((data) => data.actions)
       .catch((err) => console.log(err));
 
-    console.log(userFavouriteActions);
     setActions(
       matchFavouriteActions(allActions, userFavouriteActions, userBoughtActions)
     );
@@ -41,20 +40,6 @@ const SearchPage = () => {
         matchFavouriteActions(actions, userFavouriteActions, userBoughtActions)
       );
   };
-  componentDidMount() {
-    window.setTimeout(this.fetchActions(), 3000);
-  }
-  fetchActions = () => {
-    const API = 'http://localhost/api/v1/action';
-    fetch(API)
-      .then(response => response.json())
-      .then(json => {
-        for (let i = 0; i < json.actions.length; i++) {
-          this.state.actions.push({ id: parseInt(json.actions[i].id_action), actionName: json.actions[i].name, short: json.actions[i].symbol });
-        }
-        console.log(this.state.actions);
-      })
-  }
 
   const handleChangeActiveAction = (id) => {
     let currentId = activeAction;
