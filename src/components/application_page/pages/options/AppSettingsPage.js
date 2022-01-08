@@ -288,7 +288,8 @@ const AppSettingsPage = () => {
     appPreferences;
   return (
     <>
-      {console.log(appPreferences)}
+      {/* {console.log(appPreferences)} */}
+      {/* {console.log(userSettings)} */}
       {showModal ? displayQuestionModal() : null}
       <section className='settings-page__preferences'>
         <h1>Ustawienia aplikacji</h1>
