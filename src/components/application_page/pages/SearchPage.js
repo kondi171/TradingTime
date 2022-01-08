@@ -58,9 +58,6 @@ class SearchPage extends React.Component {
       .then(() => this.setState({ isLoaded: true }))
       .catch((err) => console.log(err));
   };
-  componentDidMount() {
-    window.setTimeout(this.fetchActions(), 3000);
-  }
   fetchActions = () => {
     const API = 'http://localhost/api/v1/action';
     fetch(API)

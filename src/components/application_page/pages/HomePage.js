@@ -5,10 +5,12 @@ import HomePageFavourites from '../HomePageFavourites';
 import HomePageBought from '../HomePageBought';
 import HomePageDate from '../HomePageDate';
 import { AppContext, defaultObject } from '../AppContext';
+import RestrictedInfo from '../elements/RestrictedInfo';
 class HomePage extends React.PureComponent {
   state = {
     time: 0,
     wallpaper: defaultObject.wallpaper,
+    restricted: true,
     actions: [
       {
         actionId: 0,
@@ -74,6 +76,7 @@ class HomePage extends React.PureComponent {
   render() {
     return (
       <main id='home' className='home-page'>
+        {this.state.restricted && <RestrictedInfo />}
         <HomePageFavourites actions={this.state.actions} />
         <HomePageDate />
         <HomePageBought actions={this.state.actions} />

@@ -7,6 +7,17 @@ main.home-page {
   height: 93vh;
   overflow-y: hidden;
   position: relative;
+  .restricted-info {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: rgb(231, 47, 47);
+    color: $light;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 6px;
+  }
   .home-page__favourites {
     @include modal(11vh, 5vh);
     h2 {
@@ -22,10 +33,9 @@ main.home-page {
       img {
         width: 20%;
         height: 20%;
-        border-radius: 50%;
         margin: 0.5vh 2.5vh;
       }
-      a {
+      a.empty-link {
         text-align: center;
         display: block;
         width: 25%;
@@ -42,6 +52,24 @@ main.home-page {
         &:hover {
           color: $activeColor;
           box-shadow: inset 0px 0px 24px 0px $activeColor;
+        }
+      }
+      a.action-link {
+        text-align: center;
+        display: block;
+        width: 25%;
+        height: 10vh;
+        padding: 1.2vh;
+        font-size: 64px;
+        text-decoration: none;
+        color: #cecece;
+        margin: 10px;
+        transition-duration: 0.4s;
+        z-index: 10;
+        img {
+          width: 100%;
+          height: 100%;
+          margin: 10px;
         }
       }
     }
@@ -92,10 +120,9 @@ main.home-page {
       img {
         width: 20%;
         height: 20%;
-        border-radius: 50%;
         margin: 0.5vh 2.5vh;
       }
-      a {
+      a.empty-link {
         text-align: center;
         display: block;
         width: 25%;
@@ -112,6 +139,25 @@ main.home-page {
         &:hover {
           color: $activeColor;
           box-shadow: inset 0px 0px 24px 0px $activeColor;
+        }
+      }
+      a.action-link {
+        text-align: center;
+        display: block;
+        width: 25%;
+        height: 10vh;
+        border-radius: 4px;
+        padding: 1.2vh;
+        font-size: 64px;
+        text-decoration: none;
+        color: #cecece;
+        margin: 10px;
+        transition-duration: 0.4s;
+        z-index: 10;
+        img {
+          width: 100%;
+          height: 100%;
+          margin: 10px;
         }
       }
     }

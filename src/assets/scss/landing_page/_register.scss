@@ -17,7 +17,7 @@
     }
     form.form {
         @extend %input;
-        @include form(30%,70vh);
+        @include form(30%,75vh);
         position: absolute;
         top: 50%;
         left: 50%;

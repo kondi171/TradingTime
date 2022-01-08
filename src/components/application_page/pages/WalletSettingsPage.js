@@ -3,6 +3,7 @@ import { AppContext } from '../../../AppContext';
 import WithdrawMoneyModal from '../WithdrawMoneyModal';
 // import modifyAccountNumber from '../../helpers/modifyAccountNumber';
 import modifyAccountNumber from '../../helpers/modifyAccountNumber';
+import InfoModal from '../../features/InfoModal';
 
 const WalletSettingsPage = () => {
   // state = {
@@ -20,7 +21,8 @@ const WalletSettingsPage = () => {
   const [accountBalance, setAccountBalance] = useState(0);
   const [amountToWithdraw, setAmountToWithdraw] = useState('');
   const [withdrawMoneyModal, setWithdrawMoneyModal] = useState(0);
-
+  const [infoVisble, setInfoVisible] = useState(false);
+  const [infoMessage, setInfoMessage] = useState('');
   const { userAccountBalance } = useContext(AppContext);
   const { userPersonalData } = useContext(AppContext);
 
@@ -28,7 +30,9 @@ const WalletSettingsPage = () => {
     e.preventDefault();
 
     if (amountToWithdraw > accountBalance)
-      alert('Nie posiadasz tyle pieniędzy na koncie.');
+      displayInfoModal(
+        'Nie posiadasz tyle pieniędzy na koncie!'
+      );
     else {
       let tempAccountBalance = accountBalance;
       tempAccountBalance -= amountToWithdraw;
@@ -43,13 +47,20 @@ const WalletSettingsPage = () => {
     setWithdrawMoneyModal(!withdrawMoneyModal);
   };
 
-  const handleDepositMoney = () => {};
+  const handleDepositMoney = () => { };
 
   const handleWithdrawInputChange = (e) => {
     const amountToWithdraw = e.target.value;
     setAmountToWithdraw(amountToWithdraw);
   };
-
+  const displayInfoModal = (message) => {
+    setInfoVisible(true);
+    setInfoMessage(message);
+    setTimeout(() => {
+      setInfoVisible(false);
+      setInfoMessage('');
+    }, 3000);
+  };
   useEffect(() => {
     setAccountBalance(Number(userAccountBalance));
     setAccountNr(userPersonalData.bankAccount);
@@ -97,9 +108,10 @@ const WalletSettingsPage = () => {
             }
             amountToWithdraw={amountToWithdraw}
             handleWithdrawInputChange={handleWithdrawInputChange}
-            e={this.event}
+
           />
         ) : null}
+        <InfoModal message={infoMessage} visible={infoVisble} position='right' />
       </section>
     </>
   );
