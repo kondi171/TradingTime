@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import allegro from '../../../assets/img/testimages/allegro-favicon.png';
-import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
-import { AppContext } from '../../../AppContext';
-import WalletAction from '../WalletAction';
-import matchFavouriteActions from '../../helpers/MatchFavBoughtActions';
+// import allegro from '../../../assets/img/testimages/allegro-favicon.png';
+// import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
+import { AppContext } from '../../../../AppContext';
+import WalletAction from './WalletAction';
+import matchFavouriteActions from '../../../helpers/MatchFavBoughtActions';
 
 const WalletPage = () => {
   // State zawiera elementy wyciągniete z tabeli o akcjach posiadanych przez uzytkownika oraz stanie konta
