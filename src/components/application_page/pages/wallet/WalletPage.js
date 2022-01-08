@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import allegro from '../../../assets/img/testimages/allegro-favicon.png';
-import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
-import { AppContext } from '../../../AppContext';
-import WalletAction from '../WalletAction';
+import allegro from '../../../../assets/img/testimages/allegro-favicon.png';
+import cdpsa from '../../../../assets/img/testimages/cdpsa-favicon.png';
+import { AppContext } from '../../../../AppContext';
+import WalletAction from './WalletAction';
 
 const WalletPage = () => {
   // State zawiera elementy wyciągniete z tabeli o akcjach posiadanych przez uzytkownika oraz stanie konta
@@ -62,19 +62,19 @@ const WalletPage = () => {
   let walletActionArray = null;
 
   const displayUserActions = () =>
-    (walletActionArray = [...userActions].map((userAction) => (
-      <WalletAction
-        key={userAction.id}
-        actionId={userAction.id}
-        name={userAction.actionName}
-        price={userAction.price}
-        image={userAction.image}
-        isFavourite={userAction.isFavourite}
-        lastUpdate={userAction.lastUpdate}
-        numberOfActions={userAction.numberOfActions}
-        toggleFavourite={() => toggleFavourite(userAction.id)}
-      />
-    )));
+  (walletActionArray = [...userActions].map((userAction) => (
+    <WalletAction
+      key={userAction.id}
+      actionId={userAction.id}
+      name={userAction.actionName}
+      price={userAction.price}
+      image={userAction.image}
+      isFavourite={userAction.isFavourite}
+      lastUpdate={userAction.lastUpdate}
+      numberOfActions={userAction.numberOfActions}
+      toggleFavourite={() => toggleFavourite(userAction.id)}
+    />
+  )));
 
   const toggleFavourite = (id) => {
     let userActions = [...this.state.userActions].map((action) => {
@@ -143,8 +143,8 @@ const WalletPage = () => {
             <span>
               {accountBalance
                 ? `${(
-                    countBilanceFromActions() + parseFloat(accountBalance)
-                  ).toFixed(2)} zł`
+                  countBilanceFromActions() + parseFloat(accountBalance)
+                ).toFixed(2)} zł`
                 : null}
             </span>
           </p>

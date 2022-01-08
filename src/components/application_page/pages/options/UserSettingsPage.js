@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Validation from '../Validation';
-import InfoModal from '../../features/InfoModal';
-import LoadingBar from '../../features/LoadingBar';
+import Validation from '../../../features/Validation';
+import InfoModal from '../../../features/modals/InfoModal';
+import LoadingBar from '../../../features/LoadingBar';
 
-import { AppContext } from '../../../AppContext';
+import { AppContext } from '../../../../AppContext';
 
 const UserSettingsPage = () => {
   const [passwordChange, setPasswordChange] = useState(false);

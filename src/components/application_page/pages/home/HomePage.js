@@ -1,16 +1,15 @@
 import React from 'react';
-import allegro from '../../../assets/img/testimages/allegro-favicon.png';
-import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
-import HomePageFavourites from '../HomePageFavourites';
-import HomePageBought from '../HomePageBought';
-import HomePageDate from '../HomePageDate';
-import { AppContext, defaultObject } from '../AppContext';
-import RestrictedInfo from '../elements/RestrictedInfo';
+import allegro from '../../../../assets/img/testimages/allegro-favicon.png';
+import cdpsa from '../../../../assets/img/testimages/cdpsa-favicon.png';
+import HomePageFavourites from './HomePageFavourites';
+import HomePageBought from './HomePageBought';
+import HomePageDate from './HomePageDate';
+import RestrictedInfo from '../../../features/RestrictedInfo';
 class HomePage extends React.PureComponent {
   state = {
     time: 0,
-    wallpaper: defaultObject.wallpaper,
-    restricted: true,
+    wallpaper: 0,
+    restricted: false,
     actions: [
       {
         actionId: 0,

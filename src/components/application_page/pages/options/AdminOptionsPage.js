@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import AdminPageUserInfo from '../AdminPageUserInfo';
-import UserInfoDetails from '../UserInfoDetails';
+import AdminPageUserInfo from './AdminPageUserInfo';
+import UserInfoDetails from './UserInfoDetails';
 
 // const users = [
 //   {

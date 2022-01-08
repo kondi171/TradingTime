@@ -21,7 +21,7 @@ class InfoModal extends Component {
   render() {
     return (
       <div className="info-modal" id="infoModal">
-        <i className="fa fa-info-circle"></i> <span id="infoMessage">{this.props.vissible ? this.infoMessage : null} </span>
+        <i className="fa fa-info-circle"></i> <span id="infoMessage">elo </span>
       </div>
     );
   }

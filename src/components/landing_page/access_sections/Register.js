@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import InfoModal from '../../features/InfoModal';
+import InfoModal from '../../features/modals/InfoModal';
 
 class Register extends React.Component {
 

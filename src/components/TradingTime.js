@@ -1,22 +1,21 @@
 import React, { useContext } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import LandingPage from './landing_page/LandingPage';
-import HomePage from './application_page/pages/HomePage';
-import SearchPage from './application_page/pages/SearchPage';
-import LoginPage from './landing_page/sections/LoginPage';
-import Register from './landing_page/sections/Register';
-import WalletPage from './application_page/pages/WalletPage';
-// import AccountPage from './application_page/pages/AccountPage';
+import HomePage from './application_page/pages/home/HomePage';
+import SearchPage from './application_page/pages/search/SearchPage';
+import LoginPage from './landing_page/access_sections/LoginPage';
+import Register from './landing_page/access_sections/Register';
+import WalletPage from './application_page/pages/wallet/WalletPage';
 import HelpPage from './application_page/pages/HelpPage';
 import ErrorPage from './application_page/pages/ErrorPage';
 import Logout from './application_page/Logout';
 import MainLayout from './application_page/MainLayout';
-import SettingsPage from './application_page/pages/SettingsPage';
-import UserSettingsPage from './application_page/pages/UserSettingsPage';
-import AppSettingsPage from './application_page/pages/AppSettingsPage';
-import AdminOptionsPage from './application_page/pages/AdminOptionsPage';
-import WalletSettingsPage from './application_page/pages/WalletSettingsPage';
-import MarketplacePage from './application_page/pages/MarketPlacePage';
+import SettingsPage from './application_page/pages/options/SettingsPage';
+import UserSettingsPage from './application_page/pages/options/UserSettingsPage';
+import AppSettingsPage from './application_page/pages/options/AppSettingsPage';
+import AdminOptionsPage from './application_page/pages/options/AdminOptionsPage';
+import WalletSettingsPage from './application_page/pages/options/WalletSettingsPage';
+import MarketplacePage from './application_page/pages/marketplace/MarketPlacePage';
 import { AppContext } from '../AppContext';
 
 const TradingTime = () => {

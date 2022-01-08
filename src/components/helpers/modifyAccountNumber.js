@@ -1,4 +1,4 @@
-const modifyAccountNumber = (accountNumber) => {
+const ModifyAccountNumber = (accountNumber) => {
   const numberLength = accountNumber.toString().length;
   let modifiedAccountNumber = '';
 
@@ -20,4 +20,4 @@ const modifyAccountNumber = (accountNumber) => {
   return modifiedAccountNumber;
 };
 
-export default modifyAccountNumber;
+export default ModifyAccountNumber;

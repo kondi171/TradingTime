@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { AppContext } from '../../../AppContext';
-import WithdrawMoneyModal from '../WithdrawMoneyModal';
-// import modifyAccountNumber from '../../helpers/modifyAccountNumber';
-import modifyAccountNumber from '../../helpers/ModifyAccountNumber';
+import { AppContext } from '../../../../AppContext';
+import WithdrawMoneyModal from '../../../features/modals/WithdrawMoneyModal';
+import ModifyAccountNumber from '../../../helpers/ModifyAccountNumber';
+import InfoModal from '../../../features/modals/InfoModal';
 
 const WalletSettingsPage = () => {
   // state = {
@@ -68,7 +68,7 @@ const WalletSettingsPage = () => {
 
   return (
     <>
-      {/* {console.log(modifyAccountNumber(23143544521000000064252357))} */}
+      {/* {console.log(ModifyAccountNumber(23143544521000000064252357))} */}
       <section className='settings-page__preferences'>
         <h1>Ustawienia portfela</h1>
         <div className='settings-page__preferences__list'>
@@ -80,7 +80,7 @@ const WalletSettingsPage = () => {
 
           <div className='settings-page__preferences__list__account-number'>
             <p>Numer konta do wpłat: </p>
-            <span>{modifyAccountNumber(accountNr)}</span>
+            <span>{ModifyAccountNumber(accountNr)}</span>
             <i className='fa fa-question-circle-o' aria-hidden='true'>
               <span></span>
             </i>

@@ -1,13 +1,8 @@
 import React from 'react';
-// import Konrad from '../../../assets/img/team/konradnowak.jpg';
-// import Kamil from '../../../assets/img/team/kamilwypych.jpg';
-// import Agnieszka from '../../../assets/img/team/agnieszkarabiej.jpg';
-// import Krystian from '../../../assets/img/team/krystianlabecki.jpg';
 import Konrad from '../../../assets/img/team/Konrad.png';
 import Kamil from '../../../assets/img/team/Kamil.png';
 import Agnieszka from '../../../assets/img/team/Agnieszka.png';
 import Krystian from '../../../assets/img/team/Krystian.png';
-import Opinion from './Opinion';
 
 class About extends React.Component {
   state = {
@@ -65,9 +60,12 @@ class About extends React.Component {
     const opinionsArr = this.state.opinions.map((opinion) => {
       if (opinion.active)
         return (
-          <Opinion key={opinion.id} name={opinion.name} text={opinion.text} />
+          <div className='opinions'>
+            <blockquote>{opinion.text}</blockquote>
+            <p className='person'>{opinion.name}</p>
+          </div>
         );
-        else return null;
+      else return null;
     });
 
     return (
