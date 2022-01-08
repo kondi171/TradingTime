@@ -34,6 +34,8 @@ const ActionChart = ({
     return label;
   };
 
+  // defaults.config.data.datasets[0]['pointBackgroundColor'][0] = 'red';
+
   const [todayValues, setTodayValues] = useState([]);
   const [lastWeekValues, setLastWeekValues] = useState([]);
   const [lastMonthValues, setLastMonthValues] = useState([]);
@@ -55,56 +57,55 @@ const ActionChart = ({
   };
 
   const addForecastTags = (array, bollingerBands) => {
-    const bollingerBandsReversed = bollingerBands;
-    array.forEach((element, index) => {
-      //   console.log(
-      //     element.closeActionDate +
-      //       '  cena: ' +
-      //       element.closeValue +
-      //       ', UpperBB: ' +
-      //       bollingerBandsReversed[index + 1].upperBollingerBand +
-      //       ', LowerBB: ' +
-      //       bollingerBandsReversed[index + 1].lowerBollingerBand
-      //   );
+    let newActionsArray = [...array];
+    const BBLength = [...bollingerBands].length - 1;
 
-      //ok
+    newActionsArray.reverse().forEach((element, index) => {
+      // console.log(
+      //   element.closeActionDate +
+      //     '  cena: ' +
+      //     element.closeValue +
+      //     ', UpperBB: ' +
+      //     bollingerBandsReversed[BBLength - index - 1].upperBollingerBand +
+      //     // bollingerBandsReversed[index + 1].upperBollingerBand +
+      //     ', LowerBB: ' +
+      //     bollingerBandsReversed[BBLength - index - 1].lowerBollingerBand
+      //   // bollingerBandsReversed[index + 1].lowerBollingerBand
+      // );
       if (
         element.closeValue >=
-        bollingerBandsReversed[index + 1].upperBollingerBand
-      )
+        bollingerBands[BBLength - index].upperBollingerBand
+      ) {
         console.log(
           'sell, data: ' +
             element.closeActionDate +
             ', cena: ' +
             element.closeValue +
             ', upperBB: ' +
-            bollingerBandsReversed[index + 1].upperBollingerBand +
+            bollingerBands[BBLength - index].upperBollingerBand +
             ', lowerBB: ' +
-            bollingerBandsReversed[index + 1].lowerBollingerBand
+            bollingerBands[BBLength - index].lowerBollingerBand
         );
-      else if (
+        element.action = 'sell';
+      } else if (
         element.closeValue <=
-        bollingerBandsReversed[index + 1].lowerBollingerBand
-      )
+        bollingerBands[BBLength - index].lowerBollingerBand
+      ) {
         console.log(
           'buy, data: ' +
             element.closeActionDate +
             ', cena: ' +
             element.closeValue +
             ', upperBB: ' +
-            bollingerBandsReversed[index + 1].upperBollingerBand +
+            bollingerBands[BBLength - index].upperBollingerBand +
             ', lowerBB: ' +
-            bollingerBandsReversed[index + 1].lowerBollingerBand
+            bollingerBands[BBLength - index].lowerBollingerBand
         );
-
-      // console.log(bollingerBands[index].upperBollingerBand);
-      // console.log(element);
-      // elementIndex++;
+        element.action = 'buy';
+      } else element.action = 'nothing';
     });
-    // console.log(bollingerBands.reverse()[1].upperBollingerBand);
-    // if (array >= bollingerBands.upperBollingerBand) return 'sell';
-    // else if (array <= bollingerBands.lowerBollingerBand) return 'buy';
-    // else return null;
+
+    return newActionsArray.reverse();
   };
 
   const fillDataArrays = () => {
@@ -152,12 +153,15 @@ const ActionChart = ({
       return lastQuarterValuesArray;
     };
     setTodayValues(getTodayValues);
-    setLastWeekValues(getLastWeekValues);
-    setLastMonthValues(getLastMonthValues);
-    setLastQuarterValues(getLastQuarterValues);
-
-    // addForecastTags(getLastMonthValues(), getBollingerBands());
-    addForecastTags(getLastQuarterValues(), getBollingerBands());
+    setLastWeekValues(
+      addForecastTags(getLastWeekValues(), getBollingerBands())
+    );
+    setLastMonthValues(
+      addForecastTags(getLastMonthValues(), getBollingerBands())
+    );
+    setLastQuarterValues(
+      addForecastTags(getLastQuarterValues(), getBollingerBands())
+    );
   };
 
   const xLabel = () => {
@@ -207,6 +211,26 @@ const ActionChart = ({
     return values;
   };
 
+  const forecastSymbols = () => {
+    let values = 0;
+    if (chartRange === 'today')
+      values = todayValues.map((action) => (action.action = 'nothing'));
+    else if (chartRange === 'week')
+      values = lastWeekValues.map((action) => action.action);
+    else if (chartRange === 'month')
+      values = lastMonthValues.map((action) => action.action);
+    else if (chartRange === 'quarter')
+      values = lastQuarterValues.map((action) => action.action);
+    return values;
+  };
+
+  const setForecastSymbols = (context, ifBuy, ifSell, ifNothing) => {
+    const index = context.dataIndex;
+    const action = context.dataset.action[index];
+
+    return action === 'buy' ? ifBuy : action === 'sell' ? ifSell : ifNothing;
+  };
+
   useEffect(() => fillDataArrays(), []);
 
   return (
@@ -219,6 +243,17 @@ const ActionChart = ({
               label: 'Cena akcji ' + actionName,
               data: chartValues(),
               backgroundColor: 'cadetBlue',
+              action: forecastSymbols(),
+              rotation: (context) => setForecastSymbols(context, 0, 180, 0),
+              borderWidth: (context) => setForecastSymbols(context, 4, 4, 1),
+              borderColor: (context) =>
+                setForecastSymbols(context, 'green', 'red', '#999'),
+
+              pointStyle: (context) =>
+                setForecastSymbols(context, 'triangle', 'triangle', 'dot'),
+
+              pointBackgroundColor: (context) =>
+                setForecastSymbols(context, 'green', 'red', 'blue'),
             },
           ],
         }}
