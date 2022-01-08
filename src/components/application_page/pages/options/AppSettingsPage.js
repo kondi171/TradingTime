@@ -73,7 +73,6 @@ const AppSettingsPage = () => {
 
   const handleImageInputChange = (e, category) => {
     let tempAppPreferences = appPreferences;
-
     if (category === 'wallpaper')
       tempAppPreferences.wallpaper = e.target.dataset.wallpaperid;
     if (category === 'avatar')
