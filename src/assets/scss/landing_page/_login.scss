@@ -25,15 +25,26 @@
             font-size: 24px;
             padding: 2px;
             margin-left: 6px;
-            margin-right: 10px;
-            margin-right: 5px;
-            text-align: left;
+
+            text-align: center;
         }
         span {
             display: block;
-            margin-left: 30px;
+            width:70%;
+            margin: 0 auto;
             align-self: center;
         }
     }
     .links { @extend %links; }
+    .info-modal {
+        @extend %infoModal;
+        border-color: rgb(255, 47, 47);
+        opacity: 0.9;
+        i {
+            color:rgb(255, 47, 47);
+        }
+      }
+      .active-modal {
+        display: flex;
+      }
 }

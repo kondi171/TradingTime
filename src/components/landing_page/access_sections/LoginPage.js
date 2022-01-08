@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../AppContext';
-
+import InfoModal from '../../features/modals/InfoModal';
 const LoginPage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -14,7 +14,8 @@ const LoginPage = () => {
   const { fetchUserFavouriteActions } = useContext(AppContext);
   const { fetchUserBoughtActions } = useContext(AppContext);
   const { setUserIdNumber } = useContext(AppContext);
-
+  const [infoVisible, setInfoVisible] = useState(false);
+  const [infoMessage, setInfoMessage] = useState('');
   const login = async (e) => {
     e.preventDefault();
     const API = 'http://localhost/api/v1/login';
@@ -29,8 +30,6 @@ const LoginPage = () => {
       body: formParams,
     }).then((response) => response.json());
 
-    console.log(login);
-
     if (login.success) {
       toggleLoggedState();
       fetchUserData(login.id_user);
@@ -40,7 +39,17 @@ const LoginPage = () => {
       fetchAccountBalance(login.id_user);
       setUserIdNumber(login.id_user);
       navigate('/app/home');
+    } else {
+      displayInfoModal(login.message.toUpperCase());
     }
+  };
+  const displayInfoModal = (message) => {
+    setInfoVisible(true);
+    setInfoMessage(message);
+    setTimeout(() => {
+      setInfoVisible(false);
+      setInfoMessage('');
+    }, 4000);
   };
 
   return (
@@ -71,6 +80,7 @@ const LoginPage = () => {
         <Link to='/register'>Nie masz jeszcze konta? Załóż je!</Link>
         <Link to='/'>Powrót do Strony Głównej</Link>
       </div>
+      <InfoModal message={infoMessage} visible={infoVisible} position='right' />
     </div>
   );
 };

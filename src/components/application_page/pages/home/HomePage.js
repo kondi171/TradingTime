@@ -52,7 +52,6 @@ const HomePage = () => {
   //   ],
   // };
 
-  const [wallpaper, setWallpaper] = useState(0);
   const [restricted, setRestricted] = useState(false);
   const [favouriteActions, setFavouriteActions] = useState('');
   const [boughtActions, setBoughtActions] = useState('');
@@ -60,24 +59,62 @@ const HomePage = () => {
   const { userFavouriteActions } = useContext(AppContext);
   const { userBoughtActions } = useContext(AppContext);
 
-  const handleChangeWallpaper = () => {
+  const { userSettings } = useContext(AppContext);
+  const [currentWallpaper, setCurrentWallpaper] = useState();
+  useEffect(() => setWallpaper(), [userSettings]);
+  const setWallpaper = () => {
     const home = document.getElementById('home');
-    if (wallpaper === 1) {
+    if (Number(userSettings.wallpaper) === 1) {
+      setCurrentWallpaper(1);
       home.classList.add('wallpaper1');
       home.classList.remove('wallpaper2');
       home.classList.remove('wallpaper3');
-    } else if (wallpaper === 2) {
+    }
+    else if (Number(userSettings.wallpaper) === 2) {
+      setCurrentWallpaper(2);
       home.classList.add('wallpaper2');
       home.classList.remove('wallpaper1');
       home.classList.remove('wallpaper3');
-    } else {
+    }
+    else {
+      setCurrentWallpaper(3);
       home.classList.add('wallpaper3');
       home.classList.remove('wallpaper2');
       home.classList.remove('wallpaper1');
     }
-  };
+  }
 
-  useEffect(() => handleChangeWallpaper(), []);
+  const [currentTheme, setCurrentTheme] = useState();
+  useEffect(() => setTheme(), [userSettings]);
+  const setTheme = () => {
+
+    if (Number(userSettings.theme) === 1) {
+      setCurrentTheme(1);
+      document.documentElement.style.setProperty('--bg-color', '#333333');
+      document.documentElement.style.setProperty('--box-color', '#858484');
+      document.documentElement.style.setProperty('--text-color', '#c4c4c4');
+      document.documentElement.style.setProperty('--active-color', '#3d84f5');
+      document.documentElement.style.setProperty('--hover-color', '#555555');
+    }
+    else if (Number(userSettings.theme) === 2) {
+      setCurrentTheme(2);
+      document.documentElement.style.setProperty('--bg-color', '#1F3336');
+      document.documentElement.style.setProperty('--box-color', '#038C3E');
+      document.documentElement.style.setProperty('--text-color', '#cdf5c5');
+      document.documentElement.style.setProperty('--active-color', '#038C3E');
+      document.documentElement.style.setProperty('--hover-color', '#77BF63');
+    }
+    else {
+      setCurrentTheme(3);
+      document.documentElement.style.setProperty('--bg-color', '#191919');
+      document.documentElement.style.setProperty('--box-color', '#FFCD00');
+      document.documentElement.style.setProperty('--text-color', '#FFFFFF');
+      document.documentElement.style.setProperty('--active-color', '#FFCD00');
+      document.documentElement.style.setProperty('--hover-color', '#b69917');
+    }
+  }
+
+
 
   useEffect(
     () => setFavouriteActions(userFavouriteActions),
