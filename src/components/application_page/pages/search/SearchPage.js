@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import SearchResult from '../SearchResult';
-import ActionInfo from '../ActionInfo';
-import matchFavouriteActions from '../../helpers/MatchFavBoughtActions';
+import SearchResult from './SearchResult';
+import ActionInfo from './ActionInfo';
+import matchFavouriteActions from '../../../helpers/MatchFavBoughtActions';
 
-import { AppContext } from '../../../AppContext';
+import { AppContext } from '../../../../AppContext';
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,7 +66,8 @@ const SearchPage = () => {
     let results = [...actions];
 
     results = results.filter((result) => {
-      return result.actionName
+      // return result.actionName /* must add this object to API */
+      return result.id_action
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
     });

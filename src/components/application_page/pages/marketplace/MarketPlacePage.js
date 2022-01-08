@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import SwitchButton from '../elements/SwitchButton';
-import allegro from '../../../assets/img/testimages/allegro-favicon.png';
-import ActionChart from '../ActionChart';
-import QuestionModal from '../QuestionModal';
-import InfoModal from '../../features/InfoModal';
+import SwitchButton from '../../../features/SwitchButton';
+import allegro from '../../../../assets/img/testimages/allegro-favicon.png';
+import ActionChart from './ActionChart';
+import QuestionModal from '../../../features/modals/QuestionModal';
+import InfoModal from '../../../features/modals/InfoModal';
 
-import { AppContext } from '../../../AppContext';
+import { AppContext } from '../../../../AppContext';
 
 const actionDetails = {
   id: 0,

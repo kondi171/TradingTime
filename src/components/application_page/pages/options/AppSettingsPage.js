@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import QuestionModal from '../QuestionModal';
-import earth from '../../../assets/img/wallpapers/earth.jpg';
-import synth from '../../../assets/img/wallpapers/synth.jpg';
-import lake from '../../../assets/img/wallpapers/lake.jpg';
-import male1 from '../../../assets/img/avatars/avatar_male_blonde_red_glasses.png';
-import male2 from '../../../assets/img/avatars/avatar_male_dark_blue_sunglasses.png';
-import female1 from '../../../assets/img/avatars/avatar_female_auburn_blue_glasses.png';
-import female2 from '../../../assets/img/avatars/avatar_female_blonde_pink.png';
-import avatarDefault from '../../../assets/img/avatars/default_blank.png';
-import theme1 from '../../../assets/img/themes/theme1.png';
-import theme2 from '../../../assets/img/themes/theme2.png';
-import theme3 from '../../../assets/img/themes/theme3.png';
-import LoadingBar from '../../features/LoadingBar';
-import { AppContext } from '../AppContext';
+import QuestionModal from '../../../features/modals/QuestionModal';
+import earth from '../../../../assets/img/wallpapers/earth.jpg';
+import synth from '../../../../assets/img/wallpapers/synth.jpg';
+import lake from '../../../../assets/img/wallpapers/lake.jpg';
+import male1 from '../../../../assets/img/avatars/avatar_male_blonde_red_glasses.png';
+import male2 from '../../../../assets/img/avatars/avatar_male_dark_blue_sunglasses.png';
+import female1 from '../../../../assets/img/avatars/avatar_female_auburn_blue_glasses.png';
+import female2 from '../../../../assets/img/avatars/avatar_female_blonde_pink.png';
+import avatarDefault from '../../../../assets/img/avatars/default_blank.png';
+import theme1 from '../../../../assets/img/themes/theme1.png';
+import theme2 from '../../../../assets/img/themes/theme2.png';
+import theme3 from '../../../../assets/img/themes/theme3.png';
+import LoadingBar from '../../../features/LoadingBar';
+import { AppContext } from '../../../../AppContext';
 
 const AppSettingsPage = () => {
   const [appPreferences, setAppPreferences] = useState({

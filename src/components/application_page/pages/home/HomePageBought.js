@@ -4,8 +4,10 @@ const displayActions = (props) => {
   const boughtActionsList = props.map((action) => (
     <HomePageAction
       key={action.actionId}
-      isTrue={action.isBought}
+      id={action.actionId}
+      isTrue={action.isFavourite}
       image={action.image}
+      symbol={action.symbol}
     />
   ));
 

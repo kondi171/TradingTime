@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import InfoModal from '../../features/InfoModal';
+import InfoModal from '../../features/modals/InfoModal';
 
 class Register extends React.Component {
 
@@ -23,10 +23,12 @@ class Register extends React.Component {
     this.lastname = document.getElementById('lastname');
     this.personalId = document.getElementById('personalId');
     this.pesel = document.getElementById('pesel');
+    this.dateOfBirth = document.getElementById('dateOfBirth');
     this.street = document.getElementById('street');
     this.city = document.getElementById('city');
     this.postcode = document.getElementById('postcode');
     this.phone = document.getElementById('phone');
+    this.accountNumber = document.getElementById('accountNumber');
   }
 
   handleLogin = () => {
@@ -61,6 +63,10 @@ class Register extends React.Component {
     this.setState({ infoVisible: true });
     this.infoMessage = 'PESEL musi mieć dokładnie 11 cyfr';
   }
+  handleDateOfBirth = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage = 'Musisz mieć conajmniej 18 lat';
+  }
   handleStreet = () => {
     this.setState({ infoVisible: true });
     this.infoMessage = 'Ulica musi zawierać conajmniej 5 znaków';
@@ -77,6 +83,10 @@ class Register extends React.Component {
     this.setState({ infoVisible: true });
     this.infoMessage = 'Numer telefonu musi mieć dokładnie 9 cyfr';
   }
+  handleAccountNumber = () => {
+    this.setState({ infoVisible: true });
+    this.infoMessage = 'Numer konta musi zawierać dokładnie 26 cyfr'
+  }
 
   handleRemoveActiveInfo = () => {
     if (this.login === document.activeElement) this.setState({ infoVisible: true });
@@ -87,10 +97,12 @@ class Register extends React.Component {
     else if (this.lastname === document.activeElement) this.setState({ infoVisible: true });
     else if (this.personalId === document.activeElement) this.setState({ infoVisible: true });
     else if (this.pesel === document.activeElement) this.setState({ infoVisible: true });
+    else if (this.dateOfBirth === document.activeElement) this.setState({ infoVisible: true });
     else if (this.street === document.activeElement) this.setState({ infoVisible: true });
     else if (this.city === document.activeElement) this.setState({ infoVisible: true });
     else if (this.postcode === document.activeElement) this.setState({ infoVisible: true });
     else if (this.phone === document.activeElement) this.setState({ infoVisible: true });
+    else if (this.accountNumber === document.activeElement) this.setState({ infoVisible: true });
 
     else this.setState({ infoVisible: false });
   }
@@ -143,6 +155,8 @@ class Register extends React.Component {
             <input onClick={this.handleId} id="personalId" type="text" name="personalId" placeholder="Wprowadź numer dowodu osobistego" />
             <label htmlFor="pesel"><i className="fa fa-user"></i> PESEL</label>
             <input onClick={this.handlePesel} id="pesel" type="text" name="pesel" placeholder="Wprowadź PESEL" />
+            <label htmlFor="dateOfBirth"><i className="fa fa-calendar"></i> Data Urodzenia</label>
+            <input onClick={this.handleDateOfBirth} id="dateOfBirth" type="date" name="date" placeholder="Wprowadź Datę Urodzenia" />
             <div className="btn-wrapper">
               <input onClick={this.handleBasicForm} type="button" value="Wstecz" />
               <input onClick={this.handleAdressForm} type="button" value="Dalej" />
@@ -158,6 +172,8 @@ class Register extends React.Component {
             <input onClick={this.handlePostCode} id="postcode" type="text" name="postcode" placeholder="Wprowadź kod pocztowy" />
             <label htmlFor="phone"><i className="fa fa-phone"></i> Nr telefonu</label>
             <input onClick={this.handlePhone} id="phone" type="text" name="phone" placeholder="Wprowadź numer telefonu" />
+            <label htmlFor="accountNumber"><i className="fa fa-university"></i> Nr Konta</label>
+            <input onClick={this.handleAccountNumber} id="accountNumber" type="text" name="accountNumber" placeholder="Wprowadź numer konta bankowego" />
             <div className="btn-wrapper">
               <input onClick={this.handlePersonalForm} type="button" value="Wstecz" />
               <input onClick={this.handleRegister} type="button" value="Zarejestruj się" />

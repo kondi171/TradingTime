@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Line, defaults } from 'react-chartjs-2';
-import EMA from '../../forecasting scripts/EMA';
-import BB from '../../forecasting scripts/BB';
+import EMA from '../../../forecasting_scripts/EMA';
+import BB from '../../../forecasting_scripts/BB';
 
 // const ActionChart = ({ actionName, actionValues, chartRange, todayValues, pastValues }) => {
 const ActionChart = ({

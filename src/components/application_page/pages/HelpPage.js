@@ -1,4 +1,4 @@
-import Footer from '../../landing_page/sections/Footer';
+import Footer from '../../landing_page/landing_sections/Footer';
 function HelpPage() {
 	return (
 		<>

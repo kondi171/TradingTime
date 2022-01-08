@@ -1,11 +1,14 @@
 import HomePageAction from './HomePageAction';
 
+
 const displayActions = (props) => {
   const favouriteActionsList = props.map((action) => (
     <HomePageAction
       key={action.actionId}
+      id={action.actionId}
       isTrue={action.isFavourite}
       image={action.image}
+      symbol={action.symbol}
     />
   ));
 

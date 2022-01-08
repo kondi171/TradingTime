@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Validation from './Validation';
-import InfoModal from '../features/InfoModal';
+import Validation from '../../../features/Validation';
+import InfoModal from '../../../features/modals/InfoModal';
 
 // const userInfo = {
 //   firstName: 'Imie',
