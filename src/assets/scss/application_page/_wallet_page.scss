@@ -80,6 +80,20 @@
     //scrollbar
     overflow-y: auto;
 
+    p.wallet-page__no-actions-info {
+      text-align: center;
+      margin-top: 10%;
+      cursor: pointer;
+      color: black;
+      text-decoration: underline;
+      font-size: 30px;
+      // width: 100%;
+      // color: red;
+      &:hover {
+        color: #333;
+      }
+    }
+
     div.wallet-page__actions__action {
       display: flex;
       width: 100%;
@@ -96,6 +110,7 @@
         text-align: center;
         img {
           width: 60px;
+          border-radius: 10px;
         }
       }
 
@@ -109,12 +124,13 @@
         i {
           font-size: 24px;
           cursor: pointer;
+          color: #333;
         }
 
         i.fa-heart,
         i.fa-heart-o {
           font-size: 32px;
-          color: blue;
+          // color: blue;
         }
       }
 
