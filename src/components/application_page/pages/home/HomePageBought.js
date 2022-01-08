@@ -3,6 +3,7 @@ import HomePageAction from './HomePageAction';
 const displayActions = (props) => {
   let boughtActionsList = [];
   let emptyFields = [];
+  console.log(props);
 
   if (props.length > 0)
     boughtActionsList = props.map((action) => (
@@ -16,7 +17,12 @@ const displayActions = (props) => {
     ));
 
   for (let i = boughtActionsList.length; i < 6; i++) {
-    emptyFields.push(<HomePageAction key={i} isTrue={false} />);
+    emptyFields.push(
+      <HomePageAction
+        key={Math.floor(Math.random() * (i * 100))}
+        isTrue={false}
+      />
+    );
   }
   boughtActionsList = boughtActionsList.concat(emptyFields);
 
