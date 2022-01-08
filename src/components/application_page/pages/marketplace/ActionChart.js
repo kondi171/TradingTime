@@ -45,7 +45,10 @@ const ActionChart = ({
     );
 
     let bolinger = [];
-    bolinger = BB(2, 10, actionCloseValues, EMA(10, actionCloseValues));
+
+    // console.log(actionCloseValues);
+
+    bolinger = BB(2.5, 30, actionCloseValues, EMA(30, actionCloseValues));
     // console.log(bolinger);
     return bolinger;
     // return BB(2, 10, actionCloseValues, EMA(10, actionCloseValues));
@@ -54,21 +57,46 @@ const ActionChart = ({
   const addForecastTags = (array, bollingerBands) => {
     const bollingerBandsReversed = bollingerBands;
     array.forEach((element, index) => {
-      // console.log(element);
-      // console.log(bollingerBandsReversed[index + 1]);
-      if (element.value >= bollingerBandsReversed[index + 1].upperBollingerBand)
-        console.log('sell ' + element.day);
-      else if (
-        element.value <= bollingerBandsReversed[index + 1].lowerBollingerBand
+      //   console.log(
+      //     element.closeActionDate +
+      //       '  cena: ' +
+      //       element.closeValue +
+      //       ', UpperBB: ' +
+      //       bollingerBandsReversed[index + 1].upperBollingerBand +
+      //       ', LowerBB: ' +
+      //       bollingerBandsReversed[index + 1].lowerBollingerBand
+      //   );
+
+      //ok
+      if (
+        element.closeValue >=
+        bollingerBandsReversed[index + 1].upperBollingerBand
       )
         console.log(
-          'buy ' +
-          element.day +
-          ' ' +
-          element.value +
-          ' ' +
-          bollingerBandsReversed[index + 1].lowerBollingerBand
+          'sell, data: ' +
+            element.closeActionDate +
+            ', cena: ' +
+            element.closeValue +
+            ', upperBB: ' +
+            bollingerBandsReversed[index + 1].upperBollingerBand +
+            ', lowerBB: ' +
+            bollingerBandsReversed[index + 1].lowerBollingerBand
         );
+      else if (
+        element.closeValue <=
+        bollingerBandsReversed[index + 1].lowerBollingerBand
+      )
+        console.log(
+          'buy, data: ' +
+            element.closeActionDate +
+            ', cena: ' +
+            element.closeValue +
+            ', upperBB: ' +
+            bollingerBandsReversed[index + 1].upperBollingerBand +
+            ', lowerBB: ' +
+            bollingerBandsReversed[index + 1].lowerBollingerBand
+        );
+
       // console.log(bollingerBands[index].upperBollingerBand);
       // console.log(element);
       // elementIndex++;
@@ -128,7 +156,8 @@ const ActionChart = ({
     setLastMonthValues(getLastMonthValues);
     setLastQuarterValues(getLastQuarterValues);
 
-    addForecastTags(getLastMonthValues(), getBollingerBands());
+    // addForecastTags(getLastMonthValues(), getBollingerBands());
+    addForecastTags(getLastQuarterValues(), getBollingerBands());
   };
 
   const xLabel = () => {

@@ -20,6 +20,7 @@ main.home-page {
   }
   .home-page__favourites {
     @include modal(11vh, 5vh);
+    user-select: none;
     h2 {
       text-align: center;
       padding: 10px;
@@ -42,8 +43,9 @@ main.home-page {
         font-size: 64px;
         text-decoration: none;
         color: var(--active-color);
-        margin: 10px;
+        margin: 10px 15px;
         transition-duration: 0.4s;
+        cursor: pointer;
         z-index: 10;
         &:hover {
           color: var(--active-color);
@@ -59,12 +61,17 @@ main.home-page {
         font-size: 64px;
         text-decoration: none;
         color: var(--active-color);
-        margin: 10px;
+        margin: 10px 15px;
         transition-duration: 0.4s;
         z-index: 10;
         img {
           width: 100%;
           border-radius: 4px;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
     }
@@ -96,6 +103,7 @@ main.home-page {
   }
   .home-page__actions {
     @include modal(50vh, 5vh);
+    user-select: none;
     h2 {
       text-align: center;
       padding: 10px;
@@ -124,9 +132,10 @@ main.home-page {
         font-size: 64px;
         text-decoration: none;
         color: var(--active-color);;
-        margin: 10px;
+        margin: 10px 15px;
         transition-duration: 0.4s;
         z-index: 10;
+        cursor: pointer;
         &:hover {
           color: var(--active-color);
           box-shadow: inset 0px 0px 24px 0px var(--active-color);
@@ -142,12 +151,16 @@ main.home-page {
         font-size: 64px;
         text-decoration: none;
         color: #cecece;
-        margin: 10px;
+        margin: 10px 15px;
         transition-duration: 0.4s;
         z-index: 10;
         img {
           width: 100%;
+          cursor: pointer;
           border-radius: 4px;
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
     }

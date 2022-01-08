@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 function WalletAction({
   actionId,
-  name,
+  actionName,
   price,
   image,
   isFavourite,
@@ -14,16 +14,16 @@ function WalletAction({
       <span className='wallet-page__actions__action--action-image'>
         <img src={image} alt='' />{' '}
       </span>
-      <p className='wallet-page__actions__action--action-name'>{name}</p>
+      <p className='wallet-page__actions__action--action-name'>{actionName}</p>
       <p className='wallet-page__actions__action--number'>
         {numberOfActions} szt.
       </p>
       <p className='wallet-page__actions__action--price'>
-        {price.toFixed(2)} zł
+        {/* {price.toFixed(2)} zł */}
         <span> {lastUpdate} </span>
       </p>
       <p className='wallet-page__actions__action--total-price'>
-        {(price * numberOfActions).toFixed(2)} zł
+        {/* {(price * amount).toFixed(2)} zł */}
       </p>
       <span className='wallet-page__actions__action--options'>
         <i

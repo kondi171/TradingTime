@@ -54,6 +54,8 @@ const BB = (standard, observationDays, actionCloseValues, arrayEMA) => {
         lowerBollingerBand: lowerBollingerBand[i],
       });
 
+    // console.log(bollingerBandsArray);
+
     return bollingerBandsArray;
   };
 

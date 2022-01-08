@@ -34,7 +34,7 @@ const AppProvider = ({ children }) => {
   const [userSettings, setUserSettings] = useState({});
   const [userFavouriteActions, setUserFavouriteActions] = useState({});
   const [userBoughtActions, setUserBoughtActions] = useState({});
-
+  const [isUserAdmin, setIsUserAdmin] = useState(0);
   const toggleLoggedState = () => {
     setIsUserLogged((prevValue) => !prevValue);
   };
@@ -61,11 +61,13 @@ const AppProvider = ({ children }) => {
   const fetchUserSettings = async (id) => {
     const API = `http://localhost/api/v1/user/${id}`;
 
-    fetch(API)
+    const settings = await fetch(API)
       .then((response) => response.json())
       .then((data) => data.userSettings[0])
-      .then((data) => setUserSettings({ ...data }))
       .catch((err) => console.log(err));
+
+    setUserSettings({ ...settings });
+    setIsUserAdmin(Number(settings.isAdmin));
   };
 
   const fetchUserFavouriteActions = (id) => {
@@ -143,6 +145,7 @@ const AppProvider = ({ children }) => {
         userFavouriteActions,
         userAccountBalance,
         userBoughtActions,
+        isUserAdmin,
       }}
     >
       {children}

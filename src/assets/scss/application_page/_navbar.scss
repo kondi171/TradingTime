@@ -1,6 +1,7 @@
 nav.app__nav {
   @extend %navbar;
   position: sticky;
+  user-select: none;
   height: 7vh;
   .active {
     border-bottom: 5px solid var(--active-color);
@@ -8,8 +9,9 @@ nav.app__nav {
     border-radius: 0;
     box-sizing: border-box;
     margin-top: -5px;
-
-    &.border-none { border: none; }
+    &.border-none {
+      border: none;
+    }
   }
   .app__user-panel {
     display: flex;
@@ -22,7 +24,6 @@ nav.app__nav {
       cursor: pointer;
       background-color: var(--hover-color);
     }
-    // color: #ff9046
     img {
       width: 3vw;
       height: 3vw;
@@ -46,11 +47,11 @@ nav.app__nav {
       li {
         display: block;
         width: 250px;
-        &:first-of-type > div{
+        &:first-of-type > div {
           padding: 10px;
           color: var(--text-color);
           margin-bottom: 10px;
-          & > i{
+          & > i {
             margin: 10px;
             padding-left: 20px;
           }

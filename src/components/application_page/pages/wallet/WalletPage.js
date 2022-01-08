@@ -4,64 +4,19 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../../../../AppContext';
 import WalletAction from './WalletAction';
 import matchFavouriteActions from '../../../helpers/MatchFavBoughtActions';
+import { NavLink } from 'react-router-dom';
 
 const WalletPage = () => {
-  // State zawiera elementy wyciągniete z tabeli o akcjach posiadanych przez uzytkownika oraz stanie konta
-
-  // state = {
-  //   userActions: [
-  // {
-  //   id: 0,
-  //   actionName: 'Allegro',
-  //   price: 4.2,
-  //   image: allegro,
-  //   isFavourite: true,
-  //   lastUpdate: '22.11.2021',
-  //   numberOfActions: 20,
-  // },
-  // {
-  //   id: 1,
-  //   actionName: 'CD Project Red',
-  //   price: 1.1,
-  //   image: cdpsa,
-  //   isFavourite: false,
-  //   lastUpdate: '18.11.2021',
-  //   numberOfActions: 50,
-  // },
-  //   ],
-
-  //   wallet: {
-  //     accountBalance: 200,
-  //   },
-  // };
-
   const [accountBalance, setAccountBalance] = useState(0);
-  const [userActions, setUserActions] = useState([
-    // {
-    //   id: 1,
-    //   actionName: 'Allegro',
-    //   price: 4.2,
-    //   image: allegro,
-    //   isFavourite: true,
-    //   lastUpdate: '22.11.2021',
-    //   numberOfActions: 20,
-    // },
-    // {
-    //   id: 9,
-    //   actionName: 'CD Project Red',
-    //   price: 1.1,
-    //   image: cdpsa,
-    //   isFavourite: false,
-    //   lastUpdate: '18.11.2021',
-    //   numberOfActions: 50,
-    // },
-  ]);
+  const [userActions, setUserActions] = useState('');
+  const [showLoadingBar, setShowLoadingBar] = useState(false);
 
   const { userAccountBalance } = useContext(AppContext);
   const { userFavouriteActions } = useContext(AppContext);
   const { userBoughtActions } = useContext(AppContext);
   const { userId } = useContext(AppContext);
-  const { fetchUserBoughtActions } = useContext(AppContext);
+  const { addActionToFavourite } = useContext(AppContext);
+  const { deleteActionFromFavourite } = useContext(AppContext);
 
   const loadData = () => {
     setUserActions(
@@ -69,31 +24,44 @@ const WalletPage = () => {
     );
   };
 
-  // eslint-disable-next-line no-unused-vars
-  let walletActionArray = null;
+  const displayUserActions = () => {
+    if (userActions.length > 0) {
+      return [...userActions].map((userAction) => (
+        <WalletAction
+          key={userAction.id_action}
+          actionId={userAction.id_action}
+          actionName={userAction.actionName}
+          price={userAction.price}
+          image={userAction.image}
+          isFavourite={userAction.isFavourite}
+          lastUpdate={userAction.lastUpdate}
+          numberOfActions={userAction.amount}
+          toggleFavourite={() =>
+            toggleFavourite(userAction.id_action, userAction.isFavourite)
+          }
+        />
+      ));
+    } else {
+      return (
+        <NavLink to={`/app/search`} className='navlink--casual'>
+          <p className='wallet-page__no-actions-info'>
+            Nie posiadasz żadnych akcji. Wyszukaj interesujące Cię akcje w
+            naszej wyszukiwarce!
+          </p>
+        </NavLink>
+      );
+    }
+  };
 
-  const displayUserActions = () =>
-  (walletActionArray = [...userActions].map((userAction) => (
-    <WalletAction
-      key={userAction.id}
-      actionId={userAction.id}
-      name={userAction.actionName}
-      price={userAction.price}
-      image={userAction.image}
-      isFavourite={userAction.isFavourite}
-      lastUpdate={userAction.lastUpdate}
-      numberOfActions={userAction.numberOfActions}
-      toggleFavourite={() => toggleFavourite(userAction.id)}
-    />
-  )));
-
-  const toggleFavourite = (id) => {
-    let userActions = [...this.state.userActions].map((action) => {
-      if (action.id === id) action.isFavourite = !action.isFavourite;
-      return action;
-    });
-
-    setUserActions([...userActions]);
+  const toggleFavourite = async (id, isFavourite) => {
+    setShowLoadingBar(true);
+    if (isFavourite) {
+      const status = await deleteActionFromFavourite(userId, id);
+      if (status.success) setShowLoadingBar(false);
+    } else {
+      const status = await addActionToFavourite(userId, id);
+      if (status.success) setShowLoadingBar(false);
+    }
   };
 
   const countBilanceFromActions = () => {
@@ -131,11 +99,13 @@ const WalletPage = () => {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setAccountBalance(userAccountBalance);
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => loadData(), [userFavouriteActions]);
 
   return (
     <>
@@ -155,11 +125,11 @@ const WalletPage = () => {
           <p className='wallet-page__money--details hidden'>
             Całkowita wartość portfela:
             <span>
-              {/* {accountBalance
+              {accountBalance
                 ? `${(
                     countBilanceFromActions() + parseFloat(accountBalance)
                   ).toFixed(2)} zł`
-                : null} */}
+                : null}
             </span>
           </p>
         </div>
@@ -178,7 +148,8 @@ const WalletPage = () => {
             Całkowita wartość posiadanych akcji
           </p>
         </div>
-        {/* <div className='wallet-page__actions'>{displayUserActions()}</div> */}
+        <div className='wallet-page__actions'>{displayUserActions()}</div>
+        {/* <div className='wallet-page__actions'>{test()}</div> */}
       </main>
     </>
   );
