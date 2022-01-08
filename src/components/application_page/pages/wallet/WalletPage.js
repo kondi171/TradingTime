@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import allegro from '../../../../assets/img/testimages/allegro-favicon.png';
-import cdpsa from '../../../../assets/img/testimages/cdpsa-favicon.png';
-import { AppContext } from '../../../../AppContext';
-import WalletAction from './WalletAction';
+import allegro from '../../../assets/img/testimages/allegro-favicon.png';
+import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
+import { AppContext } from '../../../AppContext';
+import WalletAction from '../WalletAction';
+import matchFavouriteActions from '../../helpers/MatchFavBoughtActions';
 
 const WalletPage = () => {
   // State zawiera elementy wyciągniete z tabeli o akcjach posiadanych przez uzytkownika oraz stanie konta
@@ -36,45 +37,55 @@ const WalletPage = () => {
 
   const [accountBalance, setAccountBalance] = useState(0);
   const [userActions, setUserActions] = useState([
-    {
-      id: 1,
-      actionName: 'Allegro',
-      price: 4.2,
-      image: allegro,
-      isFavourite: true,
-      lastUpdate: '22.11.2021',
-      numberOfActions: 20,
-    },
-    {
-      id: 9,
-      actionName: 'CD Project Red',
-      price: 1.1,
-      image: cdpsa,
-      isFavourite: false,
-      lastUpdate: '18.11.2021',
-      numberOfActions: 50,
-    },
+    // {
+    //   id: 1,
+    //   actionName: 'Allegro',
+    //   price: 4.2,
+    //   image: allegro,
+    //   isFavourite: true,
+    //   lastUpdate: '22.11.2021',
+    //   numberOfActions: 20,
+    // },
+    // {
+    //   id: 9,
+    //   actionName: 'CD Project Red',
+    //   price: 1.1,
+    //   image: cdpsa,
+    //   isFavourite: false,
+    //   lastUpdate: '18.11.2021',
+    //   numberOfActions: 50,
+    // },
   ]);
 
   const { userAccountBalance } = useContext(AppContext);
+  const { userFavouriteActions } = useContext(AppContext);
+  const { userBoughtActions } = useContext(AppContext);
+  const { userId } = useContext(AppContext);
+  const { fetchUserBoughtActions } = useContext(AppContext);
+
+  const loadData = () => {
+    setUserActions(
+      matchFavouriteActions(userBoughtActions, userFavouriteActions)
+    );
+  };
 
   // eslint-disable-next-line no-unused-vars
   let walletActionArray = null;
 
   const displayUserActions = () =>
-  (walletActionArray = [...userActions].map((userAction) => (
-    <WalletAction
-      key={userAction.id}
-      actionId={userAction.id}
-      name={userAction.actionName}
-      price={userAction.price}
-      image={userAction.image}
-      isFavourite={userAction.isFavourite}
-      lastUpdate={userAction.lastUpdate}
-      numberOfActions={userAction.numberOfActions}
-      toggleFavourite={() => toggleFavourite(userAction.id)}
-    />
-  )));
+    (walletActionArray = [...userActions].map((userAction) => (
+      <WalletAction
+        key={userAction.id}
+        actionId={userAction.id}
+        name={userAction.actionName}
+        price={userAction.price}
+        image={userAction.image}
+        isFavourite={userAction.isFavourite}
+        lastUpdate={userAction.lastUpdate}
+        numberOfActions={userAction.numberOfActions}
+        toggleFavourite={() => toggleFavourite(userAction.id)}
+      />
+    )));
 
   const toggleFavourite = (id) => {
     let userActions = [...this.state.userActions].map((action) => {
@@ -121,7 +132,10 @@ const WalletPage = () => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setAccountBalance(userAccountBalance), []);
+  useEffect(() => {
+    setAccountBalance(userAccountBalance);
+    loadData();
+  }, []);
 
   return (
     <>
@@ -141,11 +155,11 @@ const WalletPage = () => {
           <p className='wallet-page__money--details hidden'>
             Całkowita wartość portfela:
             <span>
-              {accountBalance
+              {/* {accountBalance
                 ? `${(
-                  countBilanceFromActions() + parseFloat(accountBalance)
-                ).toFixed(2)} zł`
-                : null}
+                    countBilanceFromActions() + parseFloat(accountBalance)
+                  ).toFixed(2)} zł`
+                : null} */}
             </span>
           </p>
         </div>
@@ -164,7 +178,7 @@ const WalletPage = () => {
             Całkowita wartość posiadanych akcji
           </p>
         </div>
-        <div className='wallet-page__actions'>{displayUserActions()}</div>
+        {/* <div className='wallet-page__actions'>{displayUserActions()}</div> */}
       </main>
     </>
   );
