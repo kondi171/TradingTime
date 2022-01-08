@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Line, defaults } from 'react-chartjs-2';
 import EMA from '../../forecasting scripts/EMA';
 import BB from '../../forecasting scripts/BB';
-import { useEffect, useState } from 'react';
 
-const ActionChart = ({ actionName, actionValues, chartRange }) => {
+// const ActionChart = ({ actionName, actionValues, chartRange, todayValues, pastValues }) => {
+const ActionChart = ({
+  actionName,
+  chartRange,
+  todayActionValues,
+  pastActionValues,
+}) => {
   // Settings for chart tooltip title
   defaults.plugins.tooltip.callbacks.title = function () {
     let prefix;
@@ -35,8 +40,8 @@ const ActionChart = ({ actionName, actionValues, chartRange }) => {
   const [lastQuarterValues, setLastQuarterValues] = useState([]);
 
   const getBollingerBands = () => {
-    const actionCloseValues = actionValues.pastValues.map((action) =>
-      parseFloat(action.value)
+    const actionCloseValues = pastActionValues.map((action) =>
+      parseFloat(action.closeValue)
     );
 
     let bolinger = [];
@@ -75,12 +80,12 @@ const ActionChart = ({ actionName, actionValues, chartRange }) => {
   };
 
   const fillDataArrays = () => {
-    const pastValues = actionValues.pastValues.reverse();
+    const pastValues = pastActionValues.reverse();
 
     const getTodayValues = () => {
       let todayValuesArray = [];
 
-      actionValues.today.forEach((element) => {
+      todayActionValues.forEach((element) => {
         element.action = 'buy';
         todayValuesArray.push(element);
       });
@@ -109,27 +114,50 @@ const ActionChart = ({ actionName, actionValues, chartRange }) => {
       return lastMonthValuesArray;
     };
 
+    const getLastQuarterValues = () => {
+      let lastQuarterValuesArray = [];
+      pastValues.map((element, index = 0) => {
+        if (index < 90) return lastQuarterValuesArray.push(element);
+      });
+
+      lastQuarterValuesArray = lastQuarterValuesArray.reverse();
+      return lastQuarterValuesArray;
+    };
     setTodayValues(getTodayValues);
     setLastWeekValues(getLastWeekValues);
     setLastMonthValues(getLastMonthValues);
+    setLastQuarterValues(getLastQuarterValues);
 
     addForecastTags(getLastMonthValues(), getBollingerBands());
-    // console.log(lastWeekValuesArray);
-    // console.log(lastMonthValuesArray);
   };
 
   const xLabel = () => {
     let label;
     if (chartRange === 'today')
-      label = todayValues.map((action) =>
-        action.hour < 10 ? '0' + action.hour + ':00' : action.hour + ':00'
-      );
+      label = todayValues.map((action) => {
+        const actionDate = new Date(action.actionDate);
+        const actionHour =
+          actionDate.getHours() < 10
+            ? '0' + actionDate.getHours() + ':00'
+            : actionDate.getHours() + ':00';
+
+        const actionDay = actionDate.getDate();
+        const actionMonth =
+          actionDate.getMonth() < 10
+            ? '0' + actionDate.getMonth()
+            : actionDate.getMonth;
+        const actionYear = actionDate.getFullYear();
+
+        const actionFullDate = `${actionDay}-${actionMonth}-${actionYear}, ${actionHour}`;
+
+        return actionFullDate;
+      });
     else if (chartRange === 'week')
-      label = lastWeekValues.map((action) => action.day);
+      label = lastWeekValues.map((action) => action.closeActionDate);
     else if (chartRange === 'month')
-      label = lastMonthValues.map((action) => action.day);
-    // else if (chartRange === 'quarter')
-    //   label = actionValues.pastValues.map((action) => action.day);
+      label = lastMonthValues.map((action) => action.closeActionDate);
+    else if (chartRange === 'quarter')
+      label = lastQuarterValues.map((action) => action.closeActionDate);
     return label;
   };
 
@@ -138,17 +166,15 @@ const ActionChart = ({ actionName, actionValues, chartRange }) => {
   // }
 
   const chartValues = () => {
-    let values;
+    let values = 0;
     if (chartRange === 'today')
       values = todayValues.map((action) => action.value);
     else if (chartRange === 'week')
-      values = lastWeekValues.map((action) => action.value);
-    else if (chartRange === 'month') {
-      console.log(lastMonthValues);
-      values = lastMonthValues.map((action) => {
-        return action.value;
-      });
-    } else if (chartRange === 'quartesr') values = 0;
+      values = lastWeekValues.map((action) => action.closeValue);
+    else if (chartRange === 'month')
+      values = lastMonthValues.map((action) => action.closeValue);
+    else if (chartRange === 'quarter')
+      values = lastQuarterValues.map((action) => action.closeValue);
     return values;
   };
 

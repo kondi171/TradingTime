@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 function ActionInfo({
   actionName,
-  id,
-  price,
-  lastUpdate,
+  id_action,
+  value,
+  actionDate,
   isFavourite,
   isBought,
   toggleFavourite,
-  short,
+  symbol,
   volume,
-  open,
-  close,
+  openValue,
+  closeValue,
   handleShowInfo,
   change,
   changePercentage,
@@ -48,11 +48,17 @@ function ActionInfo({
           ></i>
 
           {(isBought && (
-            <NavLink to={`/app/marketplace/${id}`} className='navlink--casual'>
+            <NavLink
+              to={`/app/marketplace/${id_action}`}
+              className='navlink--casual'
+            >
               <i className='fa fa-line-chart'></i>
             </NavLink>
           )) || (
-            <NavLink to={`/app/marketplace/${id}`} className='navlink--casual'>
+            <NavLink
+              to={`/app/marketplace/${id_action}`}
+              className='navlink--casual'
+            >
               <i className='fa fa-cart-plus' aria-hidden='true'></i>
             </NavLink>
           )}
@@ -65,12 +71,12 @@ function ActionInfo({
             </li>
             <li>
               <p className='search-page__action-property'>
-                Skrót akcji: {short}
+                Skrót akcji: {symbol}
               </p>
             </li>
             <li>
               <p className='search-page__action-property'>
-                Cena akcji: {price}zł
+                Cena akcji: {value}zł
               </p>
             </li>
             <li>
@@ -78,12 +84,12 @@ function ActionInfo({
             </li>
             <li>
               <p className='search-page__action-property'>
-                Dzisiejsze otwarcie: {open}
+                Dzisiejsze otwarcie: {openValue}zł
               </p>
             </li>
             <li>
               <p className='search-page__action-property'>
-                Ostatnie zamknięcie: {close}
+                Ostatnie zamknięcie: {closeValue}zł
               </p>
             </li>
             <li>
@@ -99,7 +105,7 @@ function ActionInfo({
 
         <section className='search-page__info-footer'>
           <p className='search-page__last-update'>
-            Ostatnia aktualizacja danych: {lastUpdate}
+            Ostatnia aktualizacja danych: {actionDate}
           </p>
         </section>
       </aside>

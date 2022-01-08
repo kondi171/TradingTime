@@ -15,7 +15,7 @@ function NavBar() {
         <NavLink to='/app/wallet' className='nav-option'>
           <i className='fa fa-money'></i> Portfel
         </NavLink>
-        <NavLink to='/app/marketplace' className='nav-option'>
+        <NavLink to='/app/marketplace/1' className='nav-option'>
           <i className='fa fa-line-chart'></i> Rynek
         </NavLink>
         <div className='app__user-panel'>
@@ -23,7 +23,8 @@ function NavBar() {
           <ul>
             <li>
               <div className='app__user-panel--username'>
-                <i className='fa fa-user'></i><span>Bogdan Ryjec</span>
+                <i className='fa fa-user'></i>
+                <span>Bogdan Ryjec</span>
                 <hr />
               </div>
             </li>

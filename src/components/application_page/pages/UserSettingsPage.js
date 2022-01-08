@@ -291,7 +291,9 @@ const UserSettingsPage = () => {
         </div>
         <div>
           <p>{(apartment !== '-' && 'Nr domu / mieszkania:') || 'Nr domu:'}</p>
-          <span>{(apartment !== '-' && house / apartment) || house}</span>
+          <span>
+            {(apartment !== '-' && `${house} / ${apartment}`) || house}
+          </span>
         </div>
         <div>
           <p>Kod pocztowy: </p>
