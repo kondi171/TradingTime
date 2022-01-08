@@ -1,5 +1,5 @@
 main.home-page {
-  // background-image: url('../../img/wallpapers/earth.jpg'); 
+  // background-image: url('../../img/wallpapers/earth.jpg');
   background-color: darken($light, 70%);
   background-repeat: no-repeat;
   background-size: cover;
@@ -30,19 +30,15 @@ main.home-page {
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      img {
-        width: 20%;
-        height: 20%;
-        margin: 0.5vh 2.5vh;
-      }
+
       a.empty-link {
         text-align: center;
         display: block;
-        width: 25%;
-        height: 10vh;
+        width: 12vh;
+        height: 12vh;
+        line-height: 12vh;
         border-radius: 4px;
         background-color: #303030;
-        padding: 1.2vh;
         font-size: 64px;
         text-decoration: none;
         color: #cecece;
@@ -57,9 +53,9 @@ main.home-page {
       a.action-link {
         text-align: center;
         display: block;
-        width: 25%;
-        height: 10vh;
-        padding: 1.2vh;
+        width: 12vh;
+        height: 12vh;
+        line-height: 12vh;
         font-size: 64px;
         text-decoration: none;
         color: #cecece;
@@ -68,8 +64,7 @@ main.home-page {
         z-index: 10;
         img {
           width: 100%;
-          height: 100%;
-          margin: 10px;
+          border-radius: 4px;
         }
       }
     }
@@ -117,19 +112,15 @@ main.home-page {
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      img {
-        width: 20%;
-        height: 20%;
-        margin: 0.5vh 2.5vh;
-      }
+
       a.empty-link {
         text-align: center;
         display: block;
-        width: 25%;
-        height: 10vh;
+        width: 12vh;
+        height: 12vh;
         border-radius: 4px;
         background-color: #303030;
-        padding: 1.2vh;
+        line-height: 12vh;
         font-size: 64px;
         text-decoration: none;
         color: #cecece;
@@ -144,10 +135,10 @@ main.home-page {
       a.action-link {
         text-align: center;
         display: block;
-        width: 25%;
-        height: 10vh;
+        width: 12vh;
+        height: 12vh;
         border-radius: 4px;
-        padding: 1.2vh;
+        line-height: 12vh;
         font-size: 64px;
         text-decoration: none;
         color: #cecece;
@@ -156,13 +147,18 @@ main.home-page {
         z-index: 10;
         img {
           width: 100%;
-          height: 100%;
-          margin: 10px;
+          border-radius: 4px;
         }
       }
     }
   }
-  &.wallpaper1 { background-image: url('../../img/wallpapers/earth.jpg')!important; }
-  &.wallpaper2 { background-image: url('../../img/wallpapers/synth.jpg')!important; }
-  &.wallpaper3 { background-image: url('../../img/wallpapers/lake.jpg')!important; }
+  &.wallpaper1 {
+    background-image: url('../../img/wallpapers/earth.jpg') !important;
+  }
+  &.wallpaper2 {
+    background-image: url('../../img/wallpapers/synth.jpg') !important;
+  }
+  &.wallpaper3 {
+    background-image: url('../../img/wallpapers/lake.jpg') !important;
+  }
 }

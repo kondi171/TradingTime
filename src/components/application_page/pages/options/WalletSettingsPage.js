@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../../../../AppContext';
 import WithdrawMoneyModal from '../../../features/modals/WithdrawMoneyModal';
-import ModifyAccountNumber from '../../../helpers/ModifyAccountNumber';
+import ModifyAccountNumber from '../../../helpers/modifyAccountNumber';
 import InfoModal from '../../../features/modals/InfoModal';
 
 const WalletSettingsPage = () => {
@@ -29,9 +29,7 @@ const WalletSettingsPage = () => {
     e.preventDefault();
 
     if (amountToWithdraw > accountBalance)
-      displayInfoModal(
-        'Nie posiadasz tyle pieniędzy na koncie!'
-      );
+      displayInfoModal('Nie posiadasz tyle pieniędzy na koncie!');
     else {
       let tempAccountBalance = accountBalance;
       tempAccountBalance -= amountToWithdraw;
@@ -46,7 +44,7 @@ const WalletSettingsPage = () => {
     setWithdrawMoneyModal(!withdrawMoneyModal);
   };
 
-  const handleDepositMoney = () => { };
+  const handleDepositMoney = () => {};
 
   const handleWithdrawInputChange = (e) => {
     const amountToWithdraw = e.target.value;
@@ -107,10 +105,13 @@ const WalletSettingsPage = () => {
             }
             amountToWithdraw={amountToWithdraw}
             handleWithdrawInputChange={handleWithdrawInputChange}
-
           />
         ) : null}
-        <InfoModal message={infoMessage} visible={infoVisble} position='right' />
+        <InfoModal
+          message={infoMessage}
+          visible={infoVisble}
+          position='right'
+        />
       </section>
     </>
   );

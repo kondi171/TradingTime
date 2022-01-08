@@ -1,18 +1,27 @@
 import HomePageAction from './HomePageAction';
 
-
 const displayActions = (props) => {
-  const favouriteActionsList = props.map((action) => (
-    <HomePageAction
-      key={action.actionId}
-      id={action.actionId}
-      isTrue={action.isFavourite}
-      image={action.image}
-      symbol={action.symbol}
-    />
-  ));
+  let favouriteActionsList = [];
+  let emptyFields = [];
 
-  return favouriteActionsList;
+  if (props.length > 0)
+    favouriteActionsList = props.map((action) => (
+      <HomePageAction
+        key={action.id_action}
+        id={action.id_action}
+        isTrue={true}
+        image={action.image}
+        symbol={action.symbol}
+      />
+    ));
+
+  for (let i = favouriteActionsList.length; i < 6; i++) {
+    emptyFields.push(<HomePageAction key={i} isTrue={false} />);
+  }
+
+  favouriteActionsList = favouriteActionsList.concat(emptyFields);
+
+  return favouriteActionsList.slice(0, 6);
 };
 
 function HomePageFavourites({ actions }) {
