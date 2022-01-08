@@ -66,8 +66,7 @@ const SearchPage = () => {
     let results = [...actions];
 
     results = results.filter((result) => {
-      // return result.actionName /* must add this object to API */
-      return result.id_action
+      return result.actionName
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
     });
