@@ -12,13 +12,13 @@ const NavBar = () => {
   // const [avatar, setAvatar] = useState(5);
   const { userSettings } = useContext(AppContext);
   const [currentAvatar, setCurrentAvatar] = useState();
-  useEffect(() => setAvatar(), [currentAvatar]);
+  useEffect(() => setAvatar(), [userSettings]);
   const setAvatar = () => {
     console.log(userSettings.avatar);
-    if (userSettings.avatar === 1) setCurrentAvatar(male1);
-    else if (userSettings.avatar === 2) setCurrentAvatar(male2);
-    else if (userSettings.avatar === 3) setCurrentAvatar(female1);
-    else if (userSettings.avatar === 4) setCurrentAvatar(female2);
+    if (Number(userSettings.avatar) === 1) setCurrentAvatar(male1);
+    else if (Number(userSettings.avatar) === 2) setCurrentAvatar(male2);
+    else if (Number(userSettings.avatar) === 3) setCurrentAvatar(female1);
+    else if (Number(userSettings.avatar) === 4) setCurrentAvatar(female2);
     else setCurrentAvatar(avatarDefault);
   }
 

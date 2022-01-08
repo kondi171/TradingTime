@@ -11,7 +11,7 @@ const displayActions = (props) => {
         id={action.id_action}
         isTrue={true}
         image={action.image}
-        symbol={action.symbol}
+        name={action.actionName}
       />
     ));
 

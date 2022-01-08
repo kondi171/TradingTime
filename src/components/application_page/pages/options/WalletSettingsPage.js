@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../../../../AppContext';
 import WithdrawMoneyModal from '../../../features/modals/WithdrawMoneyModal';
-import ModifyAccountNumber from '../../../helpers/modifyAccountNumber';
+import ModifyAccountNumber from '../../../helpers/ModifyAccountNumber';
 import InfoModal from '../../../features/modals/InfoModal';
 
 const WalletSettingsPage = () => {
@@ -44,7 +44,7 @@ const WalletSettingsPage = () => {
     setWithdrawMoneyModal(!withdrawMoneyModal);
   };
 
-  const handleDepositMoney = () => {};
+  const handleDepositMoney = () => { };
 
   const handleWithdrawInputChange = (e) => {
     const amountToWithdraw = e.target.value;
