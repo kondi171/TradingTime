@@ -8,7 +8,7 @@ import RestrictedInfo from '../../../features/RestrictedInfo';
 class HomePage extends React.PureComponent {
   state = {
     time: 0,
-    wallpaper: 0,
+    wallpaper: 3,
     restricted: false,
     actions: [
       {
@@ -61,7 +61,7 @@ class HomePage extends React.PureComponent {
       home.classList.remove('wallpaper1');
       home.classList.remove('wallpaper3');
     }
-    else if (this.state.wallpaper === 3) {
+    else {
       home.classList.add('wallpaper3');
       home.classList.remove('wallpaper2');
       home.classList.remove('wallpaper1');
@@ -69,6 +69,9 @@ class HomePage extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.handleChangeWallpaper();
+  }
+  componentDidUpdate() {
     this.handleChangeWallpaper();
   }
 

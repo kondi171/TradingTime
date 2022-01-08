@@ -5,24 +5,6 @@
     background-blend-mode: overlay;
     width: 100vw;
     height: 100vh;
-    .info-modal {
-        color: white;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 2vh;
-        min-width: 10vw;
-        border-radius: 10px;
-        border: 2px solid $activeColor;
-        padding: 20px;
-        z-index: 90;
-        i {
-          color: $activeColor;
-          font-size: 34px;
-          padding: 10px;
-        }
-    }
     h1 {
         font-size: 64px;
         color: $light;

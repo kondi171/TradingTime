@@ -6,7 +6,7 @@ class ErrorPage extends React.Component {
     super(props);
     this.state = {
       gameState: false,
-      infoVisible: true,
+      // infoVisible: false,
     };
   }
 
@@ -41,20 +41,20 @@ class ErrorPage extends React.Component {
         this.bricks[c][r] = { x: 0, y: 0, status: 1 };
       }
     }
-    this.infoMessage = '';
+    // this.infoMessage = '';
     this.moveInterval = setInterval(() => {
       this.keyHandlers();
       this.draw();
     }, 10);
   }
-  displayInfoModal = (message) => {
-    this.setState({ infoVisible: true });
-    this.infoMessage = message;
-    setTimeout(() => {
-      this.setState({ infoVisible: false });
-      this.infoMessage = '';
-    }, 3000);
-  };
+  // displayInfoModal = (message) => {
+  //   this.setState({ infoVisible: true });
+  //   this.infoMessage = message;
+  //   setTimeout(() => {
+  //     this.setState({ infoVisible: false });
+  //     this.infoMessage = '';
+  //   }, 3000);
+  // };
 
   keyHandlers = () => {
     document.addEventListener('keydown', this.keyDownHandler, false);
@@ -151,8 +151,8 @@ class ErrorPage extends React.Component {
             b.status = 0;
             this.score++;
             if (this.score === this.brickRowCount * this.brickColumnCount) {
-              this.displayInfoModal('Wygrałeś! Gratulacje!');
-              // document.location.reload();
+              alert('YOU WIN, CONGRATS!');
+              document.location.reload();
             }
           }
         }
@@ -214,21 +214,18 @@ class ErrorPage extends React.Component {
 
   render() {
     return (
-      <>
-        <div className='error-page'>
-          <h1>Teraz to nawet ja nie wiem gdzie jesteś</h1>
-          <h2>
-            Może chcesz się rozerwać? <i className='fa fa-gamepad'></i>
-          </h2>
-          <h3>Błąd 404</h3>
-          <h4>
-            <Link to='/'>Powróć w bezpieczne miejsce</Link>
-          </h4>
-          <canvas className='game' id='game' width='480' height='320'></canvas>
-
-        </div>
-        <InfoModal position="right" visible={this.state.infoVisible} message={this.infoMessage} />
-      </>
+      <div className='error-page'>
+        <h1>Teraz to nawet ja nie wiem gdzie jesteś</h1>
+        <h2>
+          Może chcesz się rozerwać? <i className='fa fa-gamepad'></i>
+        </h2>
+        <h3>Błąd 404</h3>
+        <h4>
+          <Link to='/'>Powróć w bezpieczne miejsce</Link>
+        </h4>
+        <canvas className='game' id='game' width='480' height='320'></canvas>
+        {/* <InfoModal position="left" visible={this.state.infoVisible} message={this.infoMessage} /> */}
+      </div>
     );
   }
 }

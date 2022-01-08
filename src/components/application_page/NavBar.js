@@ -1,8 +1,27 @@
+import React, { useState, useEffect, useContext } from 'react';
 import '../../assets/scss/application_page/application_main.scss';
 import PanBogdan from '../../assets/img/Pan_Bogdan.png';
+import male1 from '../../assets/img/avatars/avatar_male_blonde_red_glasses.png';
+import male2 from '../../assets/img/avatars/avatar_male_dark_blue_sunglasses.png';
+import female1 from '../../assets/img/avatars/avatar_female_auburn_blue_glasses.png';
+import female2 from '../../assets/img/avatars/avatar_female_blonde_pink.png';
+import avatarDefault from '../../assets/img/avatars/default_blank.png';
 import { NavLink } from 'react-router-dom';
+import { AppContext } from '../../AppContext';
+const NavBar = () => {
+  // const [avatar, setAvatar] = useState(5);
+  const { userSettings } = useContext(AppContext);
+  const [currentAvatar, setCurrentAvatar] = useState();
+  useEffect(() => setAvatar(), [currentAvatar]);
+  const setAvatar = () => {
+    console.log(userSettings.avatar);
+    if (userSettings.avatar === 1) setCurrentAvatar(male1);
+    else if (userSettings.avatar === 2) setCurrentAvatar(male2);
+    else if (userSettings.avatar === 3) setCurrentAvatar(female1);
+    else if (userSettings.avatar === 4) setCurrentAvatar(female2);
+    else setCurrentAvatar(avatarDefault);
+  }
 
-function NavBar() {
   return (
     <>
       <nav id="app__nav" className='app__nav'>
@@ -19,7 +38,7 @@ function NavBar() {
           <i className='fa fa-line-chart'></i> Rynek
         </NavLink>
         <div className='app__user-panel'>
-          <img src={PanBogdan} alt='Twój Awatar' />
+          <img src={currentAvatar} alt='Twój Awatar' />
           <ul>
             <li>
               <div className='app__user-panel--username'>
