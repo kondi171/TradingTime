@@ -32,6 +32,35 @@ const AppSettingsPage = () => {
 
   const { userSettings } = useContext(AppContext);
 
+  const [currentTheme, setCurrentTheme] = useState();
+  useEffect(() => setTheme(), [userSettings]);
+  const setTheme = () => {
+    if (Number(userSettings.theme) === 1) {
+      setCurrentTheme(1);
+      document.documentElement.style.setProperty('--bg-color', '#333333');
+      document.documentElement.style.setProperty('--box-color', '#858484');
+      document.documentElement.style.setProperty('--text-color', '#c4c4c4');
+      document.documentElement.style.setProperty('--active-color', '#3d84f5');
+      document.documentElement.style.setProperty('--hover-color', '#555555');
+    }
+    else if (Number(userSettings.theme) === 2) {
+      setCurrentTheme(2);
+      document.documentElement.style.setProperty('--bg-color', '#1F3336');
+      document.documentElement.style.setProperty('--box-color', '#038C3E');
+      document.documentElement.style.setProperty('--text-color', '#cdf5c5');
+      document.documentElement.style.setProperty('--active-color', '#038C3E');
+      document.documentElement.style.setProperty('--hover-color', '#77BF63');
+    }
+    else {
+      setCurrentTheme(3);
+      document.documentElement.style.setProperty('--bg-color', '#191919');
+      document.documentElement.style.setProperty('--box-color', '#FFCD00');
+      document.documentElement.style.setProperty('--text-color', '#FFFFFF');
+      document.documentElement.style.setProperty('--active-color', '#FFCD00');
+      document.documentElement.style.setProperty('--hover-color', '#b69917');
+    }
+  }
+
   const handleToggleInput = (option) => {
     let tempAppPreferences = appPreferences;
 

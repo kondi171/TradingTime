@@ -5,7 +5,7 @@
   width: 25%;
   height: 35vh;
   border-radius: 20px;
-  box-shadow: 0px 0px 10px 0px $activeColor;
+  box-shadow: 0px 0px 10px 0px var(--active-color);
   &::before {
     content: '';
     z-index: 1;

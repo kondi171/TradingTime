@@ -23,7 +23,7 @@ main.home-page {
     h2 {
       text-align: center;
       padding: 10px;
-      color: #cecece;
+      color: var(--active-color);
     }
     &--icons {
       display: flex;
@@ -41,13 +41,13 @@ main.home-page {
         background-color: #303030;
         font-size: 64px;
         text-decoration: none;
-        color: #cecece;
+        color: var(--active-color);
         margin: 10px;
         transition-duration: 0.4s;
         z-index: 10;
         &:hover {
-          color: $activeColor;
-          box-shadow: inset 0px 0px 24px 0px $activeColor;
+          color: var(--active-color);
+          box-shadow: inset 0px 0px 24px 0px var(--active-color);
         }
       }
       a.action-link {
@@ -58,7 +58,7 @@ main.home-page {
         line-height: 12vh;
         font-size: 64px;
         text-decoration: none;
-        color: #cecece;
+        color: var(--active-color);
         margin: 10px;
         transition-duration: 0.4s;
         z-index: 10;
@@ -78,7 +78,7 @@ main.home-page {
     width: auto;
     height: auto;
     padding: 25px;
-    color: white;
+    color: var(--active-color);
     font-weight: 100;
     background-color: rgba($color: #ddd, $alpha: 0.2);
     border-radius: 15px;
@@ -99,10 +99,10 @@ main.home-page {
     h2 {
       text-align: center;
       padding: 10px;
-      color: #cecece;
+      color: var(--active-color);;
     }
     .home-page__actions--action-content {
-      color: #cecece;
+      color: var(--active-color);;
       margin-top: 64px;
       font-size: 34px;
       text-align: center;
@@ -123,13 +123,13 @@ main.home-page {
         line-height: 12vh;
         font-size: 64px;
         text-decoration: none;
-        color: #cecece;
+        color: var(--active-color);;
         margin: 10px;
         transition-duration: 0.4s;
         z-index: 10;
         &:hover {
-          color: $activeColor;
-          box-shadow: inset 0px 0px 24px 0px $activeColor;
+          color: var(--active-color);
+          box-shadow: inset 0px 0px 24px 0px var(--active-color);
         }
       }
       a.action-link {

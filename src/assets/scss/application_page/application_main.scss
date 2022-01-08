@@ -14,6 +14,19 @@
 @import '../application_page/marketplace_page';
 @import '../application_page/help_page';
 
+:root {
+  --bg-color: #333333;
+  --box-color: #858484;
+  --text-color: #c4c4c4;
+  --active-color: #3d84f5;
+  --hover-color: #555555;
+
+  --color: #2a8fee;
+  // --active-color: #de9802;
+  // --hover-color: #02de79;
+}
+
+      
 * {
   margin: 0;
   padding: 0;

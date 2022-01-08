@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../../assets/scss/application_page/application_main.scss';
-import PanBogdan from '../../assets/img/Pan_Bogdan.png';
 import male1 from '../../assets/img/avatars/avatar_male_blonde_red_glasses.png';
 import male2 from '../../assets/img/avatars/avatar_male_dark_blue_sunglasses.png';
 import female1 from '../../assets/img/avatars/avatar_female_auburn_blue_glasses.png';
@@ -9,22 +8,29 @@ import avatarDefault from '../../assets/img/avatars/default_blank.png';
 import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
 const NavBar = () => {
-  // const [avatar, setAvatar] = useState(5);
+
   const { userSettings } = useContext(AppContext);
-  const [currentAvatar, setCurrentAvatar] = useState();
+  const { userPersonalData } = useContext(AppContext);
+  const [currentAvatar, setCurrentAvatar] = useState(5);
+  const [currentUser, setCurrentUser] = useState();
+  useEffect(() => setUser(), [userPersonalData]);
   useEffect(() => setAvatar(), [userSettings]);
   const setAvatar = () => {
-    console.log(userSettings.avatar);
+    console.log(userSettings.avatar)
     if (Number(userSettings.avatar) === 1) setCurrentAvatar(male1);
     else if (Number(userSettings.avatar) === 2) setCurrentAvatar(male2);
     else if (Number(userSettings.avatar) === 3) setCurrentAvatar(female1);
     else if (Number(userSettings.avatar) === 4) setCurrentAvatar(female2);
     else setCurrentAvatar(avatarDefault);
   }
+  const setUser = () => {
+    const userConcat = `${userPersonalData.firstName} ${userPersonalData.lastName}`;
+    setCurrentUser(userConcat);
+  }
 
   return (
     <>
-      <nav id="app__nav" className='app__nav'>
+      <nav id='appNav' className='app__nav'>
         <NavLink to='/app/home' className='nav-option'>
           <i className='fa fa-home'></i> Główny Panel
         </NavLink>
@@ -43,7 +49,7 @@ const NavBar = () => {
             <li>
               <div className='app__user-panel--username'>
                 <i className='fa fa-user'></i>
-                <span>Bogdan Ryjec</span>
+                <span>{currentUser}</span>
                 <hr />
               </div>
             </li>
