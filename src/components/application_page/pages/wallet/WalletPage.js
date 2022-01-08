@@ -1,16 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-<<<<<<< HEAD:src/components/application_page/pages/WalletPage.js
 import allegro from '../../../assets/img/testimages/allegro-favicon.png';
 import cdpsa from '../../../assets/img/testimages/cdpsa-favicon.png';
 import { AppContext } from '../../../AppContext';
 import WalletAction from '../WalletAction';
 import matchFavouriteActions from '../../helpers/MatchFavBoughtActions';
-=======
-import allegro from '../../../../assets/img/testimages/allegro-favicon.png';
-import cdpsa from '../../../../assets/img/testimages/cdpsa-favicon.png';
-import { AppContext } from '../../../../AppContext';
-import WalletAction from './WalletAction';
->>>>>>> 9a9b96feae3f7295911fdf5bc2be9226356db33a:src/components/application_page/pages/wallet/WalletPage.js
 
 const WalletPage = () => {
   // State zawiera elementy wyciągniete z tabeli o akcjach posiadanych przez uzytkownika oraz stanie konta
@@ -80,19 +73,19 @@ const WalletPage = () => {
   let walletActionArray = null;
 
   const displayUserActions = () =>
-  (walletActionArray = [...userActions].map((userAction) => (
-    <WalletAction
-      key={userAction.id}
-      actionId={userAction.id}
-      name={userAction.actionName}
-      price={userAction.price}
-      image={userAction.image}
-      isFavourite={userAction.isFavourite}
-      lastUpdate={userAction.lastUpdate}
-      numberOfActions={userAction.numberOfActions}
-      toggleFavourite={() => toggleFavourite(userAction.id)}
-    />
-  )));
+    (walletActionArray = [...userActions].map((userAction) => (
+      <WalletAction
+        key={userAction.id}
+        actionId={userAction.id}
+        name={userAction.actionName}
+        price={userAction.price}
+        image={userAction.image}
+        isFavourite={userAction.isFavourite}
+        lastUpdate={userAction.lastUpdate}
+        numberOfActions={userAction.numberOfActions}
+        toggleFavourite={() => toggleFavourite(userAction.id)}
+      />
+    )));
 
   const toggleFavourite = (id) => {
     let userActions = [...this.state.userActions].map((action) => {
@@ -164,15 +157,9 @@ const WalletPage = () => {
             <span>
               {/* {accountBalance
                 ? `${(
-<<<<<<< HEAD:src/components/application_page/pages/WalletPage.js
                     countBilanceFromActions() + parseFloat(accountBalance)
                   ).toFixed(2)} zł`
                 : null} */}
-=======
-                  countBilanceFromActions() + parseFloat(accountBalance)
-                ).toFixed(2)} zł`
-                : null}
->>>>>>> 9a9b96feae3f7295911fdf5bc2be9226356db33a:src/components/application_page/pages/wallet/WalletPage.js
             </span>
           </p>
         </div>
