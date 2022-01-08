@@ -1,15 +1,18 @@
 const matchFavBoughtActions = (
   allActions,
   userFavouriteActions,
-  userBoughtActions
+  userBoughtActions = ''
 ) => {
+  let boughtActionsIds = '';
+
   const favouriteActionsIds = userFavouriteActions.map(
     (favouriteAction) => favouriteAction.id_action
   );
 
-  const boughtActionsIds = userBoughtActions.map(
-    (boughtAction) => boughtAction.id_action
-  );
+  if (userBoughtActions !== '')
+    boughtActionsIds = userBoughtActions.map(
+      (boughtAction) => boughtAction.id_action
+    );
 
   // console.log(userBoughtActions);
 
@@ -18,8 +21,9 @@ const matchFavBoughtActions = (
       action.isFavourite = true;
     else action.isFavourite = false;
 
-    if (boughtActionsIds.includes(action.id_action)) action.isBought = true;
-    else action.isBought = false;
+    if (userBoughtActions !== '')
+      if (boughtActionsIds.includes(action.id_action)) action.isBought = true;
+      else action.isBought = false;
     // console.log(action);
     return action;
   });
