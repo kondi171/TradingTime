@@ -63,11 +63,13 @@ const AppProvider = ({ children }) => {
 
     const settings = await fetch(API)
       .then((response) => response.json())
-      .then((data) => data.userSettings[0])
+      .then((data) => data)
       .catch((err) => console.log(err));
 
-    setUserSettings({ ...settings });
+    setUserSettings({ ...settings.userSettings[0] });
     setIsUserAdmin(Number(settings.isAdmin));
+
+    return settings;
   };
 
   const fetchUserFavouriteActions = (id) => {
@@ -89,14 +91,17 @@ const AppProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  const fetchAccountBalance = (id) => {
+  const fetchAccountBalance = async (id) => {
     const API = `http://localhost/api/v1/wallet/${id}`;
 
-    fetch(API)
+    const operation = await fetch(API)
       .then((response) => response.json())
-      .then((data) => data.accountBalance)
-      .then((data) => setUserAccountBalance(data))
+      .then((data) => data)
       .catch((err) => console.log(err));
+
+    if (operation.success) setUserAccountBalance(operation.accountBalance);
+
+    return operation;
   };
 
   const setUserIdNumber = (id) => {
