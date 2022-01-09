@@ -31,10 +31,10 @@ const WalletPage = () => {
           key={userAction.id_action}
           actionId={userAction.id_action}
           actionName={userAction.actionName}
-          price={userAction.price}
+          price={Number(userAction.value)}
           image={userAction.image}
           isFavourite={userAction.isFavourite}
-          lastUpdate={userAction.lastUpdate}
+          lastUpdate={userAction.actionDate}
           numberOfActions={userAction.amount}
           toggleFavourite={() =>
             toggleFavourite(userAction.id_action, userAction.isFavourite)
@@ -66,9 +66,7 @@ const WalletPage = () => {
 
   const countBilanceFromActions = () => {
     let value = 0;
-    [...userActions].map(
-      (action) => (value += action.price * action.numberOfActions)
-    );
+    [...userActions].map((action) => (value += action.value * action.amount));
 
     return value;
   };
@@ -149,7 +147,6 @@ const WalletPage = () => {
           </p>
         </div>
         <div className='wallet-page__actions'>{displayUserActions()}</div>
-        {/* <div className='wallet-page__actions'>{test()}</div> */}
       </main>
     </>
   );
