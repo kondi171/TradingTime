@@ -1,24 +1,17 @@
 import React from 'react';
-class LoadingBar extends React.Component {
-
-  componentDidMount() {
-    const progress = document.getElementById('progress');
-    progress.style.visibility = 'visible';
-    setTimeout(() => {
-      progress.style.visibility = 'hidden';
-    }, this.props.time);
-  }
-
-  render() {
-    return (
-      <div id="progress" className="save-data__overlay">
-        <div className="save-data__overlay--text">
-          Zapisuję dane...
-        </div>
-        <div className="save-data__overlay--progress"></div>
+const LoadingBar = ({ opacity = 0.9, announcement }) => {
+  return (
+    <>
+      <div
+        id='progress'
+        className='save-data__overlay'
+        style={{ backgroundColor: `rgba(0, 0, 0, ${opacity})` }}
+      >
+        <div className='save-data__overlay--text'>{announcement}</div>
+        <div className='save-data__overlay--progress'></div>
       </div>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default LoadingBar;
