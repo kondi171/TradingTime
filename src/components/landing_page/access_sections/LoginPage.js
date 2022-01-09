@@ -16,8 +16,20 @@ const LoginPage = () => {
   const { setUserIdNumber } = useContext(AppContext);
   const [infoVisible, setInfoVisible] = useState(false);
   const [infoMessage, setInfoMessage] = useState('');
+
   const login = async (e) => {
     e.preventDefault();
+
+    const loadUserAccountData = async () => {
+      toggleLoggedState();
+      fetchUserData(login.id_user);
+      fetchUserSettings(login.id_user);
+      fetchUserFavouriteActions(login.id_user);
+      fetchUserBoughtActions(login.id_user);
+      fetchAccountBalance(login.id_user);
+      setUserIdNumber(login.id_user);
+    };
+
     const API = 'http://localhost/api/v1/login';
     const formParams = new URLSearchParams({
       login: username,
@@ -31,13 +43,7 @@ const LoginPage = () => {
     }).then((response) => response.json());
 
     if (login.success) {
-      toggleLoggedState();
-      fetchUserData(login.id_user);
-      fetchUserSettings(login.id_user);
-      fetchUserFavouriteActions(login.id_user);
-      fetchUserBoughtActions(login.id_user);
-      fetchAccountBalance(login.id_user);
-      setUserIdNumber(login.id_user);
+      await loadUserAccountData();
       navigate('/app/home');
     } else {
       displayInfoModal(login.message.toUpperCase());
