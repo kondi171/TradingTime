@@ -35,6 +35,7 @@ const AppProvider = ({ children }) => {
   const [userFavouriteActions, setUserFavouriteActions] = useState({});
   const [userBoughtActions, setUserBoughtActions] = useState({});
   const [isUserAdmin, setIsUserAdmin] = useState(0);
+
   const toggleLoggedState = () => {
     setIsUserLogged((prevValue) => !prevValue);
   };
@@ -67,7 +68,7 @@ const AppProvider = ({ children }) => {
       .catch((err) => console.log(err));
 
     setUserSettings({ ...settings.userSettings[0] });
-    setIsUserAdmin(Number(settings.isAdmin));
+    setIsUserAdmin(Number(settings.userSettings[0].isAdmin));
 
     return settings;
   };
