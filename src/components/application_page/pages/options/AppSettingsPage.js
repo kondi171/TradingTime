@@ -45,6 +45,7 @@ const AppSettingsPage = () => {
       document.documentElement.style.setProperty('--text-color', '#c4c4c4');
       document.documentElement.style.setProperty('--active-color', '#3d84f5');
       document.documentElement.style.setProperty('--hover-color', '#555555');
+      document.documentElement.style.setProperty('--darken-effect', '#a8a8a8');
     } else if (Number(userSettings.theme) === 2) {
       setCurrentTheme(2);
       document.documentElement.style.setProperty('--bg-color', '#1F3336');
@@ -52,6 +53,7 @@ const AppSettingsPage = () => {
       document.documentElement.style.setProperty('--text-color', '#cdf5c5');
       document.documentElement.style.setProperty('--active-color', '#038C3E');
       document.documentElement.style.setProperty('--hover-color', '#77BF63');
+      document.documentElement.style.setProperty('--darken-effect', '#adf79e');
     } else {
       setCurrentTheme(3);
       document.documentElement.style.setProperty('--bg-color', '#191919');
@@ -59,6 +61,7 @@ const AppSettingsPage = () => {
       document.documentElement.style.setProperty('--text-color', '#FFFFFF');
       document.documentElement.style.setProperty('--active-color', '#FFCD00');
       document.documentElement.style.setProperty('--hover-color', '#b69917');
+      document.documentElement.style.setProperty('--darken-effect', '#a8a8a8');
     }
   };
 

@@ -9,50 +9,6 @@ import { AppContext } from '../../../../AppContext';
 import LoadingBar from '../../../features/LoadingBar';
 
 const HomePage = () => {
-  // state = {
-  //   time: 0,
-  //   wallpaper: 0,
-  //   restricted: false,
-  //   actions: [
-  //     {
-  //       actionId: 0,
-  //       isFavourite: true,
-  //       isBought: true,
-  //       image: allegro,
-  //     },
-  //     {
-  //       actionId: 1,
-  //       isFavourite: true,
-  //       isBought: false,
-  //       image: cdpsa,
-  //     },
-  //     {
-  //       actionId: 2,
-  //       isFavourite: false,
-  //       isBought: false,
-  //       image: '',
-  //     },
-  //     {
-  //       actionId: 3,
-  //       isFavourite: false,
-  //       isBought: false,
-  //       image: '',
-  //     },
-  //     {
-  //       actionId: 4,
-  //       isFavourite: false,
-  //       isBought: false,
-  //       image: '',
-  //     },
-  //     {
-  //       actionId: 5,
-  //       isFavourite: false,
-  //       isBought: false,
-  //       image: '',
-  //     },
-  //   ],
-  // };
-
   const [restricted, setRestricted] = useState(false);
   const [favouriteActions, setFavouriteActions] = useState('');
   const [boughtActions, setBoughtActions] = useState('');
@@ -97,6 +53,7 @@ const HomePage = () => {
       document.documentElement.style.setProperty('--text-color', '#c4c4c4');
       document.documentElement.style.setProperty('--active-color', '#3d84f5');
       document.documentElement.style.setProperty('--hover-color', '#555555');
+      document.documentElement.style.setProperty('--darken-effect', '#a8a8a8');
     } else if (Number(userSettings.theme) === 2) {
       setCurrentTheme(2);
       document.documentElement.style.setProperty('--bg-color', '#1F3336');
@@ -104,6 +61,7 @@ const HomePage = () => {
       document.documentElement.style.setProperty('--text-color', '#cdf5c5');
       document.documentElement.style.setProperty('--active-color', '#038C3E');
       document.documentElement.style.setProperty('--hover-color', '#77BF63');
+      document.documentElement.style.setProperty('--darken-effect', '#adf79e');
     } else {
       setCurrentTheme(3);
       document.documentElement.style.setProperty('--bg-color', '#191919');
@@ -111,6 +69,7 @@ const HomePage = () => {
       document.documentElement.style.setProperty('--text-color', '#FFFFFF');
       document.documentElement.style.setProperty('--active-color', '#FFCD00');
       document.documentElement.style.setProperty('--hover-color', '#b69917');
+      document.documentElement.style.setProperty('--darken-effect', '#a8a8a8');
     }
   };
 
