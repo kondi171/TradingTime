@@ -31,9 +31,12 @@ const AppSettingsPage = () => {
   const [showModal, setShowModal] = useState(false);
 
   const { userSettings } = useContext(AppContext);
+  const { userId } = useContext(AppContext);
+  const { fetchUserData } = useContext(AppContext);
+  const { fetchUserSettings } = useContext(AppContext);
 
   const [currentTheme, setCurrentTheme] = useState();
-  useEffect(() => setTheme(), [userSettings]);
+
   const setTheme = () => {
     if (Number(userSettings.theme) === 1) {
       setCurrentTheme(1);
@@ -42,16 +45,14 @@ const AppSettingsPage = () => {
       document.documentElement.style.setProperty('--text-color', '#c4c4c4');
       document.documentElement.style.setProperty('--active-color', '#3d84f5');
       document.documentElement.style.setProperty('--hover-color', '#555555');
-    }
-    else if (Number(userSettings.theme) === 2) {
+    } else if (Number(userSettings.theme) === 2) {
       setCurrentTheme(2);
       document.documentElement.style.setProperty('--bg-color', '#1F3336');
       document.documentElement.style.setProperty('--box-color', '#038C3E');
       document.documentElement.style.setProperty('--text-color', '#cdf5c5');
       document.documentElement.style.setProperty('--active-color', '#038C3E');
       document.documentElement.style.setProperty('--hover-color', '#77BF63');
-    }
-    else {
+    } else {
       setCurrentTheme(3);
       document.documentElement.style.setProperty('--bg-color', '#191919');
       document.documentElement.style.setProperty('--box-color', '#FFCD00');
@@ -59,7 +60,7 @@ const AppSettingsPage = () => {
       document.documentElement.style.setProperty('--active-color', '#FFCD00');
       document.documentElement.style.setProperty('--hover-color', '#b69917');
     }
-  }
+  };
 
   const handleToggleInput = (option) => {
     let tempAppPreferences = appPreferences;
@@ -279,14 +280,32 @@ const AppSettingsPage = () => {
     />
   );
 
-  const saveOptions = () => {
+  const saveOptions = async () => {
     setLoading(true);
-    setShowSaveButtons(false);
+    const API = 'http://localhost/api/v1/editsettings';
+    const urlParams = new URLSearchParams({
+      twoFactorAuthentication: appPreferences.twoFactorAuthentication,
+      simulationMode: appPreferences.simulationMode,
+      emailNotifications: appPreferences.emailNotifications,
+      wallpaper: appPreferences.wallpaper,
+      theme: appPreferences.theme,
+      avatar: appPreferences.avatar,
+      id_user: userId,
+    });
 
-    setTimeout(() => {
-      setLoading(!loading);
-    }, undisplayTime);
-  }; //wysłanie danych do bazy
+    const settingsChange = await fetch(API, {
+      method: 'POST',
+      body: urlParams,
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    if (settingsChange.success) {
+      const fetchSettings = await fetchUserSettings(userId);
+      if (fetchSettings.success) setLoading(false);
+      setShowSaveButtons(false);
+    } else alert('błąd wysyłania danych');
+  };
 
   const cancelOptions = () => {
     console.log(userSettings);
@@ -313,12 +332,12 @@ const AppSettingsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => setTheme(), [userSettings]);
+
   const { simulationMode, smartAssistant, twoFactorAuthentication } =
     appPreferences;
   return (
     <>
-      {/* {console.log(appPreferences)} */}
-      {/* {console.log(userSettings)} */}
       {showModal ? displayQuestionModal() : null}
       <section className='settings-page__preferences'>
         <h1>Ustawienia aplikacji</h1>
@@ -424,7 +443,7 @@ const AppSettingsPage = () => {
             Anuluj
           </button>
         </footer>
-        {loading && <LoadingBar loading={loading} time={undisplayTime} />}
+        {loading && <LoadingBar announcement='Zapisuję dane...' />}
       </section>
     </>
   );
