@@ -1,5 +1,6 @@
 main.home-page {
   // background-image: url('../../img/wallpapers/earth.jpg');
+  @extend %loadingModal;
   background-color: darken($light, 70%);
   background-repeat: no-repeat;
   background-size: cover;
@@ -107,10 +108,10 @@ main.home-page {
     h2 {
       text-align: center;
       padding: 10px;
-      color: var(--active-color);;
+      color: var(--active-color);
     }
     .home-page__actions--action-content {
-      color: var(--active-color);;
+      color: var(--active-color);
       margin-top: 64px;
       font-size: 34px;
       text-align: center;
@@ -131,7 +132,7 @@ main.home-page {
         line-height: 12vh;
         font-size: 64px;
         text-decoration: none;
-        color: var(--active-color);;
+        color: var(--active-color);
         margin: 10px 15px;
         transition-duration: 0.4s;
         z-index: 10;

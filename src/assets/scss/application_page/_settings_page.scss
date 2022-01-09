@@ -277,7 +277,8 @@
     justify-content: center;
     width: 100%;
     height: 80px;
-    background-color: var(--text-color);
+    // background-color: var(--text-color);
+    background-color: white;
     border: 1px solid gray;
     margin-bottom: 10px;
     border-radius: 15px;
@@ -295,6 +296,7 @@
     top: 7vh;
     right: -40%;
     color: whitesmoke;
+    // color: black;
     height: 93vh;
     width: 40%;
     background-color: #222;
@@ -416,9 +418,15 @@
     display: flex;
   }
 }
-.tile-theme1 { background-color: #666666!important; }
-.tile-theme2 { background-color: #006494!important; }
-.tile-theme3 { background-color: #e8bf1e!important; }
+.tile-theme1 {
+  background-color: #666666 !important;
+}
+.tile-theme2 {
+  background-color: #006494 !important;
+}
+.tile-theme3 {
+  background-color: #e8bf1e !important;
+}
 // .theme1 .settings-page__categories--navigation { background-color: #999999!important; }
 // .theme2 .settings-page__categories--navigation { background-color: #006494!important; }
 // .theme3 .settings-page__categories--navigation { background-color: #345995!important; }

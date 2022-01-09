@@ -294,11 +294,19 @@
     }
 
     &--red_bgc {
-      background-color: red;
+      &:hover {
+        background-color: red;
+        border-color: gray;
+        color: black;
+      }
     }
 
     &--green_bgc {
-      background-color: green;
+      &:hover {
+        background-color: green;
+        border-color: gray;
+        color: black;
+      }
     }
 
     &--math {
