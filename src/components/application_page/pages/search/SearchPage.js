@@ -142,12 +142,13 @@ const SearchPage = () => {
     <main className='search-page'>
       <div className='search-page_search-wrapper'>
         <div className='search-page_searcher'>
-          <input
-            type='text'
-            onChange={handleSearch}
-            value={searchQuery}
-            placeholder='Wyszukaj...'
-          />
+          <i className='fa fa-search'>
+            <input
+              type='text'
+              onChange={handleSearch}
+              value={searchQuery}
+              placeholder='Wyszukaj...'
+            /></i>
         </div>
         <div className='search-page_results'>
           {isLoaded ? showResults(searchQuery) : null}

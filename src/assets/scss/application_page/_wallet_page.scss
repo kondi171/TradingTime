@@ -12,7 +12,7 @@
     justify-content: space-evenly;
     width: 100%;
     height: 70px;
-    background-color: #999;
+    background-color: var(--darken-effect);
     padding-left: 20px;
     transition: 0.2s linear;
 
@@ -26,6 +26,7 @@
       right: 2%;
       font-size: 30px;
       cursor: pointer;
+      color: var(--hover-color);
     }
 
     p {
@@ -50,8 +51,8 @@
     height: 85px;
     font-size: 22px;
     align-items: center;
-    background-color: #aaa;
-    border-bottom: 2px solid black;
+    background-color: var(--text-color);
+    border-bottom: 2px solid var(--bg-color);
 
     p {
       display: flex;
@@ -61,12 +62,16 @@
       padding: 30px;
       width: 20%;
       height: 45px;
-      border-left: 1px solid grey;
+      border-left: 1px solid var(--bg-color);
       font-weight: bold;
-
       &:first-child {
         width: 8%;
         border-left: none;
+      }
+      &:last-child {
+        
+        border-right: 1px solid var(--bg-color);
+        
       }
     }
   }
@@ -74,7 +79,7 @@
   div.wallet-page__actions {
     width: 100%;
     flex-grow: 1;
-    background-color: #aaa;
+    background-color: var(--text-color);
     font-size: 22px;
 
     //scrollbar
@@ -99,8 +104,13 @@
       width: 100%;
       height: 100px;
       align-items: center;
-      margin-bottom: 10px;
-
+      transition-duration: .4s;
+      &:nth-child(even) {
+        background-color: var(--text-color);
+      }
+      &:nth-child(odd){
+        background-color: var(--darken-effect);
+      }
       p {
         width: 20%;
         text-align: center;
@@ -124,7 +134,7 @@
         i {
           font-size: 24px;
           cursor: pointer;
-          color: #333;
+          color: var(--active-color);
         }
 
         i.fa-heart,
@@ -150,7 +160,7 @@
       }
 
       &:hover {
-        background-color: #888;
+        background-color: var(--hover-color);
       }
     }
   }

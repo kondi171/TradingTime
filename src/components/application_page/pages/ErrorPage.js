@@ -6,7 +6,8 @@ class ErrorPage extends React.Component {
     super(props);
     this.state = {
       gameState: false,
-      // infoVisible: false,
+      infoVisible: false,
+      infoMessage: '',
     };
   }
 
@@ -41,20 +42,20 @@ class ErrorPage extends React.Component {
         this.bricks[c][r] = { x: 0, y: 0, status: 1 };
       }
     }
-    // this.infoMessage = '';
+    this.infoMessage = '';
     this.moveInterval = setInterval(() => {
       this.keyHandlers();
       this.draw();
     }, 10);
   }
-  // displayInfoModal = (message) => {
-  //   this.setState({ infoVisible: true });
-  //   this.infoMessage = message;
-  //   setTimeout(() => {
-  //     this.setState({ infoVisible: false });
-  //     this.infoMessage = '';
-  //   }, 3000);
-  // };
+  displayInfoModal = (message) => {
+    this.setState({ infoVisible: true, infoMessage: message });
+    setTimeout(() => {
+      this.setState({ infoVisible: false });
+      this.state.infoMessage = '';
+      document.location.reload();
+    }, 3000);
+  };
 
   keyHandlers = () => {
     document.addEventListener('keydown', this.keyDownHandler, false);
@@ -151,8 +152,8 @@ class ErrorPage extends React.Component {
             b.status = 0;
             this.score++;
             if (this.score === this.brickRowCount * this.brickColumnCount) {
-              alert('YOU WIN, CONGRATS!');
-              document.location.reload();
+              this.displayInfoModal('Wygrałeś! Gratulacje!');
+              clearInterval(this.moveInterval);
             }
           }
         }
@@ -182,8 +183,7 @@ class ErrorPage extends React.Component {
       } else {
         this.lives--;
         if (!this.lives) {
-          alert('GAME OVER');
-          document.location.reload();
+          this.displayInfoModal('Koniec gry!');
           clearInterval(this.moveInterval);
         } else {
           this.x = this.canvas.width / 2;
@@ -224,7 +224,7 @@ class ErrorPage extends React.Component {
           <Link to='/'>Powróć w bezpieczne miejsce</Link>
         </h4>
         <canvas className='game' id='game' width='480' height='320'></canvas>
-        {/* <InfoModal position="left" visible={this.state.infoVisible} message={this.infoMessage} /> */}
+        <InfoModal position="left" visible={this.state.infoVisible} message={this.state.infoMessage} />
       </div>
     );
   }

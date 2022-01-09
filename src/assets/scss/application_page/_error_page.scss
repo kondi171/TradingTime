@@ -50,4 +50,10 @@
         padding: 1vh;
         background-color: #3d84f521;
     }
+    .info-modal {
+        @extend %infoModal;
+      }
+      .active-modal {
+        display: flex;
+      }
 }
