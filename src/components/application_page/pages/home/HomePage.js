@@ -85,7 +85,8 @@ const HomePage = () => {
     checkIfDataIsLoaded();
   }, [userSettings]);
 
-  // useEffect(() => checkIfDataIsLoaded());
+  useEffect(() => checkIfDataIsLoaded(), [currentWallpaper]);
+
   return (
     <main id='home' className='home-page'>
       {restricted && <RestrictedInfo />}

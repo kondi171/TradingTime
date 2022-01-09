@@ -3,7 +3,7 @@ import HomePageAction from './HomePageAction';
 const displayActions = (props) => {
   let boughtActionsList = [];
   let emptyFields = [];
-  console.log(props);
+  // console.log(props);
 
   if (props.length > 0)
     boughtActionsList = props.map((action) => (
