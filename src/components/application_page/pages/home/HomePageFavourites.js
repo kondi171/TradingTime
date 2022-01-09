@@ -18,7 +18,9 @@ const displayActions = (props) => {
   for (let i = favouriteActionsList.length; i < 6; i++) {
     emptyFields.push(
       <HomePageAction
-        key={Math.floor(Math.random() * (i * 100))}
+        key={Math.floor(
+          Math.random() * (i * 100) * Math.floor(Math.random() * 1000)
+        )}
         isTrue={false}
       />
     );
