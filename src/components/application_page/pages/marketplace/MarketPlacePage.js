@@ -8,16 +8,16 @@ import InfoModal from '../../../features/modals/InfoModal';
 
 import { AppContext } from '../../../../AppContext';
 
-const actionDetails = {
-  id: 0,
-  actionName: 'Allegro',
-  price: 39.16,
-  image: '',
-  isFavourite: true,
-  isBought: true,
-  lastUpdate: '09.12.2021 17:00',
-  numberOfActions: 20,
-};
+// const actionDetails = {
+//   id: 0,
+//   actionName: 'Allegro',
+//   price: 39.16,
+//   image: '',
+//   isFavourite: true,
+//   isBought: true,
+//   lastUpdate: '09.12.2021 17:00',
+//   numberOfActions: 20,
+// };
 
 let interval = 0;
 
@@ -30,18 +30,23 @@ const MarketplacePage = () => {
   const [displayConfirmModal, setDisplayConfirmModal] = useState(false);
   const [accountBalance, setAccountBalance] = useState(0);
   const [smartAssistant, setSmartAssistant] = useState(true);
+  const [actionDetails, setActionDetails] = useState([]);
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  const [isPurchaseDone, setIsPurchaseDone] = useState(false);
 
   const [todayValues, setTodayValues] = useState('');
   const [pastValues, setPastValues] = useState('');
   const { userAccountBalance } = useContext(AppContext);
+  const { fetchAccountBalance } = useContext(AppContext);
   const { userSettings } = useContext(AppContext);
+  const { userId } = useContext(AppContext);
 
   const { actionId } = useParams();
 
   const fetchActionValues = async () => {
-    const API = `http://localhost/api/v1/action/${actionId}`;
+    const API = `http://localhost/api/v1/action/${actionId}&${userId}`;
 
     const actionValues = await fetch(API)
       .then((request) => request.json())
@@ -50,22 +55,37 @@ const MarketplacePage = () => {
     if (actionValues) setIsDataLoaded(true);
     setTodayValues([...actionValues.todayValues]);
     setPastValues([...actionValues.pastValues]);
+    setActionDetails({ ...actionValues.actionInfo });
   };
 
   const changeChartView = (range) => setChartRange(range);
 
-  //wysłanie info do bazy o dokonanej transakcji
-  const confirmTransaction = () => {
-    if (purchaseAction) {
-      let tempAccountBalance = accountBalance;
-      tempAccountBalance -= actionDetails.price * inputActionsAmount;
-      actionDetails.numberOfActions += inputActionsAmount;
+  const updateWallet = async () => {
+    const updateWallet = await fetchAccountBalance(userId);
+    if (updateWallet.success) setAccountBalance(Number(userAccountBalance));
+  };
 
-      setAccountBalance(tempAccountBalance);
+  //wysłanie info do bazy o dokonanej transakcji
+  const confirmTransaction = async () => {
+    const API = `http://localhost/api/v1/stockUpdate/${userId}&${actionId}&`;
+    if (purchaseAction) {
+      const transaction = await fetch(API + `${inputActionsAmount}&buy`)
+        .then((data) => data.json())
+        .catch((err) => console.log(err));
+
+      if (transaction.success) {
+        console.log('success');
+        setIsPurchaseDone(!isPurchaseDone);
+      }
+      // let tempAccountBalance = accountBalance;
+      // tempAccountBalance -= actionDetails.value * inputActionsAmount;
+      // actionDetails.amount += inputActionsAmount;
+
+      // setAccountBalance(tempAccountBalance);
     } else {
       let tempAccountBalance = accountBalance;
-      tempAccountBalance += actionDetails.price * inputActionsAmount;
-      actionDetails.numberOfActions -= inputActionsAmount;
+      tempAccountBalance += actionDetails.value * inputActionsAmount;
+      actionDetails.amount -= inputActionsAmount;
       setAccountBalance(tempAccountBalance);
     }
     setInputActionsAmount(0);
@@ -78,15 +98,12 @@ const MarketplacePage = () => {
     e.preventDefault();
     if (inputActionsAmount <= 0) displayInfoModal('Określ liczbę akcji!');
     else if (
-      inputActionsAmount * actionDetails.price > accountBalance &&
+      inputActionsAmount * actionDetails.value > accountBalance &&
       purchaseAction &&
       purchaseAction
     )
       displayInfoModal('Nie masz wystarczających środków na koncie!');
-    else if (
-      inputActionsAmount > actionDetails.numberOfActions &&
-      !purchaseAction
-    )
+    else if (inputActionsAmount > actionDetails.amount && !purchaseAction)
       displayInfoModal('Nie posiadasz tylu akcji na sprzedaż!');
     else setDisplayConfirmModal(!displayConfirmModal);
   };
@@ -125,12 +142,6 @@ const MarketplacePage = () => {
     }
   };
 
-  // const URLParams = () => {
-  //   let params = useParams();
-  //   console.log(params.actionId);
-  //   return null;
-  // };
-
   const modalTextSetter = () => {
     let inflection = 'akcji';
     let transactionType = 'kupić';
@@ -140,11 +151,11 @@ const MarketplacePage = () => {
 
     if (!purchaseAction) transactionType = 'sprzedać';
 
-    text = `Czy na pewno chcesz ${transactionType} ${inputActionsAmount} ${inflection} ${actionDetails.actionName}?`;
+    text = `Czy na pewno chcesz ${transactionType} ${inputActionsAmount} ${inflection} ${actionDetails.name}?`;
     return text;
   };
 
-  const { price, numberOfActions } = actionDetails;
+  const { value, stock } = actionDetails;
 
   const displayInfoModal = (message) => {
     setInfoMessage(message);
@@ -154,17 +165,23 @@ const MarketplacePage = () => {
     }, 3000);
   };
 
+  // useEffect(() => {
+  //   fetchActionValues();
+  //   setSmartAssistant(userSettings.smartAssistant);
+  //   setAccountBalance(Number(userAccountBalance));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   useEffect(() => {
-    setAccountBalance(Number(userAccountBalance));
-    setSmartAssistant(userSettings.smartAssistant);
     fetchActionValues();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    updateWallet();
+    setSmartAssistant(userSettings.smartAssistant);
+  }, [isPurchaseDone]);
 
   return (
     <main className='marketplace-page'>
-      {/* {getBollingerBands()} */}
-      {/* {fillDataArrays()} */}
+      {/* {console.log(actionDetails)}
+      {console.log(actionDetails.name)} */}
 
       {displayConfirmModal ? (
         <QuestionModal
@@ -175,8 +192,8 @@ const MarketplacePage = () => {
       ) : null}
       <section className='marketplace-page__details'>
         <div className='marketplace-page__choosen-action'>
-          <img src={allegro} alt='' />
-          <h1>{actionDetails.actionName}</h1>
+          <img src={actionDetails.image} alt='' />
+          <h1>{actionDetails.name}</h1>
           <NavLink to={`/app/search`} className='navlink--casual'>
             <i className='fa fa-search' aria-hidden='true'></i>
           </NavLink>
@@ -186,13 +203,13 @@ const MarketplacePage = () => {
             Stan konta: {accountBalance ? accountBalance.toFixed(2) : null} zł
           </p>
           <p className='marketplace-page__action-price'>
-            Aktualna cena akcji: {price.toFixed(2)} zł
+            Aktualna cena akcji: {Number(value).toFixed(2)} zł
           </p>
           <p className='marketplace-page__number-of-actions'>
-            Ilość posiadanych akcji: {numberOfActions} szt.
+            Ilość posiadanych akcji: {stock} szt.
           </p>
           <p className='marketplace-page__total-actions-amount'>
-            Wartość posiadanych akcji: {(numberOfActions * price).toFixed(2)} zł
+            Wartość posiadanych akcji: {(stock * value).toFixed(2)} zł
           </p>
         </section>
 
@@ -232,7 +249,7 @@ const MarketplacePage = () => {
             </button>
 
             <p>
-              Wartość wybranych akcji: {(inputActionsAmount * price).toFixed(2)}{' '}
+              Wartość wybranych akcji: {(inputActionsAmount * value).toFixed(2)}{' '}
               zł
             </p>
 
@@ -257,10 +274,11 @@ const MarketplacePage = () => {
         {isDataLoaded && pastValues !== '' && todayValues !== '' ? (
           <>
             <ActionChart
-              actionName={actionDetails.actionName}
+              actionName={actionDetails.name}
               todayActionValues={todayValues}
               pastActionValues={pastValues}
               chartRange={chartRange}
+              smartAssistant={smartAssistant}
             />
 
             <div className='marketplace-page__chart-buttons'>

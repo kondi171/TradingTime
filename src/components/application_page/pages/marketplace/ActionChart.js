@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Line, defaults } from 'react-chartjs-2';
 import EMA from '../../../forecasting_scripts/EMA';
+import SMA from '../../../forecasting_scripts/SMA';
 import BB from '../../../forecasting_scripts/BB';
 
 // const ActionChart = ({ actionName, actionValues, chartRange, todayValues, pastValues }) => {
@@ -9,6 +10,7 @@ const ActionChart = ({
   chartRange,
   todayActionValues,
   pastActionValues,
+  smartAssistant,
 }) => {
   // Settings for chart tooltip title
   defaults.plugins.tooltip.callbacks.title = function () {
@@ -34,26 +36,20 @@ const ActionChart = ({
     return label;
   };
 
-  // defaults.config.data.datasets[0]['pointBackgroundColor'][0] = 'red';
-
   const [todayValues, setTodayValues] = useState([]);
   const [lastWeekValues, setLastWeekValues] = useState([]);
   const [lastMonthValues, setLastMonthValues] = useState([]);
   const [lastQuarterValues, setLastQuarterValues] = useState([]);
+  const [areBollingerBandsOn, setAreBollingerBandsOn] = useState(true);
 
   const getBollingerBands = () => {
     const actionCloseValues = pastActionValues.map((action) =>
       parseFloat(action.closeValue)
     );
 
-    let bolinger = [];
+    const bolinger = BB(1.8, 30, actionCloseValues, SMA(30, actionCloseValues));
 
-    // console.log(actionCloseValues);
-
-    bolinger = BB(2.5, 30, actionCloseValues, EMA(30, actionCloseValues));
-    // console.log(bolinger);
     return bolinger;
-    // return BB(2, 10, actionCloseValues, EMA(10, actionCloseValues));
   };
 
   const addForecastTags = (array, bollingerBands) => {
@@ -61,48 +57,21 @@ const ActionChart = ({
     const BBLength = [...bollingerBands].length - 1;
 
     newActionsArray.reverse().forEach((element, index) => {
-      // console.log(
-      //   element.closeActionDate +
-      //     '  cena: ' +
-      //     element.closeValue +
-      //     ', UpperBB: ' +
-      //     bollingerBandsReversed[BBLength - index - 1].upperBollingerBand +
-      //     // bollingerBandsReversed[index + 1].upperBollingerBand +
-      //     ', LowerBB: ' +
-      //     bollingerBandsReversed[BBLength - index - 1].lowerBollingerBand
-      //   // bollingerBandsReversed[index + 1].lowerBollingerBand
-      // );
       if (
         element.closeValue >=
-        bollingerBands[BBLength - index].upperBollingerBand
-      ) {
-        console.log(
-          'sell, data: ' +
-            element.closeActionDate +
-            ', cena: ' +
-            element.closeValue +
-            ', upperBB: ' +
-            bollingerBands[BBLength - index].upperBollingerBand +
-            ', lowerBB: ' +
-            bollingerBands[BBLength - index].lowerBollingerBand
-        );
+          bollingerBands[BBLength - index].upperBollingerBand ||
+        Number(element.closeValue) + 0.4 >=
+          bollingerBands[BBLength - index].upperBollingerBand
+      )
         element.action = 'sell';
-      } else if (
+      else if (
         element.closeValue <=
-        bollingerBands[BBLength - index].lowerBollingerBand
-      ) {
-        console.log(
-          'buy, data: ' +
-            element.closeActionDate +
-            ', cena: ' +
-            element.closeValue +
-            ', upperBB: ' +
-            bollingerBands[BBLength - index].upperBollingerBand +
-            ', lowerBB: ' +
-            bollingerBands[BBLength - index].lowerBollingerBand
-        );
+          bollingerBands[BBLength - index].lowerBollingerBand ||
+        Number(element.closeValue) - 0.4 <=
+          bollingerBands[BBLength - index].lowerBollingerBand
+      )
         element.action = 'buy';
-      } else element.action = 'nothing';
+      else element.action = 'nothing';
     });
 
     return newActionsArray.reverse();
@@ -194,10 +163,6 @@ const ActionChart = ({
     return label;
   };
 
-  // const chartWithForecastingTags = () => {
-  //   for (int i)
-  // }
-
   const chartValues = () => {
     let values = 0;
     if (chartRange === 'today')
@@ -211,10 +176,39 @@ const ActionChart = ({
     return values;
   };
 
+  const drawBBs = (bandPart) => {
+    const BBs = getBollingerBands();
+    const BBLength = [...BBs].length - 1;
+    let newActionsArray = [];
+    let values = [];
+
+    if (chartRange === 'week') {
+      newActionsArray = [...lastWeekValues];
+    } else if (chartRange === 'month') {
+      newActionsArray = [...lastMonthValues];
+    } else if (chartRange === 'quarter') {
+      newActionsArray = [...lastQuarterValues];
+    }
+
+    newActionsArray.reverse();
+
+    if (bandPart === 'upper')
+      newActionsArray.forEach((element, index) =>
+        values.push(BBs[BBLength - index].upperBollingerBand)
+      );
+    else if (bandPart === 'lower')
+      newActionsArray.forEach((element, index) =>
+        values.push(BBs[BBLength - index].lowerBollingerBand)
+      );
+
+    if (areBollingerBandsOn) return values.reverse();
+    else return null;
+  };
+
   const forecastSymbols = () => {
     let values = 0;
     if (chartRange === 'today')
-      values = todayValues.map((action) => (action.action = 'nothing'));
+      values = todayValues.map((action) => action.action);
     else if (chartRange === 'week')
       values = lastWeekValues.map((action) => action.action);
     else if (chartRange === 'month')
@@ -228,13 +222,35 @@ const ActionChart = ({
     const index = context.dataIndex;
     const action = context.dataset.action[index];
 
-    return action === 'buy' ? ifBuy : action === 'sell' ? ifSell : ifNothing;
+    if (smartAssistant)
+      return action === 'buy' ? ifBuy : action === 'sell' ? ifSell : ifNothing;
+    else return ifNothing;
   };
 
+  const handleBollingerBandsDisplay = () => {
+    const bollingerBandsSwitch = document.querySelector(
+      '.bollinger-switch p i.bollinger-toggle-switch'
+    );
+    setAreBollingerBandsOn(!areBollingerBandsOn);
+    bollingerBandsSwitch.classList.toggle('fa-toggle-on');
+    bollingerBandsSwitch.classList.toggle('fa-toggle-off');
+  };
   useEffect(() => fillDataArrays(), []);
 
   return (
     <div className='action-chart-wrapper'>
+      <div className='bollinger-switch'>
+        <p>
+          Wstęgi Bollingera
+          <i
+            className='fa fa-toggle-on bollinger-toggle-switch'
+            onClick={handleBollingerBandsDisplay}
+          >
+            {' '}
+          </i>
+        </p>
+      </div>
+
       <Line
         data={{
           labels: xLabel(),
@@ -255,6 +271,22 @@ const ActionChart = ({
               pointBackgroundColor: (context) =>
                 setForecastSymbols(context, 'green', 'red', 'blue'),
             },
+            {
+              label: 'Upper BBs',
+              data: drawBBs('upper'),
+              pointRadius: 0,
+              borderColor: 'orange',
+              borderWidth: 1,
+              pointHitRadius: 0,
+            },
+            {
+              label: 'Lower BBs',
+              data: drawBBs('lower'),
+              pointRadius: 0,
+              borderWidth: 1,
+              borderColor: 'orange',
+              pointHitRadius: 0,
+            },
           ],
         }}
         options={{
@@ -265,6 +297,7 @@ const ActionChart = ({
             title: {
               display: true,
               text: 'Wykres akcji ' + actionName,
+              color: 'black',
               padding: {
                 bottom: 40,
               },

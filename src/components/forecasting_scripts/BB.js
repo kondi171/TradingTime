@@ -1,4 +1,4 @@
-const BB = (standard, observationDays, actionCloseValues, arrayEMA) => {
+const BB = (standard, observationDays, actionCloseValues, arraySMA) => {
   const getStandardDeviation = () => {
     let mean = [];
     let sum = 0;
@@ -43,9 +43,9 @@ const BB = (standard, observationDays, actionCloseValues, arrayEMA) => {
 
     for (let i = 0; i < actionCloseValues.length - observationDays + 1; i++) {
       upperBollingerBand[i] =
-        arrayEMA[i] + standardDeviationArray[i] * standard;
+        arraySMA[i] + standardDeviationArray[i] * standard;
       lowerBollingerBand[i] =
-        arrayEMA[i] - standardDeviationArray[i] * standard;
+        arraySMA[i] - standardDeviationArray[i] * standard;
     }
 
     for (let i = 0; i < upperBollingerBand.length; i++)
