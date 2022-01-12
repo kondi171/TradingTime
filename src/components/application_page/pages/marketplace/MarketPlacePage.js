@@ -200,7 +200,7 @@ const MarketplacePage = () => {
         </div>
         <section className='marketplace-page__info'>
           <p className='marketplace-page__account-balance'>
-            Stan konta: {accountBalance ? accountBalance.toFixed(2) : null} zł
+            Stan konta: {accountBalance ? accountBalance.toFixed(2) : 0} zł
           </p>
           <p className='marketplace-page__action-price'>
             Aktualna cena akcji: {Number(value).toFixed(2)} zł
@@ -311,7 +311,6 @@ const MarketplacePage = () => {
         ) : null}
       </section>
       <InfoModal message={infoMessage} visible={infoVisible} position='right' />
-      {/* {console.log(infoMessage)} */}
     </main>
   );
 };
