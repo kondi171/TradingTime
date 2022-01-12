@@ -42,7 +42,9 @@ const LoginPage = () => {
     const login = await fetch(API, {
       method: 'POST',
       body: formParams,
-    }).then((response) => response.json());
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
 
     if (login.success) {
       await loadUserAccountData(login.id_user);
