@@ -8,25 +8,26 @@ import avatarDefault from '../../assets/img/avatars/default_blank.png';
 import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
 const NavBar = () => {
-
   const { userSettings } = useContext(AppContext);
   const { userPersonalData } = useContext(AppContext);
   const [currentAvatar, setCurrentAvatar] = useState(5);
   const [currentUser, setCurrentUser] = useState();
+
   useEffect(() => setUser(), [userPersonalData]);
   useEffect(() => setAvatar(), [userSettings]);
   const setAvatar = () => {
-    console.log(userSettings.avatar)
+    console.log(userSettings.avatar);
     if (Number(userSettings.avatar) === 1) setCurrentAvatar(male1);
     else if (Number(userSettings.avatar) === 2) setCurrentAvatar(male2);
     else if (Number(userSettings.avatar) === 3) setCurrentAvatar(female1);
     else if (Number(userSettings.avatar) === 4) setCurrentAvatar(female2);
-    else setCurrentAvatar(avatarDefault);
-  }
+    else if (Number(userSettings.avatar) === 5) setCurrentAvatar(avatarDefault);
+    else setCurrentAvatar(userSettings.avatar);
+  };
   const setUser = () => {
     const userConcat = `${userPersonalData.firstName} ${userPersonalData.lastName}`;
     setCurrentUser(userConcat);
-  }
+  };
 
   return (
     <>
@@ -83,6 +84,6 @@ const NavBar = () => {
       </nav>
     </>
   );
-}
+};
 
 export default NavBar;
