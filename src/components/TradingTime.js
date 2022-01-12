@@ -4,7 +4,7 @@ import LandingPage from './landing_page/LandingPage';
 import HomePage from './application_page/pages/home/HomePage';
 import SearchPage from './application_page/pages/search/SearchPage';
 import LoginPage from './landing_page/access_sections/LoginPage';
-import Register from './landing_page/access_sections/Register';
+import RegisterPage from './landing_page/access_sections/RegisterPage';
 import WalletPage from './application_page/pages/wallet/WalletPage';
 import HelpPage from './application_page/pages/HelpPage';
 import ErrorPage from './application_page/pages/ErrorPage';
@@ -67,7 +67,7 @@ const TradingTime = () => {
         )}
 
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/register' element={<RegisterPage />} />
         <Route path='*' exact element={<ErrorPage />} />
       </Routes>
     </>

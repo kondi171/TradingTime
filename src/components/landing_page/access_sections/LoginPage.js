@@ -78,7 +78,7 @@ const LoginPage = () => {
           <i className='fa fa-key'></i> Hasło
         </label>
         <input type='password' name='password' placeholder='Wprowadź hasło' />
-        <input type='submit' value='Zaloguj się' />
+        <input type='submit' className='login' value='Zaloguj się' />
         <FacebookLoginPage loadUserAccountData={loadUserAccountData} />
         {/* <button className='facebook'> */}
 
