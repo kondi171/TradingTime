@@ -2,37 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Validation from '../../../features/Validation';
 import InfoModal from '../../../features/modals/InfoModal';
 
-// const userInfo = {
-//   firstName: 'Imie',
-//   lastName: 'Nazwisko',
-//   login: 'login',
-//   email: 'mail@mail.pl',
-//   telephone: '111222333',
-//   city: 'Miasto',
-//   street: 'Ulica',
-//   house: '11',
-//   apartment: '1',
-//   postalCode: '88-888',
-//   pesel: '12345678912',
-//   personalId: 'CCC 12345',
-// };
-
 const UserInfoDetails = ({ id, handleChangeActiveAction }) => {
-  // const { userPersonalData } = useContext(AppContext);
-  // const { isUserLogged } = useContext(AppContext);
-  // const { userIds } = useContext(AppContext);
-
-  // const [userLogin, setUserLogin] = useState(login);
-  // const [userEmail, setUserEmail] = useState(email);
-  // const [userTelephone, setUserTelephone] = useState(telephone);
-  // const [userCity, setUserCity] = useState(city);
-  // const [userStreet, setUserStreet] = useState(street);
-  // const [userHouse, setUserHouse] = useState(house);
-  // const [userApartment, setUserApartment] = useState(apartment);
-  // const [userPostalCode, setUserPostalCode] = useState(postalCode);
-  // const [userPesel, setUserPesel] = useState(pesel);
-  // const [userPersonalId, setUserPersonalId] = useState(personalId);
-
   const [newLogin, setNewLogin] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newTelephone, setNewTelephone] = useState('');
