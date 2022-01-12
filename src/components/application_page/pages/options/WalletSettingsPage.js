@@ -6,17 +6,6 @@ import ModifyAccountNumber from '../../../helpers/ModifyAccountNumber';
 import InfoModal from '../../../features/modals/InfoModal';
 
 const WalletSettingsPage = () => {
-  // state = {
-  //   walletPreferences: {
-  //     accountNr: '23 1435 4452 1000 0000 6425 2357',
-  //     accountBalance: 200,
-  //   },
-
-  //   amountToWithdraw: '',
-
-  //   withdrawMoneyModalShow: false,
-  // };
-
   const [accountNr, setAccountNr] = useState('');
   const [accountBalance, setAccountBalance] = useState(0);
   const [amountToWithdraw, setAmountToWithdraw] = useState('');
@@ -66,55 +55,47 @@ const WalletSettingsPage = () => {
   }, []);
 
   return (
-    <>
-      {/* {console.log(ModifyAccountNumber(23143544521000000064252357))} */}
-      <section className='settings-page__preferences'>
-        <h1>Ustawienia portfela</h1>
-        <div className='settings-page__preferences__list'>
-          <h2>Ogólne</h2>
-          <div className='settings-page__preferences__list__resources'>
-            <p>Dostępne środki na koncie: </p>
-            <span>{accountBalance.toFixed(2)} zł</span>
-          </div>
-
-          <div className='settings-page__preferences__list__account-number'>
-            <p>Numer konta do wpłat: </p>
-            <span>{ModifyAccountNumber(accountNr)}</span>
-            <i className='fa fa-question-circle-o' aria-hidden='true'>
-              <span></span>
-            </i>
-          </div>
-
-          <div className='settings-page__preferences__list__account-buttons'>
-            <button className='button button--large' onClick={handleModal}>
-              Wypłać pieniądze na konto
-            </button>
-            <button
-              className='button button--large'
-              onClick={handleDepositMoney}
-            >
-              Wpłać pieniądze do aplikacji
-            </button>
-          </div>
+    <section className='settings-page__preferences'>
+      <h1>Ustawienia portfela</h1>
+      <div className='settings-page__preferences__list'>
+        <h2>Ogólne</h2>
+        <div className='settings-page__preferences__list__resources'>
+          <p>Dostępne środki na koncie: </p>
+          <span>{accountBalance.toFixed(2)} zł</span>
         </div>
 
-        {withdrawMoneyModal ? (
-          <WithdrawMoneyModal
-            handleModal={handleModal}
-            handleWithdrawMoney={(e) =>
-              handleWithdrawMoney(e, amountToWithdraw)
-            }
-            amountToWithdraw={amountToWithdraw}
-            handleWithdrawInputChange={handleWithdrawInputChange}
-          />
-        ) : null}
-        <InfoModal
-          message={infoMessage}
-          visible={infoVisble}
-          position='right'
+        <div className='settings-page__preferences__list__account-number'>
+          <p>Numer konta do wpłat: </p>
+          <span>
+            {accountNr !== '' && accountNr !== null
+              ? ModifyAccountNumber(accountNr)
+              : 'Numer konta nie został podany!'}
+          </span>
+          <i className='fa fa-question-circle-o' aria-hidden='true'>
+            <span></span>
+          </i>
+        </div>
+
+        <div className='settings-page__preferences__list__account-buttons'>
+          <button className='button button--large' onClick={handleModal}>
+            Wypłać pieniądze na konto
+          </button>
+          <button className='button button--large' onClick={handleDepositMoney}>
+            Wpłać pieniądze do aplikacji
+          </button>
+        </div>
+      </div>
+
+      {withdrawMoneyModal ? (
+        <WithdrawMoneyModal
+          handleModal={handleModal}
+          handleWithdrawMoney={(e) => handleWithdrawMoney(e, amountToWithdraw)}
+          amountToWithdraw={amountToWithdraw}
+          handleWithdrawInputChange={handleWithdrawInputChange}
         />
-      </section>
-    </>
+      ) : null}
+      <InfoModal message={infoMessage} visible={infoVisble} position='right' />
+    </section>
   );
 };
 
