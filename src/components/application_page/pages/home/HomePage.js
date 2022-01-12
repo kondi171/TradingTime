@@ -21,16 +21,15 @@ const HomePage = () => {
 
   const { userSettings } = useContext(AppContext);
 
-  const checkIfDataIsLoaded = () => {
+  const initializeDesign = async () => {
+    setWallpaper();
+    setTheme();
     if (currentWallpaper !== '' && currentTheme !== '') setIsLoaded(true);
   };
 
-  const setSessionStorage = () => {
-    sessionStorage.setItem('wallpaper', true);
-    sessionStorage.setItem('theme', currentTheme);
-  };
   const setWallpaper = () => {
     const home = document.getElementById('home');
+
     if (Number(userSettings.wallpaper) === 1) {
       setCurrentWallpaper(1);
       home.classList.add('wallpaper1');
@@ -41,12 +40,12 @@ const HomePage = () => {
       home.classList.add('wallpaper2');
       home.classList.remove('wallpaper1');
       home.classList.remove('wallpaper3');
-    } else {
+    } else if (Number(userSettings.wallpaper) === 3) {
       setCurrentWallpaper(3);
       home.classList.add('wallpaper3');
       home.classList.remove('wallpaper2');
       home.classList.remove('wallpaper1');
-    }
+    } else setCurrentWallpaper('');
   };
 
   const setTheme = () => {
@@ -66,7 +65,7 @@ const HomePage = () => {
       document.documentElement.style.setProperty('--active-color', '#038C3E');
       document.documentElement.style.setProperty('--hover-color', '#77BF63');
       document.documentElement.style.setProperty('--darken-effect', '#adf79e');
-    } else {
+    } else if (Number(userSettings.theme) === 3) {
       setCurrentTheme(3);
       document.documentElement.style.setProperty('--bg-color', '#191919');
       document.documentElement.style.setProperty('--box-color', '#FFCD00');
@@ -74,7 +73,7 @@ const HomePage = () => {
       document.documentElement.style.setProperty('--active-color', '#FFCD00');
       document.documentElement.style.setProperty('--hover-color', '#b69917');
       document.documentElement.style.setProperty('--darken-effect', '#a8a8a8');
-    }
+    } else setCurrentTheme('');
   };
 
   useEffect(
@@ -83,19 +82,8 @@ const HomePage = () => {
   );
 
   useEffect(() => setBoughtActions(userBoughtActions), [userBoughtActions]);
-  // useEffect(() => {
-  //   setTheme();
-  //   setWallpaper();
-  //   checkIfDataIsLoaded();
-  // }, [userSettings]);
-  useEffect(() => {
-    setTheme();
-    setWallpaper();
-    checkIfDataIsLoaded();
-  }, [currentWallpaper]);
 
-  useEffect(() => checkIfDataIsLoaded(), [currentWallpaper]);
-  useEffect(() => checkIfDataIsLoaded(), [currentTheme]);
+  useEffect(() => initializeDesign());
 
   return (
     <main id='home' className='home-page'>
