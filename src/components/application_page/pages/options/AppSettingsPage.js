@@ -18,7 +18,6 @@ const AppSettingsPage = () => {
   const [appPreferences, setAppPreferences] = useState({
     smartAssistant: 0,
     simulationMode: 0,
-
     twoFactorAuthentication: 0,
   });
 
@@ -34,6 +33,8 @@ const AppSettingsPage = () => {
   const { userId } = useContext(AppContext);
   const { fetchUserData } = useContext(AppContext);
   const { fetchUserSettings } = useContext(AppContext);
+  const { fetchUserBoughtActions } = useContext(AppContext);
+  const { fetchAccountBalance } = useContext(AppContext);
 
   const [currentTheme, setCurrentTheme] = useState();
 
@@ -73,12 +74,15 @@ const AppSettingsPage = () => {
     if (option === 'simulationMode') setShowModal(!showModal);
 
     if (option === 'smartAssistant') {
-      tempAppPreferences.smartAssistant = !appPreferences.smartAssistant;
+      tempAppPreferences.smartAssistant = !Number(
+        appPreferences.smartAssistant
+      );
       setAppPreferences({ ...tempAppPreferences });
     }
     if (option === 'twoFactorAuthentication') {
-      tempAppPreferences.twoFactorAuthentication =
-        !appPreferences.twoFactorAuthentication;
+      tempAppPreferences.twoFactorAuthentication = !Number(
+        appPreferences.twoFactorAuthentication
+      );
       setAppPreferences({ ...tempAppPreferences });
     }
   };
@@ -267,9 +271,12 @@ const AppSettingsPage = () => {
 
   const handleChangeSimulationMode = () => {
     let tempAppPreferences = appPreferences;
-    tempAppPreferences.simulationMode = !appPreferences.simulationMode;
+    tempAppPreferences.simulationMode = !Number(appPreferences.simulationMode);
 
     setAppPreferences({ ...tempAppPreferences });
+
+    fetchUserBoughtActions(userId);
+    fetchAccountBalance(userId);
     hideQuestionModal();
   };
 
