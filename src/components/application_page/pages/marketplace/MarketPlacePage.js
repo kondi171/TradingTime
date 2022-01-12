@@ -165,17 +165,17 @@ const MarketplacePage = () => {
     }, 3000);
   };
 
-  // useEffect(() => {
-  //   fetchActionValues();
-  //   setSmartAssistant(userSettings.smartAssistant);
-  //   setAccountBalance(Number(userAccountBalance));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    //   fetchActionValues();
+    setSmartAssistant(Number(userSettings.smartAssistant));
+    //   setAccountBalance(Number(userAccountBalance));
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     fetchActionValues();
     updateWallet();
-    setSmartAssistant(userSettings.smartAssistant);
+    setSmartAssistant(Number(userSettings.smartAssistant));
   }, [isPurchaseDone]);
 
   return (

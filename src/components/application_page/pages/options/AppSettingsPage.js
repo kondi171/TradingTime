@@ -393,7 +393,9 @@ const AppSettingsPage = () => {
               <input
                 className='switch-button__checkbox'
                 type='checkbox'
-                checked={simulationMode ? simulationMode : false}
+                checked={
+                  Number(simulationMode) ? Number(simulationMode) : false
+                }
                 onChange={() => handleToggleInput('simulationMode')}
               ></input>
               <label className='switch-button__label'>
@@ -410,7 +412,9 @@ const AppSettingsPage = () => {
               <input
                 className='switch-button__checkbox'
                 type='checkbox'
-                checked={smartAssistant ? smartAssistant : false}
+                checked={
+                  Number(smartAssistant) ? Number(smartAssistant) : false
+                }
                 onChange={() => handleToggleInput('smartAssistant')}
               ></input>
               <label className='switch-button__label'>
@@ -427,7 +431,9 @@ const AppSettingsPage = () => {
                 className='switch-button__checkbox'
                 type='checkbox'
                 checked={
-                  twoFactorAuthentication ? twoFactorAuthentication : false
+                  Number(twoFactorAuthentication)
+                    ? Number(twoFactorAuthentication)
+                    : false
                 }
                 onChange={() => handleToggleInput('twoFactorAuthentication')}
               ></input>

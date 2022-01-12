@@ -1,50 +1,54 @@
 .login-wrapper {
-    background-image: url('../../img/earth.jpg');
-    background-color: darken(#cecece,60%);
-    background-blend-mode: overlay;
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    form.form {
-        @extend %input;
-        @include form(30%,60vh);
-    }
-    button.facebook {
-        display: block;
-        width: 60%;
-        height: 4vh;
-        border: 2px solid #3b5998;
-        border-radius: 2px;
-        margin: 20px auto;
-        padding: 5px;
-        display: flex;
-        background-color: #3b5998;
-        @extend %btn;
-        i {
-            align-self: flex-start;
-            font-size: 24px;
-            padding: 2px;
-            margin-left: 6px;
+  background-image: url('../../img/earth.jpg');
+  background-color: darken(#cecece, 60%);
+  background-blend-mode: overlay;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  form.form {
+    @extend %input;
+    @include form(30%, 60vh);
+  }
 
-            text-align: center;
-        }
-        span {
-            display: block;
-            width:70%;
-            margin: 0 auto;
-            align-self: center;
-        }
+  .facebook,
+  .kep-login-facebook.metro {
+    display: block;
+    width: 60%;
+    height: 4vh;
+    border: 2px solid #3b5998;
+    border-radius: 2px;
+    margin: 20px auto;
+    padding: 5px;
+    display: flex;
+    background-color: #3b5998;
+    @extend %btn;
+    i {
+      align-self: flex-start;
+      font-size: 24px;
+      padding: 2px;
+      margin-left: 6px;
+
+      text-align: center;
     }
-    .links { @extend %links; }
-    .info-modal {
-        @extend %infoModal;
-        border-color: rgb(255, 47, 47);
-        opacity: 0.9;
-        i {
-            color:rgb(255, 47, 47);
-        }
-      }
-      .active-modal {
-        display: flex;
-      }
+    span {
+      display: block;
+      width: 70%;
+      margin: 0 auto;
+      align-self: center;
+    }
+  }
+  .links {
+    @extend %links;
+  }
+  .info-modal {
+    @extend %infoModal;
+    border-color: rgb(255, 47, 47);
+    opacity: 0.9;
+    i {
+      color: rgb(255, 47, 47);
+    }
+  }
+  .active-modal {
+    display: flex;
+  }
 }

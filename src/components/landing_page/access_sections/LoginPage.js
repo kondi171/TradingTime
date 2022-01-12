@@ -3,6 +3,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../AppContext';
 import InfoModal from '../../features/modals/InfoModal';
+import FacebookLoginPage from './FacebookLoginPage';
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -17,18 +19,18 @@ const LoginPage = () => {
   const [infoVisible, setInfoVisible] = useState(false);
   const [infoMessage, setInfoMessage] = useState('');
 
+  const loadUserAccountData = async (id_user) => {
+    toggleLoggedState();
+    fetchUserData(id_user);
+    fetchUserSettings(id_user);
+    fetchUserFavouriteActions(id_user);
+    fetchUserBoughtActions(id_user);
+    fetchAccountBalance(id_user);
+    setUserIdNumber(id_user);
+  };
+
   const login = async (e) => {
     e.preventDefault();
-
-    const loadUserAccountData = async () => {
-      toggleLoggedState();
-      fetchUserData(login.id_user);
-      fetchUserSettings(login.id_user);
-      fetchUserFavouriteActions(login.id_user);
-      fetchUserBoughtActions(login.id_user);
-      fetchAccountBalance(login.id_user);
-      setUserIdNumber(login.id_user);
-    };
 
     const API = 'http://localhost/api/v1/login';
     const formParams = new URLSearchParams({
@@ -43,7 +45,7 @@ const LoginPage = () => {
     }).then((response) => response.json());
 
     if (login.success) {
-      await loadUserAccountData();
+      await loadUserAccountData(login.id_user);
       navigate('/app/home');
     } else {
       displayInfoModal(login.message.toUpperCase());
@@ -77,10 +79,13 @@ const LoginPage = () => {
         </label>
         <input type='password' name='password' placeholder='Wprowadź hasło' />
         <input type='submit' value='Zaloguj się' />
-        <button className='facebook'>
-          <i className='fa fa-facebook'></i>
-          <span>Zaloguj się z Facebook</span>
-        </button>
+        <FacebookLoginPage loadUserAccountData={loadUserAccountData} />
+        {/* <button className='facebook'> */}
+
+        {/* <i className='fa fa-facebook'></i> */}
+
+        {/* <span>Zaloguj się z Facebook</span> */}
+        {/* </button> */}
       </form>
       <div className='links'>
         <Link to='/register'>Nie masz jeszcze konta? Załóż je!</Link>

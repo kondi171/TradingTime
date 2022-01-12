@@ -25,6 +25,10 @@ const HomePage = () => {
     if (currentWallpaper !== '' && currentTheme !== '') setIsLoaded(true);
   };
 
+  const setSessionStorage = () => {
+    sessionStorage.setItem('wallpaper', true);
+    sessionStorage.setItem('theme', currentTheme);
+  };
   const setWallpaper = () => {
     const home = document.getElementById('home');
     if (Number(userSettings.wallpaper) === 1) {
@@ -79,13 +83,19 @@ const HomePage = () => {
   );
 
   useEffect(() => setBoughtActions(userBoughtActions), [userBoughtActions]);
+  // useEffect(() => {
+  //   setTheme();
+  //   setWallpaper();
+  //   checkIfDataIsLoaded();
+  // }, [userSettings]);
   useEffect(() => {
     setTheme();
     setWallpaper();
     checkIfDataIsLoaded();
-  }, [userSettings]);
+  }, [currentWallpaper]);
 
   useEffect(() => checkIfDataIsLoaded(), [currentWallpaper]);
+  useEffect(() => checkIfDataIsLoaded(), [currentTheme]);
 
   return (
     <main id='home' className='home-page'>
