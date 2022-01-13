@@ -82,14 +82,16 @@ const AppProvider = ({ children }) => {
       .then((data) => setUserFavouriteActions(data))
       .catch((err) => console.log(err));
   };
-  const fetchUserBoughtActions = (id) => {
+  const fetchUserBoughtActions = async (id) => {
     const API = `http://localhost/api/v1/stock/${id}`;
 
-    fetch(API)
+    const operation = await fetch(API)
       .then((response) => response.json())
-      .then((data) => data.stock)
-      .then((data) => setUserBoughtActions(data))
       .catch((err) => console.log(err));
+
+    if (operation.success) setUserBoughtActions(operation.stock);
+
+    return operation;
   };
 
   const fetchAccountBalance = async (id) => {

@@ -269,14 +269,12 @@ const AppSettingsPage = () => {
     } else return null;
   };
 
-  const handleChangeSimulationMode = () => {
+  const handleChangeSimulationMode = async () => {
     let tempAppPreferences = appPreferences;
     tempAppPreferences.simulationMode = !Number(appPreferences.simulationMode);
 
     setAppPreferences({ ...tempAppPreferences });
 
-    fetchUserBoughtActions(userId);
-    fetchAccountBalance(userId);
     hideQuestionModal();
   };
 
@@ -312,7 +310,14 @@ const AppSettingsPage = () => {
 
     if (settingsChange.success) {
       const fetchSettings = await fetchUserSettings(userId);
-      if (fetchSettings.success) setLoading(false);
+      const updateWallet = await fetchAccountBalance(userId);
+      const updateActions = await fetchUserBoughtActions(userId);
+      if (
+        fetchSettings.success &&
+        updateWallet.success &&
+        updateActions.success
+      )
+        setLoading(false);
       setShowSaveButtons(false);
     } else alert('błąd wysyłania danych');
   };
