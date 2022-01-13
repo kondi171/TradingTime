@@ -132,7 +132,6 @@ const Register = () => {
     const password2Value = document.getElementById('password2').value;
 
     const API = `http://localhost/api/v1/usercheck/`;
-
     const ifLoginExists = await fetch(API + login + '&login')
       .then((response) => response.json())
       .catch((err) => console.log(err));
@@ -142,26 +141,102 @@ const Register = () => {
       .catch((err) => console.log(err));
 
     if (
-      Validation('email', email) &&
-      Validation('password', password1Value, password2Value) &&
-      !ifLoginExists.success &&
-      !ifEmailExists.success
+      login !== '' &&
+      email !== '' &&
+      password1Value !== '' &&
+      password2Value !== ''
     ) {
-      handleRemoveDisplay();
-      personalForm.classList.add('active-form');
-    } else {
-      if (!Validation('email', email)) alert('Niepoprawny email');
-      if (!Validation('password', password1Value, password2Value))
-        alert('Niepoprawne hasło');
-      if (ifLoginExists.success)
-        alert('użytkownik o podanym loginie istnieje w bazie');
-      if (ifEmailExists.success)
-        alert('użytkownik o podanym emailu istnieje w bazie');
-    }
+      if (
+        Validation('email', email) &&
+        Validation('password', password1Value, password2Value) &&
+        Validation('password', password1Value, password2Value) !==
+          'DifferentValues' &&
+        !ifLoginExists.success &&
+        !ifEmailExists.success
+      ) {
+        handleRemoveDisplay();
+        personalForm.classList.add('active-form');
+      } else {
+        if (!Validation('email', email)) alert('Niepoprawny email');
+        if (!Validation('password', password1Value, password2Value))
+          alert('Niepoprawne hasło');
+        if (
+          Validation('password', password1Value, password2Value) ===
+          'DifferentValues'
+        )
+          alert('Podane hasła nie są zgodne');
+
+        if (ifLoginExists.success)
+          alert('użytkownik o podanym loginie istnieje w bazie');
+        if (ifEmailExists.success)
+          alert('użytkownik o podanym emailu istnieje w bazie');
+      }
+    } else alert('Wypełnij wszystkie pola!');
   };
+
   const handleAdressForm = () => {
-    handleRemoveDisplay();
-    adressForm.classList.add('active-form');
+    if (
+      firstName !== '' &&
+      lastName !== '' &&
+      personalId !== '' &&
+      pesel !== '' &&
+      dateOfBirth !== ''
+    ) {
+      if (
+        Validation('name', firstName) &&
+        Validation('name', lastName) &&
+        Validation('personalId', personalId) &&
+        Validation('pesel', pesel) &&
+        Validation('birthDate', dateOfBirth)
+      ) {
+        handleRemoveDisplay();
+        adressForm.classList.add('active-form');
+      } else {
+        if (!Validation('name', firstName))
+          alert('Wprowadź imię w poprawnym formacie!');
+        if (!Validation('name', lastName))
+          alert('Wprowadź nazwisko w poprawnym formacie!');
+        if (!Validation('personalId', personalId))
+          alert(
+            'Wprowadź numer dowodu osobistego w poprawnym formacie! (ABC123456)'
+          );
+        if (!Validation('pesel', pesel))
+          alert('Wprowadź numer PESEL w poprawnym formacie!');
+        if (!Validation('birthDate', dateOfBirth))
+          alert('Musisz mieć ukończone 18 lat!');
+      }
+    } else alert('Wszystkie pola muszą być wypełnione!');
+  };
+
+  const handleRegister = () => {
+    if (
+      street !== '' &&
+      city !== '' &&
+      postalCode !== '' &&
+      telephone !== '' &&
+      bankNumber !== ''
+    ) {
+      if (
+        Validation('name', street) &&
+        Validation('name', city) &&
+        Validation('postalCode', postalCode) &&
+        Validation('telephone', telephone) &&
+        Validation('accountNumber', bankNumber)
+      ) {
+        alert('Rejestruję!');
+      } else {
+        if (!Validation('name', street))
+          alert('Wprowadź nazwę ulicy w poprawnym formacie!');
+        if (!Validation('name', city))
+          alert('Wprowadź nazwę miasta w poprawnym formacie!');
+        if (!Validation('postalCode', postalCode))
+          alert('Wprowadź kod pocztowy w poprawnym formacie! (ABC-12345)');
+        if (!Validation('telephone', telephone))
+          alert('Wprowadź numer telefonu w poprawnym formacie!');
+        if (!Validation('accountNumber', bankNumber))
+          alert('Wprowadź poprawny numer konta bankowego!');
+      }
+    } else alert('Wszystkie pola muszą być wypełnione!');
   };
 
   return (
@@ -350,7 +425,7 @@ const Register = () => {
           <div className='btn-wrapper'>
             <input onClick={handlePersonalForm} type='button' value='Wstecz' />
             <input
-              // onClick={handleRegister}
+              onClick={handleRegister}
               type='button'
               value='Zarejestruj się'
             />
