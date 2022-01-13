@@ -40,6 +40,7 @@ const MarketplacePage = () => {
   const [pastValues, setPastValues] = useState('');
   const { userAccountBalance } = useContext(AppContext);
   const { fetchAccountBalance } = useContext(AppContext);
+  const { fetchUserBoughtActions } = useContext(AppContext);
   const { userSettings } = useContext(AppContext);
   const { userId } = useContext(AppContext);
 
@@ -62,34 +63,51 @@ const MarketplacePage = () => {
 
   const updateWallet = async () => {
     const updateWallet = await fetchAccountBalance(userId);
-    if (updateWallet.success) setAccountBalance(Number(userAccountBalance));
+    if (updateWallet.success) setAccountBalance(parseFloat(userAccountBalance));
   };
 
   //wysłanie info do bazy o dokonanej transakcji
   const confirmTransaction = async () => {
+    let status = false;
     const API = `http://localhost/api/v1/stockUpdate/${userId}&${actionId}&`;
+
     if (purchaseAction) {
       const transaction = await fetch(API + `${inputActionsAmount}&buy`)
         .then((data) => data.json())
         .catch((err) => console.log(err));
 
       if (transaction.success) {
-        console.log('success');
-        setIsPurchaseDone(!isPurchaseDone);
-      }
+        status = true;
+      } else console.log('error');
       // let tempAccountBalance = accountBalance;
       // tempAccountBalance -= actionDetails.value * inputActionsAmount;
       // actionDetails.amount += inputActionsAmount;
 
       // setAccountBalance(tempAccountBalance);
     } else {
-      let tempAccountBalance = accountBalance;
-      tempAccountBalance += actionDetails.value * inputActionsAmount;
-      actionDetails.amount -= inputActionsAmount;
-      setAccountBalance(tempAccountBalance);
+      const transaction = await fetch(API + `${inputActionsAmount}&sell`)
+        .then((data) => data.json())
+        .catch((err) => console.log(err));
+
+      console.log(transaction);
+
+      if (transaction.success) {
+        console.log('success');
+        status = true;
+      } else console.log('error');
+      // let tempAccountBalance = accountBalance;
+      // tempAccountBalance += actionDetails.value * inputActionsAmount;
+      // actionDetails.amount -= inputActionsAmount;
+      // setAccountBalance(tempAccountBalance);
     }
-    setInputActionsAmount(0);
-    setDisplayConfirmModal(!displayConfirmModal);
+
+    if (status) {
+      await fetchUserBoughtActions(userId);
+      await fetchAccountBalance(userId);
+      setIsPurchaseDone(!isPurchaseDone);
+      setInputActionsAmount(0);
+      setDisplayConfirmModal(!displayConfirmModal);
+    }
   };
 
   const handleChangePurchaseAction = () => setPurchaseAction(!purchaseAction);
@@ -203,7 +221,7 @@ const MarketplacePage = () => {
             Stan konta: {accountBalance ? accountBalance.toFixed(2) : 0} zł
           </p>
           <p className='marketplace-page__action-price'>
-            Aktualna cena akcji: {Number(value).toFixed(2)} zł
+            Aktualna cena akcji: {parseFloat(value).toFixed(2)} zł
           </p>
           <p className='marketplace-page__number-of-actions'>
             Ilość posiadanych akcji: {stock} szt.
