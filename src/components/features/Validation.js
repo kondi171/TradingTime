@@ -29,6 +29,40 @@ const Validation = (type, value, confirmValue) => {
     isCorrect = new RegExp(regex).test(value);
   }
 
+  if (type === 'birthDate') {
+    const today = new Date();
+    const birthDate = new Date(value);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth() - birthDate.getMonth();
+    const day = today.getDate() - birthDate.getDate();
+
+    if ((month <= 0 && day <= 0) || today.getDate() < birthDate.getDate()) {
+      age--;
+    }
+
+    if (age >= 18) isCorrect = true;
+    else isCorrect = false;
+
+    console.log(isCorrect);
+  }
+
+  if (type === 'name') {
+    regex =
+      /^[AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż]+$/;
+    isCorrect = new RegExp(regex).test(value);
+    console.log(value);
+    console.log(isCorrect);
+  }
+  if (type === 'personalId') {
+    regex = /([A-Z]){3,3}([0-9]){6,6}$/;
+    isCorrect = new RegExp(regex).test(value);
+  }
+
+  if (type === 'accountNumber') {
+    regex = /([0-9]){26,26}$/;
+    isCorrect = new RegExp(regex).test(value);
+  }
+
   return isCorrect;
 };
 
