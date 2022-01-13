@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
+import ReactDOM from 'react-dom';
 import { AppContext } from '../../../../AppContext';
-import WithdrawMoneyModal from '../../../features/modals/WithdrawMoneyModal';
+import OperateMoneyModal from '../../../features/modals/OperateMoneyModal';
 // import ModifyAccountNumber from '../../../helpers/ModifyAccountNumber';
 import ModifyAccountNumber from '../../../helpers/ModifyAccountNumber';
 import InfoModal from '../../../features/modals/InfoModal';
@@ -8,8 +9,10 @@ import InfoModal from '../../../features/modals/InfoModal';
 const WalletSettingsPage = () => {
   const [accountNr, setAccountNr] = useState('');
   const [accountBalance, setAccountBalance] = useState(0);
-  const [amountToWithdraw, setAmountToWithdraw] = useState('');
-  const [withdrawMoneyModal, setWithdrawMoneyModal] = useState(0);
+  const [amountToWithdraw, setAmountToWithdraw] = useState(1);
+  const [amountToDeposit, setAmountToDeposit] = useState(1);
+  const [withdrawMoneyModal, setWithdrawMoneyModal] = useState(false);
+  const [depositMoneyModal, setDepositMoneyModal] = useState(false);
   const [infoVisble, setInfoVisible] = useState(false);
   const [infoMessage, setInfoMessage] = useState('');
   const { userAccountBalance } = useContext(AppContext);
@@ -34,12 +37,18 @@ const WalletSettingsPage = () => {
     setWithdrawMoneyModal(!withdrawMoneyModal);
   };
 
-  const handleDepositMoney = () => {};
+  const handleDepositMoney = (e, amountToDeposit) => {};
 
   const handleWithdrawInputChange = (e) => {
     const amountToWithdraw = e.target.value;
     setAmountToWithdraw(amountToWithdraw);
   };
+
+  const handleDepositInputChange = (e) => {
+    const amountToDeposit = e.target.value;
+    setAmountToDeposit(amountToDeposit);
+  };
+
   const displayInfoModal = (message) => {
     setInfoVisible(true);
     setInfoMessage(message);
@@ -77,23 +86,39 @@ const WalletSettingsPage = () => {
         </div>
 
         <div className='settings-page__preferences__list__account-buttons'>
-          <button className='button button--large' onClick={handleModal}>
+          <button
+            className='button button--large'
+            onClick={() => setWithdrawMoneyModal(!withdrawMoneyModal)}
+          >
             Wypłać pieniądze na konto
           </button>
-          <button className='button button--large' onClick={handleDepositMoney}>
+          <button
+            className='button button--large'
+            onClick={() => setDepositMoneyModal(!withdrawMoneyModal)}
+          >
             Wpłać pieniądze do aplikacji
           </button>
         </div>
       </div>
 
       {withdrawMoneyModal ? (
-        <WithdrawMoneyModal
-          handleModal={handleModal}
-          handleWithdrawMoney={(e) => handleWithdrawMoney(e, amountToWithdraw)}
-          amountToWithdraw={amountToWithdraw}
-          handleWithdrawInputChange={handleWithdrawInputChange}
+        <OperateMoneyModal
+          handleModal={() => setWithdrawMoneyModal(!withdrawMoneyModal)}
+          handleMoney={(e) => handleWithdrawMoney(e, amountToWithdraw)}
+          amount={amountToWithdraw}
+          handleInputChange={handleWithdrawInputChange}
         />
       ) : null}
+      {depositMoneyModal ? (
+        <OperateMoneyModal
+          handleModal={() => setDepositMoneyModal(!depositMoneyModal)}
+          handleMoney={(e) => handleWithdrawMoney(e, amountToWithdraw)}
+          amount={amountToDeposit}
+          handleInputChange={handleDepositInputChange}
+          type='deposit'
+        />
+      ) : null}
+
       <InfoModal message={infoMessage} visible={infoVisble} position='right' />
     </section>
   );
