@@ -5,9 +5,10 @@ footer.footer {
   background-size: cover;
   background-attachment: fixed;
   background-color: #00235a81;
-  background-blend-mode: overlay;
-  clip-path: polygon(0 17%, 100% 0%, 100% 100%, 0% 100%);
-  &::before {
+  background-blend-mode: color;
+  margin-top: 6vh;
+  clip-path: polygon(50% 0%, 80% 10%, 100% 0, 100% 100%, 77% 100%, 50% 100%, 16% 100%, 0 100%, 0 0, 20% 10%);
+    &::before {
     content: "";
     display: block;
     position: absolute;

@@ -74,7 +74,7 @@ const NavBar = () => {
             <li>
               <NavLink
                 className='app__user-panel--link border-none'
-                to='/app/preferences/logout'
+                to='/'
               >
                 <i className='fa fa-sign-out'></i> Wyloguj
               </NavLink>
