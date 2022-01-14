@@ -52,6 +52,9 @@
     box-shadow: 0 0 50px $activeColor;
     border: 2px solid transparent;
   }
+  &:focus {
+    color: $light;
+  }
 }
 
 %input {

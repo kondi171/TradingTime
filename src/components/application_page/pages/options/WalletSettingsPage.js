@@ -37,7 +37,7 @@ const WalletSettingsPage = () => {
     setWithdrawMoneyModal(!withdrawMoneyModal);
   };
 
-  const handleDepositMoney = (e, amountToDeposit) => {};
+  const handleDepositMoney = (e, amountToDeposit) => { };
 
   const handleWithdrawInputChange = (e) => {
     const amountToWithdraw = e.target.value;
