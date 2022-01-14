@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InfoModal from '../../features/modals/InfoModal';
 import Validation from '../../features/Validation';
+import LoadingBar from '../../features/LoadingBar';
+import CapitalizeString from '../../helpers/CapitalizeString';
+
 const Register = () => {
+  const navigate = useNavigate();
+
   const [infoVisible, setInfoVisible] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
@@ -45,7 +52,6 @@ const Register = () => {
   const postcodeField = document.getElementById('postcode');
   const accountNumberField = document.getElementById('accountNumber');
 
-
   const displayErrorModal = (message) => {
     setErrorVisible(true);
     setErrorMessage(message);
@@ -64,7 +70,9 @@ const Register = () => {
   };
   const handlePassword1 = () => {
     setInfoVisible(true);
-    setInfoMessage('Hasło musi miec conajmniej 8 znaków, zawierać jedną dużą literę i jeden znak specjalny');
+    setInfoMessage(
+      'Hasło musi miec conajmniej 8 znaków, zawierać jedną dużą literę i jeden znak specjalny'
+    );
   };
   const handlePassword2 = () => {
     setInfoVisible(true);
@@ -108,7 +116,9 @@ const Register = () => {
   };
   const handleApartmentNumber = () => {
     setInfoVisible(true);
-    setInfoMessage('Numer mieszkania może mieć maksymalnie 4 znaki');
+    setInfoMessage(
+      'Numer mieszkania może mieć maksymalnie 4 znaki. Jeżeli pole ma być puste, wstaw "-"'
+    );
   };
   const handlePostCode = () => {
     setInfoVisible(true);
@@ -133,8 +143,8 @@ const Register = () => {
     else if (streetField === document.activeElement) setInfoVisible(true);
     else if (cityField === document.activeElement) setInfoVisible(true);
     else if (houseNumberField === document.activeElement) setInfoVisible(true);
-    else if (apartmentNumberField === document.activeElement) setInfoVisible(true);
-
+    else if (apartmentNumberField === document.activeElement)
+      setInfoVisible(true);
     else if (postcodeField === document.activeElement) setInfoVisible(true);
     else if (accountNumberField === document.activeElement)
       setInfoVisible(true);
@@ -177,7 +187,7 @@ const Register = () => {
         Validation('email', email) &&
         Validation('password', password1Value, password2Value) &&
         Validation('password', password1Value, password2Value) !==
-        'DifferentValues' &&
+          'DifferentValues' &&
         !ifLoginExists.success &&
         !ifEmailExists.success
       ) {
@@ -191,13 +201,16 @@ const Register = () => {
         if (loginField.value.length < 6 || loginField.value.length > 12) {
           displayErrorModal('Wprowadź login w poprawnym formacie!');
           loginField.classList.add('fail');
+        } else {
+          loginField.classList.remove('fail');
         }
-        else { loginField.classList.remove('fail'); }
+
         if (!Validation('email', email)) {
           displayErrorModal('Wprowadź mail w poprawnym formacie!');
           mailField.classList.add('fail');
+        } else {
+          mailField.classList.remove('fail');
         }
-        else { mailField.classList.remove('fail'); }
         if (!Validation('password', password1Value, password2Value)) {
           displayErrorModal('Wprowadź hasło w poprawnym formacie!');
           password1Field.classList.add('fail');
@@ -214,10 +227,16 @@ const Register = () => {
           password1Field.classList.add('fail');
           password2Field.classList.add('fail');
         }
-        if (ifLoginExists.success)
+        if (ifLoginExists.success) {
           displayErrorModal('Użytkownik o podanym loginie istnieje w bazie!');
-        if (ifEmailExists.success)
+          loginField.classList.add('fail');
+        } else loginField.classList.remove('fail');
+
+        if (ifEmailExists.success) {
           displayErrorModal('Użytkownik o podanym emailu istnieje w bazie!');
+        } else {
+          mailField.classList.remove('fail');
+        }
       }
     } else displayErrorModal('Uzupełnij wszystkie pola!');
   };
@@ -234,7 +253,7 @@ const Register = () => {
         /* firstname & lastname validate */
         Validation('name', firstName) &&
         Validation('name', lastName) &&
-        /* Validation('personalId', personalId) && */
+        Validation('personalId', personalId) &&
         Validation('telephone', telephone) &&
         Validation('pesel', pesel) &&
         Validation('birthDate', dateOfBirth)
@@ -258,12 +277,12 @@ const Register = () => {
           lastnameField.classList.add('fail');
         } else lastnameField.classList.remove('fail');
         //!!!!  Validation isn't correct !!!!
-        // if (!Validation('personalId', personalId)) {
-        //   personalIdField.classList.add('fail');
-        //   displayErrorModal(
-        //     'Wprowadź numer dowodu osobistego w poprawnym formacie! (ABC123456)'
-        //   );
-        // } else personalIdField.classList.remove('fail');
+        if (!Validation('personalId', personalId)) {
+          personalIdField.classList.add('fail');
+          displayErrorModal(
+            'Wprowadź numer dowodu osobistego w poprawnym formacie! (ABC123456)'
+          );
+        } else personalIdField.classList.remove('fail');
         if (!Validation('pesel', pesel)) {
           peselField.classList.add('fail');
           displayErrorModal('Wprowadź numer PESEL w poprawnym formacie!');
@@ -280,7 +299,10 @@ const Register = () => {
     } else displayErrorModal('Uzupełnij wszystkie pola!');
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
+    setLoading(true);
+    const passwordValue = document.getElementById('password1').value;
+
     if (
       street !== '' &&
       city !== '' &&
@@ -293,36 +315,80 @@ const Register = () => {
         Validation('name', street) &&
         Validation('name', city) &&
         Validation('postalCode', postalCode) &&
-        Validation('accountNumber', bankNumber)
-        /* Add Validation for house number & apartment number. ONLY IN THIS IF STATEMENT */
+        Validation('accountNumber', bankNumber) &&
+        Validation('houseNumber', houseNumber) &&
+        Validation('apartmentNumber', apartmentNumber)
       ) {
-        // LoadingBar?
-        alert('Rejestruję!');
+        const API = 'http://localhost/api/v1/registry';
+
+        const fetchParams = new URLSearchParams({
+          login: login,
+          firstName: CapitalizeString(firstName),
+          lastName: CapitalizeString(lastName),
+          email: email,
+          password: passwordValue,
+          personalId: personalId,
+          pesel: pesel,
+          telephone: telephone,
+          birthDate: dateOfBirth,
+          street: CapitalizeString(street),
+          city: CapitalizeString(city),
+          house: houseNumber,
+          apartment: apartmentNumber,
+          postalCode: postalCode,
+          bankAccount: bankNumber,
+        });
+
+        const register = await fetch(API, {
+          method: 'post',
+          body: fetchParams,
+        })
+          .then((response) => response.json())
+          .catch((err) => console.log(err));
+
+        if (register.success) {
+          navigate('/login');
+          setLoading(false);
+        } else {
+          setLoading(false);
+          displayErrorModal('Nie udało się zarejestrować! Spróbuj ponownie');
+        }
+
         streetField.classList.remove('fail');
         cityField.classList.remove('fail');
         houseNumberField.classList.remove('fail');
         apartmentNumberField.classList.remove('fail');
       } else {
-
-        if (streetField.value.length < 5) {
+        if (Validation('name', street) && streetField.value.length < 5) {
           streetField.classList.add('fail');
           displayErrorModal('Wprowadź nazwę ulicy w poprawnym formacie!');
         } else streetField.classList.remove('fail');
-        if (cityField.value.length < 3) {
+        if (Validation('name', city) && cityField.value.length < 3) {
           cityField.classList.add('fail');
           displayErrorModal('Wprowadź nazwę miasta w poprawnym formacie!');
         } else cityField.classList.remove('fail');
-        if (houseNumberField.value.length > 4) {
+        if (
+          Validation('houseNumber', houseNumber) &&
+          houseNumberField.value.length > 4
+        ) {
           houseNumberField.classList.add('fail');
           displayErrorModal('Wprowadź numer domu w poprawnym formacie!');
         } else houseNumberField.classList.remove('fail');
-        if (apartmentNumberField.value.length > 4) {
+        if (
+          (Validation('apartmentNumber', apartmentNumber) &&
+            apartmentNumberField.value.length > 4) ||
+          apartmentNumber === '-'
+        ) {
           apartmentNumberField.classList.add('fail');
-          displayErrorModal('Wprowadź numer mieszkania w poprawnym formacie!');
+          displayErrorModal(
+            'Wprowadź numer mieszkania w poprawnym formacie! (Jeżeli pole ma być puste wstaw "-")'
+          );
         } else apartmentNumberField.classList.remove('fail');
         if (!Validation('postalCode', postalCode)) {
           postcodeField.classList.add('fail');
-          displayErrorModal('Wprowadź kod pocztowy w poprawnym formacie! (ABC-12345)');
+          displayErrorModal(
+            'Wprowadź kod pocztowy w poprawnym formacie! (ABC-12345)'
+          );
         } else postcodeField.classList.remove('fail');
 
         if (!Validation('accountNumber', bankNumber)) {
@@ -335,7 +401,7 @@ const Register = () => {
 
   return (
     <div onClick={handleRemoveActiveInfo} className='register-wrapper'>
-      <div className="hello">
+      <div className='hello'>
         <h2 className='register-header'>Zarejestruj się</h2>
         <span>Zaufało nam tysiące polaków! Dołączysz do nich?</span>
       </div>
@@ -554,9 +620,15 @@ const Register = () => {
         </div>
       </form>
       <InfoModal position='left' visible={infoVisible} message={infoMessage} />
-      {errorVisible && <div className="error-modal" id="errorModal">
-        <i className="fa fa-info-circle"></i> <span id="errorMessage">{errorMessage}</span>
-      </div>}
+      {errorVisible && (
+        <div className='error-modal' id='errorModal'>
+          <i className='fa fa-info-circle'></i>{' '}
+          <span id='errorMessage'>{errorMessage}</span>
+        </div>
+      )}
+      {loading && (
+        <LoadingBar announcement='Trwa rejestracja konta. Proszę czekać...' />
+      )}
 
       <div className='links'>
         <Link to='/login'>Masz już konto? Zaloguj się!</Link>
