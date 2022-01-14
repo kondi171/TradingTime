@@ -77,6 +77,7 @@ const AppSettingsPage = () => {
       tempAppPreferences.smartAssistant = !Number(
         appPreferences.smartAssistant
       );
+      console.log(tempAppPreferences.smartAssistant);
       setAppPreferences({ ...tempAppPreferences });
     }
     if (option === 'twoFactorAuthentication') {
@@ -84,6 +85,7 @@ const AppSettingsPage = () => {
         appPreferences.twoFactorAuthentication
       );
       setAppPreferences({ ...tempAppPreferences });
+      console.log(tempAppPreferences.twoFactorAuthentication);
     }
   };
 
@@ -295,6 +297,7 @@ const AppSettingsPage = () => {
       twoFactorAuthentication: appPreferences.twoFactorAuthentication,
       simulationMode: appPreferences.simulationMode,
       emailNotifications: appPreferences.emailNotifications,
+      smartAssistant: appPreferences.smartAssistant,
       wallpaper: appPreferences.wallpaper,
       theme: appPreferences.theme,
       avatar: appPreferences.avatar,
@@ -319,7 +322,10 @@ const AppSettingsPage = () => {
       )
         setLoading(false);
       setShowSaveButtons(false);
-    } else alert('błąd wysyłania danych');
+    } else {
+      alert('błąd wysyłania danych');
+      console.log(settingsChange);
+    }
   };
 
   const cancelOptions = () => {
