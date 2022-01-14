@@ -50,8 +50,6 @@ const Validation = (type, value, confirmValue) => {
     regex =
       /^[AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż]+$/;
     isCorrect = new RegExp(regex).test(value);
-    console.log(value);
-    console.log(isCorrect);
   }
   if (type === 'personalId') {
     regex = /([A-Z]){3,3}([0-9]){6,6}$/;
@@ -61,6 +59,21 @@ const Validation = (type, value, confirmValue) => {
   if (type === 'accountNumber') {
     regex = /([0-9]){26,26}$/;
     isCorrect = new RegExp(regex).test(value);
+  }
+
+  if (type === 'houseNumber') {
+    regex = /(?=.*[0-9])^.{1,4}([A-Za-z]?)$/;
+    isCorrect = new RegExp(regex).test(value);
+  }
+
+  if (type === 'apartmentNumber') {
+    regex = /(?=.*[0-9])^.{1,4}([A-Za-z]?)$/;
+    const firstCondition = new RegExp(regex).test(value);
+    let secondContition;
+    if (value === '-') secondContition = true;
+
+    if (firstCondition || secondContition) isCorrect = true;
+    else isCorrect = false;
   }
 
   return isCorrect;
