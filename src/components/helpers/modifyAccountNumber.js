@@ -1,4 +1,5 @@
 const ModifyAccountNumber = (accountNumber) => {
+  console.log(accountNumber);
   const numberLength = accountNumber.toString().length;
   let modifiedAccountNumber = '';
 

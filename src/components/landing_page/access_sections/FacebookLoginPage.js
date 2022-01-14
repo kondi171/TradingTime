@@ -20,11 +20,7 @@ const FacebookLoginPage = ({ loadUserAccountData }) => {
       lastName: names[names.length - 1],
     });
 
-    console.log(fbLoginParams.login);
-    console.log(fbLoginParams.password);
-    console.log(fbLoginParams.firstName);
-    console.log(fbLoginParams.lastName);
-
+    console.log(response);
     const loginFb = await fetch(fbAPI, {
       method: 'POST',
       body: fbLoginParams,
@@ -33,8 +29,6 @@ const FacebookLoginPage = ({ loadUserAccountData }) => {
       .catch((err) => console.log(err));
 
     if (loginFb.success) {
-      console.log(response.userID);
-      console.log(response.accessToken);
       const login = await fetch(loginAPI, {
         method: 'POST',
         body: new URLSearchParams({
@@ -45,6 +39,8 @@ const FacebookLoginPage = ({ loadUserAccountData }) => {
       })
         .then((response) => response.json())
         .catch((err) => console.log(err));
+
+      console.log(login);
 
       if (login.success) {
         loadUserAccountData(login.id_user);

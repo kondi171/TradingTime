@@ -17,7 +17,7 @@
     height: 100vh;
     width: 40%;
     background-color: var(--box-color);
-    transition-duration: 0.4s;
+    transition-duration: 0.3s;
     border-left: 2px solid var(--active-color);
     &.active {
       right: 0;
@@ -104,7 +104,7 @@
     justify-items: center;
     background-color: var(--darken-effect);
     border-radius: 15px;
-    transition-duration: 0.4s;
+    transition-duration: 0.3s;
     cursor: pointer;
     &:hover {
       background-color: var(--box-color);
@@ -113,6 +113,7 @@
       width: 48px;
       height: 48px;
       margin: 20px;
+      border-radius: 10px;
     }
     h3 {
       color: black;
@@ -126,7 +127,7 @@
   flex-direction: column;
   width: 100%;
   min-height: 93vh;
-  transition: 0.3s linear;
+  transition: 0.3s;
   flex-grow: 1;
 
   &.minimized {
