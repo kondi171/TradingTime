@@ -15,6 +15,7 @@ const LoginPage = () => {
   const { fetchAccountBalance } = useContext(AppContext);
   const { fetchUserFavouriteActions } = useContext(AppContext);
   const { fetchUserBoughtActions } = useContext(AppContext);
+  const { fetchAllInfoProvided } = useContext(AppContext);
   const { setUserIdNumber } = useContext(AppContext);
   const [infoVisible, setInfoVisible] = useState(false);
   const [infoMessage, setInfoMessage] = useState('');
@@ -26,6 +27,7 @@ const LoginPage = () => {
     fetchUserFavouriteActions(id_user);
     fetchUserBoughtActions(id_user);
     fetchAccountBalance(id_user);
+    fetchAllInfoProvided(id_user);
     setUserIdNumber(id_user);
   };
 
@@ -81,13 +83,11 @@ const LoginPage = () => {
         </label>
         <input type='password' name='password' placeholder='Wprowadź hasło' />
         <input type='submit' className='login' value='Zaloguj się' />
-        <FacebookLoginPage loadUserAccountData={loadUserAccountData} />
-        {/* <button className='facebook'> */}
-
-        {/* <i className='fa fa-facebook'></i> */}
-
-        {/* <span>Zaloguj się z Facebook</span> */}
-        {/* </button> */}
+        <FacebookLoginPage
+          loadUserAccountData={loadUserAccountData}
+          setInfoVisible={setInfoVisible}
+          setInfoMessage={setInfoMessage}
+        />
       </form>
       <div className='links'>
         <Link to='/register'>Nie masz jeszcze konta? Załóż je!</Link>

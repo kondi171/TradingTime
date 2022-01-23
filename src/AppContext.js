@@ -35,6 +35,7 @@ const AppProvider = ({ children }) => {
   const [userFavouriteActions, setUserFavouriteActions] = useState({});
   const [userBoughtActions, setUserBoughtActions] = useState({});
   const [isUserAdmin, setIsUserAdmin] = useState(0);
+  const [isAllInfoProvided, setIsAllInfoProvided] = useState(0);
 
   const toggleLoggedState = () => {
     setIsUserLogged((prevValue) => !prevValue);
@@ -43,22 +44,15 @@ const AppProvider = ({ children }) => {
 
   const fetchUserData = async (id) => {
     const API = `http://localhost/api/v1/user/${id}`;
-    fetch(API)
+    const data = await fetch(API)
       .then((response) => response.json())
-      .then((json) => json.user[0])
-      .then((data) => setUserPersonalData({ ...data }))
       .catch((err) => console.log(err));
+
+    if (data.success) setUserPersonalData({ ...data.user[0] });
+    else console.log('User data fetch error!');
+
+    return data;
   };
-
-  // const fetchUserActions = async (id) => {
-  //   const API = `http://localhost/api/v1/user/${id}`;
-
-  //   fetch(API)
-  //     .then((response) => response.json())
-  //     .then((json) => (userActions = json.userActions))
-  //     .catch((err) => console.log(err));
-  // };
-
   const fetchUserSettings = async (id) => {
     const API = `http://localhost/api/v1/user/${id}`;
 
@@ -71,6 +65,23 @@ const AppProvider = ({ children }) => {
     setIsUserAdmin(Number(settings.userSettings[0].isAdmin));
 
     return settings;
+  };
+
+  const fetchAllInfoProvided = async (id) => {
+    const API = `http://localhost/api/v1/user/${id}`;
+
+    const isAllInfoProvided = await fetch(API)
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((err) => console.log(err));
+
+    setIsAllInfoProvided(
+      Number(
+        isAllInfoProvided.all_information_provided[0].all_information_provided
+      )
+    );
+
+    return isAllInfoProvided;
   };
 
   const fetchUserFavouriteActions = (id) => {
@@ -146,6 +157,7 @@ const AppProvider = ({ children }) => {
         setUserIdNumber,
         deleteActionFromFavourite,
         addActionToFavourite,
+        fetchAllInfoProvided,
         isUserLogged,
         userPersonalData,
         userId,
@@ -154,6 +166,7 @@ const AppProvider = ({ children }) => {
         userAccountBalance,
         userBoughtActions,
         isUserAdmin,
+        isAllInfoProvided,
       }}
     >
       {children}

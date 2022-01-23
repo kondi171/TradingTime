@@ -9,7 +9,6 @@ import { AppContext } from '../../../../AppContext';
 import LoadingBar from '../../../features/LoadingBar';
 
 const HomePage = () => {
-  const [restricted, setRestricted] = useState(false);
   const [favouriteActions, setFavouriteActions] = useState('');
   const [boughtActions, setBoughtActions] = useState('');
   const [currentWallpaper, setCurrentWallpaper] = useState('');
@@ -20,6 +19,7 @@ const HomePage = () => {
   const { userBoughtActions } = useContext(AppContext);
 
   const { userSettings } = useContext(AppContext);
+  const { isAllInfoProvided } = useContext(AppContext);
 
   const initializeDesign = async () => {
     setWallpaper();
@@ -87,7 +87,7 @@ const HomePage = () => {
 
   return (
     <main id='home' className='home-page'>
-      {restricted && <RestrictedInfo />}
+      {!isAllInfoProvided && <RestrictedInfo />}
       <HomePageFavourites actions={favouriteActions} />
       <HomePageDate />
       <HomePageBought actions={boughtActions} />
