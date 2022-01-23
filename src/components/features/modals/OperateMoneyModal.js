@@ -13,7 +13,7 @@ function OperateMoneyModal(props) {
           aria-hidden='true'
           onClick={props.handleModal}
         ></i>
-        <form onSubmit={(e) => props.handleMoney(e, props.amountToWithdraw)}>
+        <form onSubmit={(e) => props.handleMoney(e, props.amount)}>
           <label>
             Podaj ilość pieniędzy którą chcesz{' '}
             {props.type === 'deposit' ? 'wpłacić do' : 'wypłacić z'} portfela
@@ -23,11 +23,16 @@ function OperateMoneyModal(props) {
             type='number'
             placeholder='Wpisz kwotę...'
             min='1'
+            step='0.01'
             value={props.amount}
             onChange={props.handleInputChange}
           />
           {props.type === 'deposit' ? (
-            <PayPal value={props.amount} />
+            <PayPal
+              amount={props.amount}
+              handleDepositMoney={props.handleMoney}
+              displayInfoModal={props.displayInfoModal}
+            />
           ) : (
             <button className='button'>Wypłać</button>
           )}

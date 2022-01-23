@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { AppContext } from '../../../../AppContext';
 import OperateMoneyModal from '../../../features/modals/OperateMoneyModal';
-// import ModifyAccountNumber from '../../../helpers/ModifyAccountNumber';
 import ModifyAccountNumber from '../../../helpers/ModifyAccountNumber';
 import InfoModal from '../../../features/modals/InfoModal';
 
@@ -17,27 +16,66 @@ const WalletSettingsPage = () => {
   const [infoMessage, setInfoMessage] = useState('');
   const { userAccountBalance } = useContext(AppContext);
   const { userPersonalData } = useContext(AppContext);
+  const { fetchAccountBalance } = useContext(AppContext);
+  const { userId } = useContext(AppContext);
+  const { userSettings } = useContext(AppContext);
+  const { isAllInfoProvided } = useContext(AppContext);
 
-  const handleWithdrawMoney = (e, amountToWithdraw) => {
+  const handleDepositMoney = async (amountToDeposit) => {
+    let value = amountToDeposit.toString();
+
+    if (value.includes('.')) value = value.replace(/[.]/g, ',');
+
+    const API = `http://localhost/api/v1/pay/${userId}&${value}`;
+
+    const operation = await fetch(API)
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    if (operation.success) {
+      const refreshWallet = await fetchAccountBalance(userId);
+
+      if (refreshWallet.success) {
+        setAmountToDeposit(1);
+        setDepositMoneyModal(false);
+        displayInfoModal(
+          'Transakcja przebiegła pomyślnie! Oczekuj pieniędzy na swoim koncie.'
+        );
+      }
+    } else displayInfoModal('Coś poszło nie tak... Spróbuj ponownie');
+
+    return operation;
+  };
+
+  const handleWithdrawMoney = async (e, amountToWithdraw) => {
     e.preventDefault();
+
+    let value = (amountToWithdraw * -1).toString();
+
+    if (value.includes('.')) value = value.replace(/[.]/g, ',');
+
+    const API = `http://localhost/api/v1/pay/${userId}&${value}`;
 
     if (amountToWithdraw > accountBalance)
       displayInfoModal('Nie posiadasz tyle pieniędzy na koncie!');
     else {
-      let tempAccountBalance = accountBalance;
-      tempAccountBalance -= amountToWithdraw;
-      setAccountBalance(tempAccountBalance);
-      setAmountToWithdraw('');
+      const operation = await fetch(API)
+        .then((response) => response.json())
+        .catch((err) => console.log(err));
 
-      handleModal();
+      if (operation.success) {
+        const refreshWallet = await fetchAccountBalance(userId);
+        if (refreshWallet.success) {
+          setAmountToWithdraw(1);
+          setWithdrawMoneyModal(false);
+          displayInfoModal(
+            'Transakcja przebiegła pomyślnie! Oczekuj pieniędzy na swoim koncie.'
+          );
+        }
+      } else displayInfoModal('Coś poszło nie tak... Spróbuj ponownie');
+      return operation;
     }
   };
-
-  const handleModal = () => {
-    setWithdrawMoneyModal(!withdrawMoneyModal);
-  };
-
-  const handleDepositMoney = (e, amountToDeposit) => { };
 
   const handleWithdrawInputChange = (e) => {
     const amountToWithdraw = e.target.value;
@@ -57,6 +95,11 @@ const WalletSettingsPage = () => {
       setInfoMessage('');
     }, 3000);
   };
+
+  useEffect(() => {
+    setAccountBalance(Number(userAccountBalance));
+  }, [withdrawMoneyModal, depositMoneyModal]);
+
   useEffect(() => {
     setAccountBalance(Number(userAccountBalance));
     setAccountNr(userPersonalData.bankAccount);
@@ -76,9 +119,9 @@ const WalletSettingsPage = () => {
         <div className='settings-page__preferences__list__account-number'>
           <p>Numer konta do wpłat: </p>
           <span>
-            {accountNr !== '' && accountNr !== null
-              ? ModifyAccountNumber(accountNr)
-              : 'Numer konta nie został podany!'}
+            {accountNr === '' || accountNr === null || accountNr === 'null'
+              ? 'Numer konta nie został podany!'
+              : ModifyAccountNumber(accountNr)}
           </span>
           <i className='fa fa-question-circle-o' aria-hidden='true'>
             <span></span>
@@ -88,13 +131,32 @@ const WalletSettingsPage = () => {
         <div className='settings-page__preferences__list__account-buttons'>
           <button
             className='button button--large'
-            onClick={() => setWithdrawMoneyModal(!withdrawMoneyModal)}
+            onClick={() => {
+              if (Number(userSettings.simulationMode)) {
+                displayInfoModal(
+                  'Nie można wpłacić pieniędzy gdy ustawiony jest tryb symulacji!'
+                );
+              } else if (!isAllInfoProvided)
+                displayInfoModal(
+                  'Nie można wpłacić pieniędzy gdy nie podano wszystkich informacji osobowych!'
+                );
+              else setWithdrawMoneyModal(!withdrawMoneyModal);
+            }}
           >
             Wypłać pieniądze na konto
           </button>
           <button
             className='button button--large'
-            onClick={() => setDepositMoneyModal(!withdrawMoneyModal)}
+            onClick={() => {
+              if (Number(userSettings.simulationMode))
+                displayInfoModal(
+                  'Nie można wypłacić pieniędzy gdy ustawiony jest tryb symulacji!'
+                );else if (!isAllInfoProvided)
+                displayInfoModal(
+                  'Nie można wypłacić pieniędzy gdy nie podano wszystkich informacji osobowych!'
+                );
+              else setDepositMoneyModal(!depositMoneyModal);
+            }}
           >
             Wpłać pieniądze do aplikacji
           </button>
@@ -112,9 +174,10 @@ const WalletSettingsPage = () => {
       {depositMoneyModal ? (
         <OperateMoneyModal
           handleModal={() => setDepositMoneyModal(!depositMoneyModal)}
-          handleMoney={(e) => handleWithdrawMoney(e, amountToWithdraw)}
+          handleMoney={handleDepositMoney}
           amount={amountToDeposit}
           handleInputChange={handleDepositInputChange}
+          displayInfoModal={displayInfoModal}
           type='deposit'
         />
       ) : null}
