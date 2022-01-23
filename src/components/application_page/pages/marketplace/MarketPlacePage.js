@@ -1,23 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import SwitchButton from '../../../features/SwitchButton';
-import allegro from '../../../../assets/img/testimages/allegro-favicon.png';
 import ActionChart from './ActionChart';
 import QuestionModal from '../../../features/modals/QuestionModal';
 import InfoModal from '../../../features/modals/InfoModal';
 
 import { AppContext } from '../../../../AppContext';
-
-// const actionDetails = {
-//   id: 0,
-//   actionName: 'Allegro',
-//   price: 39.16,
-//   image: '',
-//   isFavourite: true,
-//   isBought: true,
-//   lastUpdate: '09.12.2021 17:00',
-//   numberOfActions: 20,
-// };
 
 let interval = 0;
 
@@ -66,7 +54,6 @@ const MarketplacePage = () => {
     if (updateWallet.success) setAccountBalance(parseFloat(userAccountBalance));
   };
 
-  //wysłanie info do bazy o dokonanej transakcji
   const confirmTransaction = async () => {
     let status = false;
     const API = `http://localhost/api/v1/stockUpdate/${userId}&${actionId}&`;
@@ -76,29 +63,21 @@ const MarketplacePage = () => {
         .then((data) => data.json())
         .catch((err) => console.log(err));
 
-      if (transaction.success) {
-        status = true;
-      } else console.log('error');
-      // let tempAccountBalance = accountBalance;
-      // tempAccountBalance -= actionDetails.value * inputActionsAmount;
-      // actionDetails.amount += inputActionsAmount;
-
-      // setAccountBalance(tempAccountBalance);
+      if (transaction.success) status = true;
+      else
+        displayInfoModal(
+          'Podczas dokonywania transakcji coś poszło nie tak. Spróbuj ponownie!'
+        );
     } else {
       const transaction = await fetch(API + `${inputActionsAmount}&sell`)
         .then((data) => data.json())
         .catch((err) => console.log(err));
 
-      console.log(transaction);
-
-      if (transaction.success) {
-        console.log('success');
-        status = true;
-      } else console.log('error');
-      // let tempAccountBalance = accountBalance;
-      // tempAccountBalance += actionDetails.value * inputActionsAmount;
-      // actionDetails.amount -= inputActionsAmount;
-      // setAccountBalance(tempAccountBalance);
+      if (transaction.success) status = true;
+      else
+        displayInfoModal(
+          'Podczas dokonywania transakcji coś poszło nie tak. Spróbuj ponownie!'
+        );
     }
 
     if (status) {
@@ -121,7 +100,7 @@ const MarketplacePage = () => {
       purchaseAction
     )
       displayInfoModal('Nie masz wystarczających środków na koncie!');
-    else if (inputActionsAmount > actionDetails.amount && !purchaseAction)
+    else if (inputActionsAmount > actionDetails.stock && !purchaseAction)
       displayInfoModal('Nie posiadasz tylu akcji na sprzedaż!');
     else setDisplayConfirmModal(!displayConfirmModal);
   };
@@ -184,9 +163,7 @@ const MarketplacePage = () => {
   };
 
   useEffect(() => {
-    //   fetchActionValues();
     setSmartAssistant(Number(userSettings.smartAssistant));
-    //   setAccountBalance(Number(userAccountBalance));
     //   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -198,9 +175,6 @@ const MarketplacePage = () => {
 
   return (
     <main className='marketplace-page'>
-      {/* {console.log(actionDetails)}
-      {console.log(actionDetails.name)} */}
-
       {displayConfirmModal ? (
         <QuestionModal
           acceptAction={confirmTransaction}
