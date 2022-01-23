@@ -300,7 +300,6 @@ const Register = () => {
   };
 
   const handleRegister = async () => {
-    setLoading(true);
     const passwordValue = document.getElementById('password1').value;
 
     if (
@@ -319,6 +318,7 @@ const Register = () => {
         Validation('houseNumber', houseNumber) &&
         Validation('apartmentNumber', apartmentNumber)
       ) {
+        setLoading(true);
         const API = 'http://localhost/api/v1/registry';
 
         const fetchParams = new URLSearchParams({
@@ -438,7 +438,7 @@ const Register = () => {
           <input
             onClick={handlePassword1}
             id='password1'
-            type='text'
+            type='password'
             name='password1'
             placeholder='Wprowadź hasło'
           />
@@ -448,7 +448,7 @@ const Register = () => {
           <input
             onClick={handlePassword2}
             id='password2'
-            type='text'
+            type='password'
             name='password2'
             placeholder='Powtórz hasło'
           />
