@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Line, defaults } from 'react-chartjs-2';
-import EMA from '../../../forecasting_scripts/EMA';
 import SMA from '../../../forecasting_scripts/SMA';
 import BB from '../../../forecasting_scripts/BB';
 
-// const ActionChart = ({ actionName, actionValues, chartRange, todayValues, pastValues }) => {
 const ActionChart = ({
   actionName,
   chartRange,
@@ -41,15 +39,21 @@ const ActionChart = ({
   const [lastMonthValues, setLastMonthValues] = useState([]);
   const [lastQuarterValues, setLastQuarterValues] = useState([]);
   const [areBollingerBandsOn, setAreBollingerBandsOn] = useState(true);
+  const [bollingerCopy, setBollingerCopy] = useState([]);
 
   const getBollingerBands = () => {
     const actionCloseValues = pastActionValues.map((action) =>
       parseFloat(action.closeValue)
     );
 
-    const bolinger = BB(1.8, 30, actionCloseValues, SMA(30, actionCloseValues));
+    const bollinger = BB(
+      1.8,
+      30,
+      actionCloseValues,
+      SMA(30, actionCloseValues)
+    );
 
-    return bolinger;
+    return bollinger;
   };
 
   const addForecastTags = (array, bollingerBands) => {
@@ -59,16 +63,12 @@ const ActionChart = ({
     newActionsArray.reverse().forEach((element, index) => {
       if (
         element.closeValue >=
-          bollingerBands[BBLength - index].upperBollingerBand ||
-        Number(element.closeValue) + 0.4 >=
-          bollingerBands[BBLength - index].upperBollingerBand
+        bollingerBands[BBLength - index].upperBollingerBand
       )
         element.action = 'sell';
       else if (
         element.closeValue <=
-          bollingerBands[BBLength - index].lowerBollingerBand ||
-        Number(element.closeValue) - 0.4 <=
-          bollingerBands[BBLength - index].lowerBollingerBand
+        bollingerBands[BBLength - index].lowerBollingerBand
       )
         element.action = 'buy';
       else element.action = 'nothing';
@@ -79,7 +79,7 @@ const ActionChart = ({
 
   const fillDataArrays = () => {
     const pastValues = pastActionValues.reverse();
-
+    setBollingerCopy(getBollingerBands());
     const getTodayValues = () => {
       let todayValuesArray = [];
 
@@ -121,7 +121,8 @@ const ActionChart = ({
       lastQuarterValuesArray = lastQuarterValuesArray.reverse();
       return lastQuarterValuesArray;
     };
-    setTodayValues(getTodayValues);
+    setTodayValues(getTodayValues());
+
     setLastWeekValues(
       addForecastTags(getLastWeekValues(), getBollingerBands())
     );
@@ -146,8 +147,8 @@ const ActionChart = ({
         const actionDay = actionDate.getDate();
         const actionMonth =
           actionDate.getMonth() < 10
-            ? '0' + actionDate.getMonth()
-            : actionDate.getMonth;
+            ? '0' + (actionDate.getMonth() + 1)
+            : actionDate.getMonth() + 1;
         const actionYear = actionDate.getFullYear();
 
         const actionFullDate = `${actionDay}-${actionMonth}-${actionYear}, ${actionHour}`;
@@ -177,7 +178,7 @@ const ActionChart = ({
   };
 
   const drawBBs = (bandPart) => {
-    const BBs = getBollingerBands();
+    const BBs = bollingerCopy;
     const BBLength = [...BBs].length - 1;
     let newActionsArray = [];
     let values = [];
@@ -188,6 +189,8 @@ const ActionChart = ({
       newActionsArray = [...lastMonthValues];
     } else if (chartRange === 'quarter') {
       newActionsArray = [...lastQuarterValues];
+    } else if (chartRange === 'today') {
+      newActionsArray = [...todayValues];
     }
 
     newActionsArray.reverse();
@@ -207,8 +210,7 @@ const ActionChart = ({
 
   const forecastSymbols = () => {
     let values = 0;
-    if (chartRange === 'today')
-      values = todayValues.map((action) => action.action);
+    if (chartRange === 'today') values = todayValues.map((action) => action);
     else if (chartRange === 'week')
       values = lastWeekValues.map((action) => action.action);
     else if (chartRange === 'month')
