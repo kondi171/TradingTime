@@ -26,12 +26,10 @@ const AppSettingsPage = () => {
   const [avatarChange, setAvatarChange] = useState(false);
   const [themeChange, setThemeChange] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [undisplayTime, setUndisplayTime] = useState(1500);
   const [showModal, setShowModal] = useState(false);
 
   const { userSettings } = useContext(AppContext);
   const { userId } = useContext(AppContext);
-  const { fetchUserData } = useContext(AppContext);
   const { fetchUserSettings } = useContext(AppContext);
   const { fetchUserBoughtActions } = useContext(AppContext);
   const { fetchAccountBalance } = useContext(AppContext);
@@ -332,8 +330,7 @@ const AppSettingsPage = () => {
     console.log(userSettings);
     setAppPreferences({ ...userSettings });
     setShowSaveButtons(false);
-    // window.location.reload(false);
-  }; //docelowo aktualizacja state z bazy danych niezmienionych danych
+  };
 
   useEffect(() => {
     if (showSaveButtons) {
