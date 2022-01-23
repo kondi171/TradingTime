@@ -124,7 +124,7 @@ const WalletPage = () => {
             Całkowita wartość portfela:
             <span>
               {accountBalance
-                ? `${(
+                ? ` ${(
                     countBilanceFromActions() + parseFloat(accountBalance)
                   ).toFixed(2)} zł`
                 : null}

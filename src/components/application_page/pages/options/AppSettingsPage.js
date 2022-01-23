@@ -286,7 +286,7 @@ const AppSettingsPage = () => {
     <QuestionModal
       acceptAction={handleChangeSimulationMode}
       denyAction={hideQuestionModal}
-      info='Czy na pewno chcesz przełączyć tryb pracy? Wiąże się to z utratą środków w obecnym portfelu. Zmian nie można cofnąć!'
+      info='Czy na pewno chcesz przełączyć tryb pracy? Zmian wprowadzonych w prawdziwym portfelu nie jesteśmy w stanie cofnąć!'
     />
   );
 

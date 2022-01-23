@@ -2,32 +2,10 @@ import React, { useState, useEffect } from 'react';
 import AdminPageUserInfo from './AdminPageUserInfo';
 import UserInfoDetails from './UserInfoDetails';
 
-// const users = [
-//   {
-//     id: 0,
-//     firstName: 'Bogdan',
-//     lastName: 'Ryjec',
-//     login: 'bogus_96',
-//   },
-//   {
-//     id: 1,
-//     firstName: 'Bruno',
-//     lastName: 'Beton',
-//     login: 'betoniara776',
-//   },
-//   {
-//     id: 2,
-//     firstName: 'Radosław',
-//     lastName: 'Kowal',
-//     login: 'r_kowal',
-//   },
-// ];
-
 const AdminOptionsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [userIdDetails, setUserIdDetails] = useState('');
-  const [userToDelete, setUserToDelete] = useState('');
-
+  const [toDelete, setToDelete] = useState(false);
   const [allUsers, setAllUsers] = useState('');
 
   const fetchAllUsers = async () => {
@@ -39,8 +17,6 @@ const AdminOptionsPage = () => {
       .catch((err) => new Error(err));
 
     setAllUsers(users);
-    // displayUsers('');
-    // console.log(users);
   };
 
   const resetEditOptions = () => {
@@ -73,8 +49,6 @@ const AdminOptionsPage = () => {
       button.classList.remove('fa-times');
       button.classList.add('fa-pencil-square-o');
     });
-
-    [...acceptButtons].forEach((button) => button.remove());
   };
 
   const handleShowInfo = () => {
@@ -117,8 +91,6 @@ const AdminOptionsPage = () => {
 
   useEffect(() => fetchAllUsers(), []);
 
-  // useEffect(() => displayUsers(searchQuery), [searchQuery]);
-
   return (
     <>
       <section className='settings-page__preferences'>
@@ -134,17 +106,16 @@ const AdminOptionsPage = () => {
           </div>
         </div>
         <div className='users-info-list'>
-          {console.log(allUsers === '')}
-          {allUsers !== ''
-            ? displayUsers(searchQuery)
-            : // console.log('all users zapełnione')
-            console.log('all users puste')}
+          {allUsers !== '' && displayUsers(searchQuery)}
         </div>
       </section>
 
       <UserInfoDetails
         id={userIdDetails}
         handleChangeActiveAction={handleChangeActiveAction}
+        toDelete={toDelete}
+        setToDelete={setToDelete}
+        fetchAllUsers={fetchAllUsers}
       />
     </>
   );

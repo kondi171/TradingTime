@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 function ActionInfo({
   actionName,
   id_action,
   value,
   actionDate,
-  isFavourite,
   isBought,
   toggleFavourite,
   symbol,
@@ -13,25 +12,7 @@ function ActionInfo({
   openValue,
   closeValue,
   handleShowInfo,
-  change,
-  changePercentage,
 }) {
-  const changeColor = () => {
-    document
-      .querySelectorAll('.search-page__action-value')
-      .forEach((element) => {
-        if (change < 0) {
-          element.classList.add('search-page__action-value--red');
-          element.classList.remove('search-page__action-value--green');
-        } else {
-          element.classList.remove('search-page__action-value--red');
-          element.classList.add('search-page__action-value--green');
-        }
-      });
-  };
-
-  useEffect(changeColor);
-
   return (
     <>
       <aside className='search-page__info'>
@@ -90,14 +71,6 @@ function ActionInfo({
             <li>
               <p className='search-page__action-property'>
                 Ostatnie zamknięcie: {closeValue}zł
-              </p>
-            </li>
-            <li>
-              <p className='search-page__action-property'>
-                Zmiana:{' '}
-                <span className='search-page__action-value'>
-                  {change} ({changePercentage}%)
-                </span>
               </p>
             </li>
           </ul>

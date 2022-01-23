@@ -22,7 +22,7 @@ class About extends React.Component {
       {
         id: 2,
         name: 'Andrzej Lubiniec z Warszawy',
-        text: 'TradingTasdacja, która pozwoliłasdadssze chciasdemerytalny - od teraz nasdić przyszłością.',
+        text: 'Ta aplikacja pozwoliła powiększyć mój kapitał emerytalny - teraz mogę co tydzień mieszkać w innym mieście innego kraju. Pozdrowienia z Barcelony!',
         active: false,
       },
     ],
@@ -81,7 +81,6 @@ class About extends React.Component {
             klientów którzy nam zaufali. Dzięki naszym usługom pozwoliliśmy
             spełnić marzenia wialu osobom.
           </p>
-          {/* <Opinion key={id} name={name} text={text} /> */}
           {opinionsArr}
         </section>
         <section className='team'>

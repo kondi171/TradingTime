@@ -16,7 +16,6 @@ const NavBar = () => {
   useEffect(() => setUser(), [userPersonalData]);
   useEffect(() => setAvatar(), [userSettings]);
   const setAvatar = () => {
-    console.log(userSettings.avatar);
     if (Number(userSettings.avatar) === 1) setCurrentAvatar(male1);
     else if (Number(userSettings.avatar) === 2) setCurrentAvatar(male2);
     else if (Number(userSettings.avatar) === 3) setCurrentAvatar(female1);
@@ -72,10 +71,7 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                className='app__user-panel--link border-none'
-                to='/'
-              >
+              <NavLink className='app__user-panel--link border-none' to='/'>
                 <i className='fa fa-sign-out'></i> Wyloguj
               </NavLink>
             </li>
