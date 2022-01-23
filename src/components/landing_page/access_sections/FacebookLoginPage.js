@@ -1,50 +1,68 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import FacebookLogin from 'react-facebook-login';
+import InfoModal from '../../features/modals/InfoModal';
 import { useNavigate } from 'react-router-dom';
 
 import { AppContext } from '../../../AppContext';
 
-const FacebookLoginPage = ({ loadUserAccountData }) => {
+const FacebookLoginPage = ({
+  loadUserAccountData,
+  setInfoVisible,
+  setInfoMessage,
+}) => {
   const { isUserLogged } = useContext(AppContext);
   const navigate = useNavigate();
 
   const responseFacebook = async (response) => {
-    const fbAPI = 'http://localhost/api/v1/fblogin';
-    const loginAPI = 'http://localhost/api/v1/login';
-    const names = response.name.split(' ');
-
-    const fbLoginParams = new URLSearchParams({
-      login: response.userID,
-      password: response.accessToken,
-      firstName: names[0],
-      lastName: names[names.length - 1],
-    });
-
     console.log(response);
-    const loginFb = await fetch(fbAPI, {
-      method: 'POST',
-      body: fbLoginParams,
-    })
-      .then((response) => response.json())
-      .catch((err) => console.log(err));
+    if (response.status === 'unknown') {
+      setInfoMessage(
+        'Nie można zalogować się za pomocą Facebooka. Spróbuj później.'
+      );
+      setInfoVisible(true);
+    } else {
+      const fbAPI = 'http://localhost/api/v1/fblogin';
+      const loginAPI = 'http://localhost/api/v1/login';
+      const names = response.name.split(' ');
 
-    if (loginFb.success) {
-      const login = await fetch(loginAPI, {
+      const fbLoginParams = new URLSearchParams({
+        login: response.userID,
+        password: response.accessToken,
+        firstName: names[0],
+        lastName: names[names.length - 1],
+      });
+
+      console.log(response);
+      const loginFb = await fetch(fbAPI, {
         method: 'POST',
-        body: new URLSearchParams({
-          login: response.userID,
-          password: response.accessToken,
-          grant_type: 'password',
-        }),
+        body: fbLoginParams,
       })
         .then((response) => response.json())
         .catch((err) => console.log(err));
 
-      console.log(login);
+      if (loginFb.success) {
+        const login = await fetch(loginAPI, {
+          method: 'POST',
+          body: new URLSearchParams({
+            login: response.userID,
+            password: response.accessToken,
+            grant_type: 'password',
+          }),
+        })
+          .then((response) => response.json())
+          .catch((err) => console.log(err));
 
-      if (login.success) {
-        loadUserAccountData(login.id_user);
-        navigate('/app/home');
+        console.log(login);
+
+        if (login.success) {
+          loadUserAccountData(login.id_user);
+          navigate('/app/home');
+        }
+      } else {
+        setInfoMessage(
+          'Nie można zalogować się za pomocą Facebooka. Spróbuj później.'
+        );
+        setInfoVisible(true);
       }
     }
   };
