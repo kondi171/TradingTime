@@ -19,6 +19,8 @@ const UserSettingsPage = () => {
   const [undisplayTime, setUndisplayTime] = useState(1500);
 
   const { userPersonalData } = useContext(AppContext);
+  const { fetchUserData } = useContext(AppContext);
+  const { userId } = useContext(AppContext);
 
   const handleChangeOption = (className) => {
     const element = document.querySelector(
@@ -75,7 +77,7 @@ const UserSettingsPage = () => {
         displayInfoModal(
           'Hasło nie spełnia minimalnych wymogów bezpieczeństwa!'
         );
-    } //później bezpośrednie wywołanie skryptu php do bazy
+    }
 
     if (className === 'email') {
       if (Validation(className, newEmail)) {
@@ -105,7 +107,11 @@ const UserSettingsPage = () => {
             <div className='new-password changing'>
               <p>Nowe hasło: </p>
               <span>
-                <input type='text' className='password-field' id='password' />
+                <input
+                  type='password'
+                  className='password-field'
+                  id='password'
+                />
               </span>
             </div>
             <div className='confirm-password changing'>
@@ -167,31 +173,47 @@ const UserSettingsPage = () => {
 
   const displayInfoModal = (message) => {
     setInfoVisible(true);
-    // this.setState({ infoVisble: true });
     setInfoMessage(message);
-    // infoMessage = message;
     setTimeout(() => {
-      // this.setState({ infoVisble: false });
       setInfoVisible(false);
       setInfoMessage('');
     }, 3000);
   };
 
-  const saveOptions = () => {
+  const saveOptions = async () => {
     setLoading(true);
-    setShowSaveButtons(false);
+    let passwordToChange = '';
+    if (userData.password !== undefined) passwordToChange = userData.password;
+    else passwordToChange = 'notSet';
 
-    setTimeout(() => {
-      setLoading(!loading);
-    }, undisplayTime);
+    const API = 'http://localhost/api/v1/usereditdata';
+    const urlParams = new URLSearchParams({
+      password: passwordToChange,
+      email: userData.email,
+      telephone: userData.telephone,
+      id_user: userId,
+    });
+
+    const dataChange = await fetch(API, {
+      method: 'POST',
+      body: urlParams,
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    if (dataChange.success) {
+      const fetchData = await fetchUserData(userId);
+      if (fetchData.success) setLoading(false);
+      setShowSaveButtons(false);
+    } else {
+      displayInfoModal('Błąd wysyłania danych do bazy!');
+    }
   }; //wysłanie danych do bazy
 
   const cancelOptions = () => {
     setUserData({ ...userPersonalData });
     setShowSaveButtons(false);
-    // window.location.reload(false);
-  }; //docelowo aktualizacja state z bazy danych niezmienionych danych
-
+  };
   useEffect(() => {
     setUserData({ ...userPersonalData });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -254,7 +276,11 @@ const UserSettingsPage = () => {
 
         <div className='settings-page__preferences__list__email'>
           <p>Adres e-mail: </p>
-          <span>{email}</span>
+          <span>
+            {email === '' || email === null || email === 'null'
+              ? 'Brak danych!'
+              : email}
+          </span>
           <i
             className='fa fa-pencil-square-o'
             aria-hidden='true'
@@ -266,7 +292,11 @@ const UserSettingsPage = () => {
 
         <div className='settings-page__preferences__list__telephone'>
           <p>Numer telefonu: </p>
-          <span>{telephone}</span>
+          <span>
+            {telephone === '' || telephone === null || telephone === 'null'
+              ? 'Brak danych!'
+              : telephone}
+          </span>
           <i
             className='fa fa-pencil-square-o'
             aria-hidden='true'
@@ -282,30 +312,59 @@ const UserSettingsPage = () => {
 
         <div>
           <p>Miejscowość: </p>
-          <span>{city}</span>
+          <span>
+            {city === '' || city === null || city === 'null'
+              ? 'Brak danych!'
+              : city}
+          </span>
         </div>
 
         <div>
           <p>Ulica: </p>
-          <span>{street}</span>
+          <span>
+            {street === '' || street === null || street === 'null'
+              ? 'Brak danych!'
+              : street}
+          </span>
         </div>
         <div>
-          <p>{(apartment !== '-' && 'Nr domu / mieszkania:') || 'Nr domu:'}</p>
+          <p>
+            {apartment === '' ||
+            apartment === '-' ||
+            apartment === null ||
+            apartment === 'null'
+              ? 'Nr domu:'
+              : 'Nr domu / mieszkania:'}
+          </p>
           <span>
-            {(apartment !== '-' && `${house} / ${apartment}`) || house}
+            {apartment === '' || apartment === null || apartment === 'null'
+              ? 'Brak danych!'
+              : (apartment !== '-' && `${house} / ${apartment}`) || house}
           </span>
         </div>
         <div>
           <p>Kod pocztowy: </p>
-          <span>{postalCode}</span>
+          <span>
+            {postalCode === '' || postalCode === null || postalCode === 'null'
+              ? 'Brak danych!'
+              : postalCode}
+          </span>
         </div>
         <div>
           <p>Numer PESEL: </p>
-          <span>{pesel}</span>
+          <span>
+            {pesel === '' || pesel === null || pesel === 'null'
+              ? 'Brak danych!'
+              : pesel}
+          </span>
         </div>
         <div>
           <p>Numer dowodu osobistego: </p>
-          <span>{personalId}</span>
+          <span>
+            {personalId === '' || personalId === null || personalId === 'null'
+              ? 'Brak danych!'
+              : personalId}
+          </span>
         </div>
       </div>
 
